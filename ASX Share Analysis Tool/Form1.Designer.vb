@@ -81,8 +81,7 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabPreferences = New System.Windows.Forms.TabPage()
-        Me.Button9 = New System.Windows.Forms.Button()
-        Me.Button10 = New System.Windows.Forms.Button()
+        Me.Button11 = New System.Windows.Forms.Button()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,8 +108,7 @@ Partial Class Form1
         '
         'tabFront
         '
-        Me.tabFront.Controls.Add(Me.Button10)
-        Me.tabFront.Controls.Add(Me.Button9)
+        Me.tabFront.Controls.Add(Me.Button11)
         Me.tabFront.Controls.Add(Me.Button8)
         Me.tabFront.Controls.Add(Me.Button7)
         Me.tabFront.Controls.Add(Me.Button6)
@@ -581,23 +579,14 @@ Partial Class Form1
         Me.tabPreferences.Text = "Preferences"
         Me.tabPreferences.UseVisualStyleBackColor = True
         '
-        'Button9
+        'Button11
         '
-        Me.Button9.Location = New System.Drawing.Point(20, 263)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(532, 174)
-        Me.Button9.TabIndex = 11
-        Me.Button9.Text = "This is another box"
-        Me.Button9.UseVisualStyleBackColor = True
-        '
-        'Button10
-        '
-        Me.Button10.Location = New System.Drawing.Point(462, 83)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(532, 174)
-        Me.Button10.TabIndex = 12
-        Me.Button10.Text = "This is another box"
-        Me.Button10.UseVisualStyleBackColor = True
+        Me.Button11.Location = New System.Drawing.Point(537, -47)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(266, 622)
+        Me.Button11.TabIndex = 13
+        Me.Button11.Text = "This is another box"
+        Me.Button11.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -681,6 +670,5 @@ Partial Class Form1
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As System.Windows.Forms.Button
-    Friend WithEvents Button10 As Button
-    Friend WithEvents Button9 As Button
+    Friend WithEvents Button11 As Button
 End Class
