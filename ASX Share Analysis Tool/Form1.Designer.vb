@@ -496,7 +496,7 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(1239, 621)
         Me.Controls.Add(Me.tbcMain)
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "ASX Share Market Analysis Tool"
         Me.tbcMain.ResumeLayout(False)
         Me.tabFront.ResumeLayout(False)
         Me.tabAll.ResumeLayout(False)
