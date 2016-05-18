@@ -24,6 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabFront = New System.Windows.Forms.TabPage()
+        Me.Button8 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
@@ -80,7 +81,17 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabPreferences = New System.Windows.Forms.TabPage()
-        Me.Button8 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.TextBox10 = New System.Windows.Forms.TextBox()
+        Me.TextBox11 = New System.Windows.Forms.TextBox()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,6 +118,17 @@ Partial Class Form1
         '
         'tabFront
         '
+        Me.tabFront.Controls.Add(Me.TextBox11)
+        Me.tabFront.Controls.Add(Me.TextBox10)
+        Me.tabFront.Controls.Add(Me.TextBox9)
+        Me.tabFront.Controls.Add(Me.TextBox8)
+        Me.tabFront.Controls.Add(Me.TextBox7)
+        Me.tabFront.Controls.Add(Me.TextBox6)
+        Me.tabFront.Controls.Add(Me.TextBox5)
+        Me.tabFront.Controls.Add(Me.TextBox4)
+        Me.tabFront.Controls.Add(Me.TextBox3)
+        Me.tabFront.Controls.Add(Me.TextBox2)
+        Me.tabFront.Controls.Add(Me.TextBox1)
         Me.tabFront.Controls.Add(Me.Button8)
         Me.tabFront.Controls.Add(Me.Button7)
         Me.tabFront.Controls.Add(Me.Button6)
@@ -118,11 +140,20 @@ Partial Class Form1
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
         Me.tabFront.Location = New System.Drawing.Point(4, 22)
         Me.tabFront.Name = "tabFront"
-        Me.tabFront.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabFront.Padding = New System.Windows.Forms.Padding(3)
         Me.tabFront.Size = New System.Drawing.Size(1207, 571)
         Me.tabFront.TabIndex = 0
         Me.tabFront.Text = "Front Page"
         Me.tabFront.UseVisualStyleBackColor = True
+        '
+        'Button8
+        '
+        Me.Button8.Location = New System.Drawing.Point(1070, 248)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(75, 23)
+        Me.Button8.TabIndex = 10
+        Me.Button8.Text = "This is another box"
+        Me.Button8.UseVisualStyleBackColor = True
         '
         'Button7
         '
@@ -263,7 +294,7 @@ Partial Class Form1
         Me.tabAll.Controls.Add(Me.dgdAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 22)
         Me.tabAll.Name = "tabAll"
-        Me.tabAll.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
         Me.tabAll.Size = New System.Drawing.Size(1207, 571)
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
@@ -347,7 +378,7 @@ Partial Class Form1
         Me.tabHistory.Controls.Add(Me.dgdHistory)
         Me.tabHistory.Location = New System.Drawing.Point(4, 22)
         Me.tabHistory.Name = "tabHistory"
-        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabHistory.Size = New System.Drawing.Size(1207, 571)
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
@@ -427,7 +458,7 @@ Partial Class Form1
         Me.tabImport.Controls.Add(Me.DataGridView1)
         Me.tabImport.Location = New System.Drawing.Point(4, 22)
         Me.tabImport.Name = "tabImport"
-        Me.tabImport.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabImport.Padding = New System.Windows.Forms.Padding(3)
         Me.tabImport.Size = New System.Drawing.Size(1207, 571)
         Me.tabImport.TabIndex = 3
         Me.tabImport.Text = "Import"
@@ -562,20 +593,99 @@ Partial Class Form1
         '
         Me.tabPreferences.Location = New System.Drawing.Point(4, 22)
         Me.tabPreferences.Name = "tabPreferences"
-        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPreferences.Size = New System.Drawing.Size(1207, 571)
         Me.tabPreferences.TabIndex = 4
         Me.tabPreferences.Text = "Preferences"
         Me.tabPreferences.UseVisualStyleBackColor = True
         '
-        'Button8
+        'TextBox1
         '
-        Me.Button8.Location = New System.Drawing.Point(1070, 248)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 23)
-        Me.Button8.TabIndex = 10
-        Me.Button8.Text = "This is another box"
-        Me.Button8.UseVisualStyleBackColor = True
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox1.Location = New System.Drawing.Point(413, 250)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox1.TabIndex = 11
+        '
+        'TextBox2
+        '
+        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox2.Location = New System.Drawing.Point(553, 279)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox2.TabIndex = 12
+        '
+        'TextBox3
+        '
+        Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox3.Location = New System.Drawing.Point(561, 287)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox3.TabIndex = 13
+        '
+        'TextBox4
+        '
+        Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox4.Location = New System.Drawing.Point(569, 295)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox4.TabIndex = 14
+        '
+        'TextBox5
+        '
+        Me.TextBox5.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox5.Location = New System.Drawing.Point(577, 303)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox5.TabIndex = 15
+        '
+        'TextBox6
+        '
+        Me.TextBox6.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox6.Location = New System.Drawing.Point(585, 311)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox6.TabIndex = 16
+        '
+        'TextBox7
+        '
+        Me.TextBox7.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox7.Location = New System.Drawing.Point(593, 319)
+        Me.TextBox7.Name = "TextBox7"
+        Me.TextBox7.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox7.TabIndex = 17
+        '
+        'TextBox8
+        '
+        Me.TextBox8.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox8.Location = New System.Drawing.Point(601, 327)
+        Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox8.TabIndex = 18
+        '
+        'TextBox9
+        '
+        Me.TextBox9.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox9.Location = New System.Drawing.Point(609, 335)
+        Me.TextBox9.Name = "TextBox9"
+        Me.TextBox9.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox9.TabIndex = 19
+        '
+        'TextBox10
+        '
+        Me.TextBox10.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox10.Location = New System.Drawing.Point(617, 343)
+        Me.TextBox10.Name = "TextBox10"
+        Me.TextBox10.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox10.TabIndex = 20
+        '
+        'TextBox11
+        '
+        Me.TextBox11.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox11.Location = New System.Drawing.Point(625, 351)
+        Me.TextBox11.Name = "TextBox11"
+        Me.TextBox11.Size = New System.Drawing.Size(100, 13)
+        Me.TextBox11.TabIndex = 21
         '
         'Form1
         '
@@ -587,6 +697,7 @@ Partial Class Form1
         Me.Text = "ASX Share Market Analysis Tool"
         Me.tbcMain.ResumeLayout(False)
         Me.tabFront.ResumeLayout(False)
+        Me.tabFront.PerformLayout()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
         CType(Me.dgdAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
@@ -659,4 +770,15 @@ Partial Class Form1
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As System.Windows.Forms.Button
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TextBox11 As TextBox
+    Friend WithEvents TextBox10 As TextBox
+    Friend WithEvents TextBox9 As TextBox
+    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents TextBox6 As TextBox
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents TextBox2 As TextBox
 End Class
