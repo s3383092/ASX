@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,17 +20,10 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabFront = New System.Windows.Forms.TabPage()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.dgdFrontPage = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -80,9 +73,6 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabPreferences = New System.Windows.Forms.TabPage()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
-        Me.Button10 = New System.Windows.Forms.Button()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,87 +99,14 @@ Partial Class Form1
         '
         'tabFront
         '
-        Me.tabFront.Controls.Add(Me.Button10)
-        Me.tabFront.Controls.Add(Me.Button8)
-        Me.tabFront.Controls.Add(Me.Button9)
-        Me.tabFront.Controls.Add(Me.Button7)
-        Me.tabFront.Controls.Add(Me.Button6)
-        Me.tabFront.Controls.Add(Me.Button5)
-        Me.tabFront.Controls.Add(Me.Button4)
-        Me.tabFront.Controls.Add(Me.Button3)
-        Me.tabFront.Controls.Add(Me.Button2)
-        Me.tabFront.Controls.Add(Me.Button1)
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
         Me.tabFront.Location = New System.Drawing.Point(4, 22)
         Me.tabFront.Name = "tabFront"
-        Me.tabFront.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabFront.Padding = New System.Windows.Forms.Padding(3)
         Me.tabFront.Size = New System.Drawing.Size(1207, 571)
         Me.tabFront.TabIndex = 0
         Me.tabFront.Text = "Front Page"
         Me.tabFront.UseVisualStyleBackColor = True
-        '
-        'Button7
-        '
-        Me.Button7.Location = New System.Drawing.Point(1126, 425)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(75, 23)
-        Me.Button7.TabIndex = 9
-        Me.Button7.Text = "This is another box"
-        Me.Button7.UseVisualStyleBackColor = True
-        '
-        'Button6
-        '
-        Me.Button6.Location = New System.Drawing.Point(1126, 396)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(75, 23)
-        Me.Button6.TabIndex = 8
-        Me.Button6.Text = "Daniel4"
-        Me.Button6.UseVisualStyleBackColor = True
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(1126, 542)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
-        Me.Button5.TabIndex = 7
-        Me.Button5.Text = "Bozzo3 "
-        Me.Button5.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(1126, 513)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 6
-        Me.Button4.Text = "Bozzo3 "
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(1126, 367)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 5
-        Me.Button3.Text = "Bozzo3 "
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(1126, 338)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 4
-        Me.Button2.Text = "Evan2"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(1126, 309)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'dgdFrontPage
         '
@@ -267,7 +184,7 @@ Partial Class Form1
         Me.tabAll.Controls.Add(Me.dgdAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 22)
         Me.tabAll.Name = "tabAll"
-        Me.tabAll.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
         Me.tabAll.Size = New System.Drawing.Size(1207, 571)
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
@@ -351,7 +268,7 @@ Partial Class Form1
         Me.tabHistory.Controls.Add(Me.dgdHistory)
         Me.tabHistory.Location = New System.Drawing.Point(4, 22)
         Me.tabHistory.Name = "tabHistory"
-        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabHistory.Size = New System.Drawing.Size(1207, 571)
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
@@ -431,7 +348,7 @@ Partial Class Form1
         Me.tabImport.Controls.Add(Me.DataGridView1)
         Me.tabImport.Location = New System.Drawing.Point(4, 22)
         Me.tabImport.Name = "tabImport"
-        Me.tabImport.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabImport.Padding = New System.Windows.Forms.Padding(3)
         Me.tabImport.Size = New System.Drawing.Size(1207, 571)
         Me.tabImport.TabIndex = 3
         Me.tabImport.Text = "Import"
@@ -566,38 +483,11 @@ Partial Class Form1
         '
         Me.tabPreferences.Location = New System.Drawing.Point(4, 22)
         Me.tabPreferences.Name = "tabPreferences"
-        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPreferences.Size = New System.Drawing.Size(1207, 571)
         Me.tabPreferences.TabIndex = 4
         Me.tabPreferences.Text = "Preferences"
         Me.tabPreferences.UseVisualStyleBackColor = True
-        '
-        'Button8
-        '
-        Me.Button8.Location = New System.Drawing.Point(1126, 483)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 23)
-        Me.Button8.TabIndex = 11
-        Me.Button8.Text = "Bozzo3 "
-        Me.Button8.UseVisualStyleBackColor = True
-        '
-        'Button9
-        '
-        Me.Button9.Location = New System.Drawing.Point(1126, 454)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(75, 23)
-        Me.Button9.TabIndex = 10
-        Me.Button9.Text = "Bozzo3 "
-        Me.Button9.UseVisualStyleBackColor = True
-        '
-        'Button10
-        '
-        Me.Button10.Location = New System.Drawing.Point(1126, 280)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(75, 23)
-        Me.Button10.TabIndex = 12
-        Me.Button10.Text = "Button10"
-        Me.Button10.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -673,14 +563,4 @@ Partial Class Form1
     Friend WithEvents cboCompanyName As ComboBox
     Friend WithEvents lblCompany As Label
     Friend WithEvents lblFile As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Button6 As Button
-    Friend WithEvents Button7 As Button
-    Friend WithEvents Button8 As Button
-    Friend WithEvents Button9 As Button
-    Friend WithEvents Button10 As Button
 End Class
