@@ -76,6 +76,7 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabPreferences = New System.Windows.Forms.TabPage()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -102,6 +103,7 @@ Partial Class Form1
         '
         'tabFront
         '
+        Me.tabFront.Controls.Add(Me.Button4)
         Me.tabFront.Controls.Add(Me.Button3)
         Me.tabFront.Controls.Add(Me.Button2)
         Me.tabFront.Controls.Add(Me.Button1)
@@ -522,6 +524,15 @@ Partial Class Form1
         Me.tabPreferences.Text = "Preferences"
         Me.tabPreferences.UseVisualStyleBackColor = True
         '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(1070, 151)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(75, 23)
+        Me.Button4.TabIndex = 6
+        Me.Button4.Text = "Bozzo3 "
+        Me.Button4.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -599,4 +610,5 @@ Partial Class Form1
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents Button3 As Button
+    Friend WithEvents Button4 As System.Windows.Forms.Button
 End Class
