@@ -75,6 +75,7 @@ Partial Class Form1
         Me.tabPreferences = New System.Windows.Forms.TabPage()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -101,6 +102,7 @@ Partial Class Form1
         '
         'tabFront
         '
+        Me.tabFront.Controls.Add(Me.Button3)
         Me.tabFront.Controls.Add(Me.Button2)
         Me.tabFront.Controls.Add(Me.Button1)
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
@@ -511,6 +513,15 @@ Partial Class Form1
         Me.Button2.Text = "Button2"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(1070, 122)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 5
+        Me.Button3.Text = "Bozzo3 "
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -587,4 +598,5 @@ Partial Class Form1
     Friend WithEvents lblFile As Label
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
+    Friend WithEvents Button3 As Button
 End Class
