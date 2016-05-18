@@ -24,6 +24,16 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabFront = New System.Windows.Forms.TabPage()
+        Me.dgdFrontPage = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewCheckBoxColumn1 = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabAll = New System.Windows.Forms.TabPage()
         Me.dgdAllStocks = New System.Windows.Forms.DataGridView()
         Me.colID = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -36,8 +46,8 @@ Partial Class Form1
         Me.colLow = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colVolume = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabHistory = New System.Windows.Forms.TabPage()
-        Me.tabImport = New System.Windows.Forms.TabPage()
-        Me.tabPreferences = New System.Windows.Forms.TabPage()
+        Me.cboCompanyName = New System.Windows.Forms.ComboBox()
+        Me.lblCompany = New System.Windows.Forms.Label()
         Me.dgdHistory = New System.Windows.Forms.DataGridView()
         Me.colHistDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colHistBid = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -45,16 +55,13 @@ Partial Class Form1
         Me.colHistHigh = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colHistLow = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colHistVolume = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.dgdFrontPage = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewCheckBoxColumn1 = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabImport = New System.Windows.Forms.TabPage()
+        Me.lblFile = New System.Windows.Forms.Label()
+        Me.dspStatus = New System.Windows.Forms.TextBox()
+        Me.lblStatus = New System.Windows.Forms.Label()
+        Me.btnImport = New System.Windows.Forms.Button()
+        Me.dspFileLocation = New System.Windows.Forms.TextBox()
+        Me.btnFile = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -65,22 +72,17 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.btnFile = New System.Windows.Forms.Button()
-        Me.dspFileLocation = New System.Windows.Forms.TextBox()
-        Me.btnImport = New System.Windows.Forms.Button()
-        Me.lblStatus = New System.Windows.Forms.Label()
-        Me.dspStatus = New System.Windows.Forms.TextBox()
-        Me.lblFile = New System.Windows.Forms.Label()
-        Me.lblCompany = New System.Windows.Forms.Label()
-        Me.cboCompanyName = New System.Windows.Forms.ComboBox()
+        Me.tabPreferences = New System.Windows.Forms.TabPage()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
+        CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabAll.SuspendLayout()
         CType(Me.dgdAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabHistory.SuspendLayout()
-        Me.tabImport.SuspendLayout()
         CType(Me.dgdHistory, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabImport.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -99,6 +101,8 @@ Partial Class Form1
         '
         'tabFront
         '
+        Me.tabFront.Controls.Add(Me.Button2)
+        Me.tabFront.Controls.Add(Me.Button1)
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
         Me.tabFront.Location = New System.Drawing.Point(4, 22)
         Me.tabFront.Name = "tabFront"
@@ -107,6 +111,77 @@ Partial Class Form1
         Me.tabFront.TabIndex = 0
         Me.tabFront.Text = "Front Page"
         Me.tabFront.UseVisualStyleBackColor = True
+        '
+        'dgdFrontPage
+        '
+        Me.dgdFrontPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgdFrontPage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewCheckBoxColumn1, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8})
+        Me.dgdFrontPage.Enabled = False
+        Me.dgdFrontPage.Location = New System.Drawing.Point(6, 6)
+        Me.dgdFrontPage.Name = "dgdFrontPage"
+        Me.dgdFrontPage.ReadOnly = True
+        Me.dgdFrontPage.Size = New System.Drawing.Size(1004, 512)
+        Me.dgdFrontPage.TabIndex = 2
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 50
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "ASX ID"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 50
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Name"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 300
+        '
+        'DataGridViewCheckBoxColumn1
+        '
+        Me.DataGridViewCheckBoxColumn1.HeaderText = "Watchlist"
+        Me.DataGridViewCheckBoxColumn1.Name = "DataGridViewCheckBoxColumn1"
+        Me.DataGridViewCheckBoxColumn1.ReadOnly = True
+        Me.DataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewCheckBoxColumn1.Width = 60
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Bid"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Ask"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.HeaderText = "High"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.HeaderText = "Low"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.HeaderText = "Volume"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
         '
         'tabAll
         '
@@ -203,32 +278,23 @@ Partial Class Form1
         Me.tabHistory.Text = "History"
         Me.tabHistory.UseVisualStyleBackColor = True
         '
-        'tabImport
+        'cboCompanyName
         '
-        Me.tabImport.Controls.Add(Me.lblFile)
-        Me.tabImport.Controls.Add(Me.dspStatus)
-        Me.tabImport.Controls.Add(Me.lblStatus)
-        Me.tabImport.Controls.Add(Me.btnImport)
-        Me.tabImport.Controls.Add(Me.dspFileLocation)
-        Me.tabImport.Controls.Add(Me.btnFile)
-        Me.tabImport.Controls.Add(Me.DataGridView1)
-        Me.tabImport.Location = New System.Drawing.Point(4, 22)
-        Me.tabImport.Name = "tabImport"
-        Me.tabImport.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabImport.Size = New System.Drawing.Size(1207, 571)
-        Me.tabImport.TabIndex = 3
-        Me.tabImport.Text = "Import"
-        Me.tabImport.UseVisualStyleBackColor = True
+        Me.cboCompanyName.FormattingEnabled = True
+        Me.cboCompanyName.Items.AddRange(New Object() {"Please select a company"})
+        Me.cboCompanyName.Location = New System.Drawing.Point(94, 6)
+        Me.cboCompanyName.Name = "cboCompanyName"
+        Me.cboCompanyName.Size = New System.Drawing.Size(301, 21)
+        Me.cboCompanyName.TabIndex = 3
         '
-        'tabPreferences
+        'lblCompany
         '
-        Me.tabPreferences.Location = New System.Drawing.Point(4, 22)
-        Me.tabPreferences.Name = "tabPreferences"
-        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPreferences.Size = New System.Drawing.Size(1207, 571)
-        Me.tabPreferences.TabIndex = 4
-        Me.tabPreferences.Text = "Preferences"
-        Me.tabPreferences.UseVisualStyleBackColor = True
+        Me.lblCompany.AutoSize = True
+        Me.lblCompany.Location = New System.Drawing.Point(6, 9)
+        Me.lblCompany.Name = "lblCompany"
+        Me.lblCompany.Size = New System.Drawing.Size(82, 13)
+        Me.lblCompany.TabIndex = 1
+        Me.lblCompany.Text = "Company Name"
         '
         'dgdHistory
         '
@@ -275,76 +341,76 @@ Partial Class Form1
         Me.colHistVolume.Name = "colHistVolume"
         Me.colHistVolume.ReadOnly = True
         '
-        'dgdFrontPage
+        'tabImport
         '
-        Me.dgdFrontPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgdFrontPage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewCheckBoxColumn1, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8})
-        Me.dgdFrontPage.Enabled = False
-        Me.dgdFrontPage.Location = New System.Drawing.Point(6, 6)
-        Me.dgdFrontPage.Name = "dgdFrontPage"
-        Me.dgdFrontPage.ReadOnly = True
-        Me.dgdFrontPage.Size = New System.Drawing.Size(1004, 512)
-        Me.dgdFrontPage.TabIndex = 2
+        Me.tabImport.Controls.Add(Me.lblFile)
+        Me.tabImport.Controls.Add(Me.dspStatus)
+        Me.tabImport.Controls.Add(Me.lblStatus)
+        Me.tabImport.Controls.Add(Me.btnImport)
+        Me.tabImport.Controls.Add(Me.dspFileLocation)
+        Me.tabImport.Controls.Add(Me.btnFile)
+        Me.tabImport.Controls.Add(Me.DataGridView1)
+        Me.tabImport.Location = New System.Drawing.Point(4, 22)
+        Me.tabImport.Name = "tabImport"
+        Me.tabImport.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabImport.Size = New System.Drawing.Size(1207, 571)
+        Me.tabImport.TabIndex = 3
+        Me.tabImport.Text = "Import"
+        Me.tabImport.UseVisualStyleBackColor = True
         '
-        'DataGridViewTextBoxColumn1
+        'lblFile
         '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "ID"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 50
+        Me.lblFile.AutoSize = True
+        Me.lblFile.Location = New System.Drawing.Point(6, 13)
+        Me.lblFile.Name = "lblFile"
+        Me.lblFile.Size = New System.Drawing.Size(23, 13)
+        Me.lblFile.TabIndex = 9
+        Me.lblFile.Text = "File"
         '
-        'DataGridViewTextBoxColumn2
+        'dspStatus
         '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "ASX ID"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Width = 50
+        Me.dspStatus.Enabled = False
+        Me.dspStatus.Location = New System.Drawing.Point(46, 542)
+        Me.dspStatus.Name = "dspStatus"
+        Me.dspStatus.ReadOnly = True
+        Me.dspStatus.Size = New System.Drawing.Size(267, 20)
+        Me.dspStatus.TabIndex = 8
         '
-        'DataGridViewTextBoxColumn3
+        'lblStatus
         '
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Name"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Width = 300
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.Location = New System.Drawing.Point(6, 545)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(37, 13)
+        Me.lblStatus.TabIndex = 7
+        Me.lblStatus.Text = "Status"
         '
-        'DataGridViewCheckBoxColumn1
+        'btnImport
         '
-        Me.DataGridViewCheckBoxColumn1.HeaderText = "Watchlist"
-        Me.DataGridViewCheckBoxColumn1.Name = "DataGridViewCheckBoxColumn1"
-        Me.DataGridViewCheckBoxColumn1.ReadOnly = True
-        Me.DataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewCheckBoxColumn1.Width = 60
+        Me.btnImport.Location = New System.Drawing.Point(319, 542)
+        Me.btnImport.Name = "btnImport"
+        Me.btnImport.Size = New System.Drawing.Size(75, 23)
+        Me.btnImport.TabIndex = 6
+        Me.btnImport.Text = "Import"
+        Me.btnImport.UseVisualStyleBackColor = True
         '
-        'DataGridViewTextBoxColumn4
+        'dspFileLocation
         '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Bid"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.dspFileLocation.Enabled = False
+        Me.dspFileLocation.Location = New System.Drawing.Point(46, 8)
+        Me.dspFileLocation.Name = "dspFileLocation"
+        Me.dspFileLocation.ReadOnly = True
+        Me.dspFileLocation.Size = New System.Drawing.Size(267, 20)
+        Me.dspFileLocation.TabIndex = 5
         '
-        'DataGridViewTextBoxColumn5
+        'btnFile
         '
-        Me.DataGridViewTextBoxColumn5.HeaderText = "Ask"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.HeaderText = "High"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.HeaderText = "Low"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn8
-        '
-        Me.DataGridViewTextBoxColumn8.HeaderText = "Volume"
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.btnFile.Location = New System.Drawing.Point(319, 8)
+        Me.btnFile.Name = "btnFile"
+        Me.btnFile.Size = New System.Drawing.Size(75, 23)
+        Me.btnFile.TabIndex = 4
+        Me.btnFile.Text = "Find File"
+        Me.btnFile.UseVisualStyleBackColor = True
         '
         'DataGridView1
         '
@@ -417,77 +483,33 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
         Me.DataGridViewTextBoxColumn16.ReadOnly = True
         '
-        'btnFile
+        'tabPreferences
         '
-        Me.btnFile.Location = New System.Drawing.Point(319, 8)
-        Me.btnFile.Name = "btnFile"
-        Me.btnFile.Size = New System.Drawing.Size(75, 23)
-        Me.btnFile.TabIndex = 4
-        Me.btnFile.Text = "Find File"
-        Me.btnFile.UseVisualStyleBackColor = True
+        Me.tabPreferences.Location = New System.Drawing.Point(4, 22)
+        Me.tabPreferences.Name = "tabPreferences"
+        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabPreferences.Size = New System.Drawing.Size(1207, 571)
+        Me.tabPreferences.TabIndex = 4
+        Me.tabPreferences.Text = "Preferences"
+        Me.tabPreferences.UseVisualStyleBackColor = True
         '
-        'dspFileLocation
+        'Button1
         '
-        Me.dspFileLocation.Enabled = False
-        Me.dspFileLocation.Location = New System.Drawing.Point(46, 8)
-        Me.dspFileLocation.Name = "dspFileLocation"
-        Me.dspFileLocation.ReadOnly = True
-        Me.dspFileLocation.Size = New System.Drawing.Size(267, 20)
-        Me.dspFileLocation.TabIndex = 5
+        Me.Button1.Location = New System.Drawing.Point(1070, 48)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 3
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
-        'btnImport
+        'Button2
         '
-        Me.btnImport.Location = New System.Drawing.Point(319, 542)
-        Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(75, 23)
-        Me.btnImport.TabIndex = 6
-        Me.btnImport.Text = "Import"
-        Me.btnImport.UseVisualStyleBackColor = True
-        '
-        'lblStatus
-        '
-        Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(6, 545)
-        Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(37, 13)
-        Me.lblStatus.TabIndex = 7
-        Me.lblStatus.Text = "Status"
-        '
-        'dspStatus
-        '
-        Me.dspStatus.Enabled = False
-        Me.dspStatus.Location = New System.Drawing.Point(46, 542)
-        Me.dspStatus.Name = "dspStatus"
-        Me.dspStatus.ReadOnly = True
-        Me.dspStatus.Size = New System.Drawing.Size(267, 20)
-        Me.dspStatus.TabIndex = 8
-        '
-        'lblFile
-        '
-        Me.lblFile.AutoSize = True
-        Me.lblFile.Location = New System.Drawing.Point(6, 13)
-        Me.lblFile.Name = "lblFile"
-        Me.lblFile.Size = New System.Drawing.Size(23, 13)
-        Me.lblFile.TabIndex = 9
-        Me.lblFile.Text = "File"
-        '
-        'lblCompany
-        '
-        Me.lblCompany.AutoSize = True
-        Me.lblCompany.Location = New System.Drawing.Point(6, 9)
-        Me.lblCompany.Name = "lblCompany"
-        Me.lblCompany.Size = New System.Drawing.Size(82, 13)
-        Me.lblCompany.TabIndex = 1
-        Me.lblCompany.Text = "Company Name"
-        '
-        'cboCompanyName
-        '
-        Me.cboCompanyName.FormattingEnabled = True
-        Me.cboCompanyName.Items.AddRange(New Object() {"Please select a company"})
-        Me.cboCompanyName.Location = New System.Drawing.Point(94, 6)
-        Me.cboCompanyName.Name = "cboCompanyName"
-        Me.cboCompanyName.Size = New System.Drawing.Size(301, 21)
-        Me.cboCompanyName.TabIndex = 3
+        Me.Button2.Location = New System.Drawing.Point(1070, 93)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 4
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -499,14 +521,14 @@ Partial Class Form1
         Me.Text = "ASX Share Market Analysis Tool"
         Me.tbcMain.ResumeLayout(False)
         Me.tabFront.ResumeLayout(False)
+        CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
         CType(Me.dgdAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
+        CType(Me.dgdHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabImport.ResumeLayout(False)
         Me.tabImport.PerformLayout()
-        CType(Me.dgdHistory, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -563,4 +585,6 @@ Partial Class Form1
     Friend WithEvents cboCompanyName As ComboBox
     Friend WithEvents lblCompany As Label
     Friend WithEvents lblFile As Label
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As Button
 End Class
