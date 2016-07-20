@@ -95,7 +95,7 @@ Partial Class Form1
         Me.tbcMain.Margin = New System.Windows.Forms.Padding(4)
         Me.tbcMain.Name = "tbcMain"
         Me.tbcMain.SelectedIndex = 0
-        Me.tbcMain.Size = New System.Drawing.Size(1059, 675)
+        Me.tbcMain.Size = New System.Drawing.Size(1457, 675)
         Me.tbcMain.TabIndex = 0
         '
         'tabFront
@@ -359,7 +359,7 @@ Partial Class Form1
         Me.tabImport.Margin = New System.Windows.Forms.Padding(4)
         Me.tabImport.Name = "tabImport"
         Me.tabImport.Padding = New System.Windows.Forms.Padding(4)
-        Me.tabImport.Size = New System.Drawing.Size(1051, 646)
+        Me.tabImport.Size = New System.Drawing.Size(1449, 646)
         Me.tabImport.TabIndex = 3
         Me.tabImport.Text = "Import"
         Me.tabImport.UseVisualStyleBackColor = True
@@ -432,7 +432,7 @@ Partial Class Form1
         Me.dgvImport.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvImport.Name = "dgvImport"
         Me.dgvImport.ReadOnly = True
-        Me.dgvImport.Size = New System.Drawing.Size(1005, 546)
+        Me.dgvImport.Size = New System.Drawing.Size(1404, 546)
         Me.dgvImport.TabIndex = 3
         '
         'tabPreferences

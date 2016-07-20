@@ -26,10 +26,13 @@ Public Class Form1
             FileType = Path.GetExtension(OpenFileDialog1.FileName)
 
             If FileType = ".txt" Then
+                'Handles importing a .txt file
                 Dim CurrentRow As String()
 
+                'Loops through the data and imports it into a table
                 While Not TextFileReader.EndOfData
                     Try
+                        'Adding the column names
                         CurrentRow = TextFileReader.ReadFields()
                         dgvImport.Columns.Add("ID", "ID")
                         dgvImport.Columns.Add("Date", "Date")
@@ -39,6 +42,7 @@ Public Class Form1
                         dgvImport.Columns.Add("Close", "Close")
                         dgvImport.Columns.Add("Volume", "Volume")
 
+                        'Adds the data in
                         dgvImport.Rows.Add(CurrentRow)
                     Catch ex As _
                     Microsoft.VisualBasic.FileIO.MalformedLineException
@@ -46,11 +50,10 @@ Public Class Form1
                         "Is Not valid And will be skipped.")
                     End Try
                 End While
-                TextFileReader.Dispose()
+                TextFileReader.Dispose() 'Removes TextFileReader for next time
 
             ElseIf FileType = ".csv" Then
-                MsgBox("CSV")
-
+                'handles importing a .csv file
                 Dim sr As New IO.StreamReader(OpenFileDialog1.FileName)
                 Dim dt As New DataTable
                 Dim newline() As String = sr.ReadLine.Split(","c)
@@ -71,7 +74,6 @@ Public Class Form1
             Else
                 MsgBox("Please select a .txt Or .csv type file")
             End If
-
         End If
 
     End Sub
