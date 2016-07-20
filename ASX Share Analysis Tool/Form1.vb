@@ -44,7 +44,7 @@ Public Class Form1
 
                         'Adds the data in
                         dgvImport.Rows.Add(CurrentRow)
-                    Catch ex As _
+                    Catch ex As  _
                     Microsoft.VisualBasic.FileIO.MalformedLineException
                         MsgBox("Line " & ex.Message &
                         "Is Not valid And will be skipped.")
