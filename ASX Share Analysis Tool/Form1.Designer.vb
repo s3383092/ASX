@@ -415,7 +415,7 @@ Partial Class Form1
         Me.dgvImport.Location = New System.Drawing.Point(8, 32)
         Me.dgvImport.Name = "dgvImport"
         Me.dgvImport.ReadOnly = True
-        Me.dgvImport.Size = New System.Drawing.Size(1053, 444)
+        Me.dgvImport.Size = New System.Drawing.Size(1001, 444)
         Me.dgvImport.TabIndex = 3
         '
         'tabPreferences
