@@ -26,7 +26,6 @@ Public Class Form1
             FileType = Path.GetExtension(OpenFileDialog1.FileName)
 
             If FileType = ".txt" Then
-                Dim TextFileTable As DataTable = Nothing
                 Dim CurrentRow As String()
 
                 While Not TextFileReader.EndOfData
@@ -49,10 +48,26 @@ Public Class Form1
                 End While
                 TextFileReader.Dispose()
 
-
-
             ElseIf FileType = ".csv" Then
                 MsgBox("CSV")
+
+                Dim sr As New IO.StreamReader(OpenFileDialog1.FileName)
+                Dim dt As New DataTable
+                Dim newline() As String = sr.ReadLine.Split(","c)
+                dt.Columns.AddRange({New DataColumn(newline(0)),
+                         New DataColumn(newline(1)),
+                         New DataColumn(newline(2)),
+                         New DataColumn(newline(3)),
+                         New DataColumn(newline(4)),
+                         New DataColumn(newline(5)),
+                         New DataColumn(newline(6))})
+                While (Not sr.EndOfStream)
+                    newline = sr.ReadLine.Split(","c)
+                    Dim newrow As DataRow = dt.NewRow
+                    newrow.ItemArray = {newline(0), newline(1), newline(2), newline(3), newline(4), newline(5), newline(6)}
+                    dt.Rows.Add(newrow)
+                End While
+                dgvImport.DataSource = dt
             Else
                 MsgBox("Please select a .txt Or .csv type file")
             End If
@@ -61,53 +76,5 @@ Public Class Form1
 
     End Sub
 
-    'Private Sub ExtractCSV()
-    '    Dim TextFileReader As New Microsoft.VisualBasic.FileIO.TextFieldParser("C: \Documents and Settings\...\My Documents\My Database\Text\SemiColonDelimited.txt")
-
-    '    TextFileReader.TextFieldType = FileIO.FieldType.Delimited
-    '    TextFileReader.SetDelimiters(";")
-
-    '    Dim TextFileTable As DataTable = Nothing
-    '    Dim Column As DataColumn
-    '    Dim Row As DataRow
-    '    Dim UpperBound As Int32
-    '    Dim ColumnCount As Int32
-    '    Dim CurrentRow As String()
-
-    '    While Not TextFileReader.EndOfData
-    '        Try
-    '            CurrentRow = TextFileReader.ReadFields()
-    '            If Not CurrentRow Is Nothing Then
-    '                ''# Check if DataTable has been created
-    '                If TextFileTable Is Nothing Then
-    '                    TextFileTable = New DataTable("TextFileTable")
-    '                    ''# Get number of columns
-    '                    UpperBound = CurrentRow.GetUpperBound(0)
-    '                    ''# Create new DataTable
-    '                    For ColumnCount = 0 To UpperBound
-    '                        Column = New DataColumn()
-    '                        Column.DataType = System.Type.GetType("System.String")
-    '                        Column.ColumnName = "Column" & ColumnCount
-    '                        Column.Caption = "Column" & ColumnCount
-    '                        Column.ReadOnly = True
-    '                        Column.Unique = False
-    '                        TextFileTable.Columns.Add(Column)
-    '                    Next
-    '                End If
-    '                Row = TextFileTable.NewRow
-    '                For ColumnCount = 0 To UpperBound
-    '                    Row("Column" & ColumnCount) = CurrentRow(ColumnCount).ToString
-    '                Next
-    '                TextFileTable.Rows.Add(Row)
-    '            End If
-    '        Catch ex As _
-    '        Microsoft.VisualBasic.FileIO.MalformedLineException
-    '            MsgBox("Line " & ex.Message &
-    '            "is not valid and will be skipped.")
-    '        End Try
-    '    End While
-    '    TextFileReader.Dispose()
-    '    frmMain.DataGrid1.DataSource = TextFileTable
-    'End Sub
 
 End Class
