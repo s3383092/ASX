@@ -95,7 +95,7 @@ Partial Class Form1
         Me.tbcMain.Margin = New System.Windows.Forms.Padding(4)
         Me.tbcMain.Name = "tbcMain"
         Me.tbcMain.SelectedIndex = 0
-        Me.tbcMain.Size = New System.Drawing.Size(1457, 675)
+        Me.tbcMain.Size = New System.Drawing.Size(1059, 675)
         Me.tbcMain.TabIndex = 0
         '
         'tabFront
@@ -189,7 +189,7 @@ Partial Class Form1
         Me.tabAll.Margin = New System.Windows.Forms.Padding(4)
         Me.tabAll.Name = "tabAll"
         Me.tabAll.Padding = New System.Windows.Forms.Padding(4)
-        Me.tabAll.Size = New System.Drawing.Size(1051, 646)
+        Me.tabAll.Size = New System.Drawing.Size(1449, 646)
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
         Me.tabAll.UseVisualStyleBackColor = True
@@ -275,7 +275,7 @@ Partial Class Form1
         Me.tabHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.tabHistory.Name = "tabHistory"
         Me.tabHistory.Padding = New System.Windows.Forms.Padding(4)
-        Me.tabHistory.Size = New System.Drawing.Size(1051, 646)
+        Me.tabHistory.Size = New System.Drawing.Size(1449, 646)
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
         Me.tabHistory.UseVisualStyleBackColor = True
@@ -432,7 +432,7 @@ Partial Class Form1
         Me.dgvImport.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvImport.Name = "dgvImport"
         Me.dgvImport.ReadOnly = True
-        Me.dgvImport.Size = New System.Drawing.Size(1404, 546)
+        Me.dgvImport.Size = New System.Drawing.Size(1005, 546)
         Me.dgvImport.TabIndex = 3
         '
         'tabPreferences
@@ -443,7 +443,7 @@ Partial Class Form1
         Me.tabPreferences.Margin = New System.Windows.Forms.Padding(4)
         Me.tabPreferences.Name = "tabPreferences"
         Me.tabPreferences.Padding = New System.Windows.Forms.Padding(4)
-        Me.tabPreferences.Size = New System.Drawing.Size(1051, 646)
+        Me.tabPreferences.Size = New System.Drawing.Size(1449, 646)
         Me.tabPreferences.TabIndex = 4
         Me.tabPreferences.Text = "Preferences"
         Me.tabPreferences.UseVisualStyleBackColor = True
@@ -471,7 +471,7 @@ Partial Class Form1
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1051, 646)
+        Me.TabPage1.Size = New System.Drawing.Size(1449, 646)
         Me.TabPage1.TabIndex = 5
         Me.TabPage1.Text = "TabPage1"
         Me.TabPage1.UseVisualStyleBackColor = True
