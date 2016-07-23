@@ -1,9 +1,13 @@
-﻿Imports System.Data.OleDb
+﻿'The functions outlined below will:
+' - populate the all stocks tab by using FindAllStocks function.
+' - create records in access using the InsertStock function. once the import button is clicked loading the table.
+
+Imports System.Data.OleDb
 
 
 Public Class StockController
     Public Const CONNECTION_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=ASXShareMarketAnalysisTool.accdbb"
-    Public Function findAllStocks() As List(Of Hashtable)
+    Public Function FindAllStocks() As List(Of Hashtable)
         'now returns a list of hashtables
         Dim lsData As New List(Of Hashtable)
         'instantiates list of hashtables
@@ -62,7 +66,7 @@ Public Class StockController
             oCommand.Parameters.Add("SecurityDate", OleDbType.VarChar, 255)
             oCommand.Parameters.Add("OpeningPrice", OleDbType.VarChar, 255)
             oCommand.Parameters.Add("HighSalesPrice", OleDbType.VarChar, 255)
-            oCommand.Parameters.Add("LowSalesPrice", OleDbType.DBDate, 255)
+            oCommand.Parameters.Add("LowSalesPrice", OleDbType.VarChar, 255)
             oCommand.Parameters.Add("TotalVolume", OleDbType.VarChar, 255)
 
             oCommand.Parameters("SecurityCode").Value = CStr(htdata("SecurityCode"))

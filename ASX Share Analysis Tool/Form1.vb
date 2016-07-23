@@ -3,6 +3,9 @@ Imports System.IO
 'test boz
 Imports System.Text
 Public Class Form1
+    Dim lsData As New List(Of Hashtable)
+    Dim iCurrentIndex As Integer
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load 'Initialization subroutine
 
     End Sub
