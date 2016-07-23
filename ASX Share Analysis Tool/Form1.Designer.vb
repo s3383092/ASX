@@ -102,7 +102,7 @@ Partial Class Form1
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
         Me.tabFront.Location = New System.Drawing.Point(4, 22)
         Me.tabFront.Name = "tabFront"
-        Me.tabFront.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabFront.Padding = New System.Windows.Forms.Padding(3)
         Me.tabFront.Size = New System.Drawing.Size(1015, 522)
         Me.tabFront.TabIndex = 0
         Me.tabFront.Text = "Front Page"
@@ -184,7 +184,7 @@ Partial Class Form1
         Me.tabAll.Controls.Add(Me.dgdAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 22)
         Me.tabAll.Name = "tabAll"
-        Me.tabAll.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
         Me.tabAll.Size = New System.Drawing.Size(1015, 522)
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
@@ -268,7 +268,7 @@ Partial Class Form1
         Me.tabHistory.Controls.Add(Me.dgdHistory)
         Me.tabHistory.Location = New System.Drawing.Point(4, 22)
         Me.tabHistory.Name = "tabHistory"
-        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabHistory.Size = New System.Drawing.Size(1015, 522)
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
@@ -348,7 +348,7 @@ Partial Class Form1
         Me.tabImport.Controls.Add(Me.dgvImport)
         Me.tabImport.Location = New System.Drawing.Point(4, 22)
         Me.tabImport.Name = "tabImport"
-        Me.tabImport.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabImport.Padding = New System.Windows.Forms.Padding(3)
         Me.tabImport.Size = New System.Drawing.Size(1015, 522)
         Me.tabImport.TabIndex = 3
         Me.tabImport.Text = "Import"
@@ -424,7 +424,7 @@ Partial Class Form1
         Me.tabPreferences.Controls.Add(Me.txtDfltFilePath)
         Me.tabPreferences.Location = New System.Drawing.Point(4, 22)
         Me.tabPreferences.Name = "tabPreferences"
-        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPreferences.Size = New System.Drawing.Size(1015, 522)
         Me.tabPreferences.TabIndex = 4
         Me.tabPreferences.Text = "Preferences"
@@ -444,7 +444,7 @@ Partial Class Form1
         '
         Me.txtDfltFilePath.Enabled = False
         Me.txtDfltFilePath.Location = New System.Drawing.Point(114, 44)
-        Me.txtDfltFilePath.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtDfltFilePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtDfltFilePath.Name = "txtDfltFilePath"
         Me.txtDfltFilePath.Size = New System.Drawing.Size(208, 20)
         Me.txtDfltFilePath.TabIndex = 0
@@ -453,9 +453,9 @@ Partial Class Form1
         '
         Me.TabPage1.Controls.Add(Me.SplitContainer1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TabPage1.Margin = New System.Windows.Forms.Padding(2)
         Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(2)
         Me.TabPage1.Size = New System.Drawing.Size(1015, 522)
         Me.TabPage1.TabIndex = 5
         Me.TabPage1.Text = "TabPage1"
@@ -464,7 +464,7 @@ Partial Class Form1
         'SplitContainer1
         '
         Me.SplitContainer1.Location = New System.Drawing.Point(4, 5)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Size = New System.Drawing.Size(764, 515)
         Me.SplitContainer1.SplitterDistance = 254
