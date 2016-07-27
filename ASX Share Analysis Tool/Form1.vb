@@ -1,11 +1,9 @@
 ﻿Imports System
 Imports System.IO
-
+Imports System.Data.OleDb
 Imports System.Text
+
 Public Class Form1
-    Dim lsData As New List(Of Hashtable)
-    Dim iCurrentIndex As Integer
-    'The two variables listed above need to be public because used in Controller
 
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
         Dim OpenFileDialog1 As New OpenFileDialog()
@@ -42,7 +40,7 @@ Public Class Form1
                     Try
                         CurrentRow = TextFileReader.ReadFields() 'Declares the Row to be added
                         dgvImport.Rows.Add(CurrentRow) 'Adds the data in
-                    Catch ex As _
+                    Catch ex As  _
                     Microsoft.VisualBasic.FileIO.MalformedLineException
                         MsgBox("Line " & ex.Message &
                         "Is Not valid And will be skipped.")
@@ -78,10 +76,118 @@ Public Class Form1
 
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        Dim htData As Hashtable = New Hashtable
-        Dim iImportRows As Integer = 0
-        Dim iRowCnt As Int32 = 0
-        Dim sString As String = ""
+        Const CONNECTION_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=ASXShareMarketAnalysisTool.accdb"
+        Dim oConnection As OleDbConnection = New OleDbConnection(CONNECTION_STRING)
+        'instantiates a connection object
+
+        Try
+            'Try/catch/finally is code  structure which facilitates the hnadling of execeptions that may occur in the program
+            Debug.Print("Connection String: " & oConnection.ConnectionString)
+
+            oConnection.Open()
+            Dim oCommand As OleDbCommand = New OleDbCommand
+            oCommand.Connection = oConnection
+            'Try to make connection to database
+
+            Dim sSecurityCode As String
+            Dim dtSecurityDate As Date
+            Dim strOpeningPrice As String
+            Dim strHighSalesPrice As String
+            Dim strLowSalePrice As String
+            Dim strTotalVolume As String
+
+            For x As Integer = 0 To dgvImport.Rows.Count - 1
+                sSecurityCode = dgvImport.Rows(x).Cells(0).Value
+                dtSecurityDate = dgvImport.Rows(x).Cells(1).Value
+                strOpeningPrice = dgvImport.Rows(x).Cells(2).Value
+                strHighSalesPrice = dgvImport.Rows(x).Cells(3).Value
+                strLowSalePrice = dgvImport.Rows(x).Cells(4).Value
+                strTotalVolume = dgvImport.Rows(x).Cells(5).Value
+
+                Dim dblOpeningPrice As Double = CDbl(strOpeningPrice)
+                Dim dblHighSalesPrice As Double = CDbl(strHighSalesPrice)
+                Dim dblLowSalePrice As Double = CDbl(strLowSalePrice)
+                Dim dblTotalVolume As Double = CInt(strTotalVolume)
+
+                oCommand.CommandText =
+                    "INSERT INTO Daily_Stock_Prices (security_code, security_date, opening_price, high_sales_price, low_sales_price, total_volume) VALUES (@security_code, @security_date, @opening_price, @high_sales_price, @low_sales_price, @total_volume)"
+                'SQL statement VB is passing into Access
+                'str1 = "INSERT INTO EMP_ATTENDANCE(DATE,EMP_ID,EMP_NAME,EMP_TIME,EMP_STATUS)values(@DATE,@EMP_ID,@EMP_NAME,@EMP_TIME,@EMP_STATUS)"
+                'Dim com As New OleDb.OleDbCommand(str1, con)
+
+                'oCommand.Parameters.Add("@security_code", OleDbType.VarChar, 255)
+                'oCommand.Parameters.Add("@security_date", OleDbType.VarChar, 255)
+                'oCommand.Parameters.Add("@opening_price", OleDbType.VarChar, 255)
+                'oCommand.Parameters.Add("@high_sales_price", OleDbType.VarChar, 255)
+                'oCommand.Parameters.Add("@low_sales_price", OleDbType.VarChar, 255)
+                'oCommand.Parameters.Add("@total_volume", OleDbType.VarChar, 255)
+
+                oCommand.Parameters.Add("@security_code", OleDbType.VarChar, sSecurityCode.Length).Value = sSecurityCode
+                oCommand.Parameters.Add("@security_date", OleDbType.Date, 255).Value = dtSecurityDate
+                oCommand.Parameters.Add("@opening_price", OleDbType.Double, 255).Value = dblOpeningPrice
+                oCommand.Parameters.Add("@high_sales_price", OleDbType.Double, 255).Value = sSecurityCode
+                oCommand.Parameters.Add("@low_sales_price", OleDbType.Double, 255).Value = sSecurityCode
+                oCommand.Parameters.Add("@total_volume", OleDbType.Integer, 255).Value = sSecurityCode
+
+                oCommand.Prepare()
+                'com.Dispose()
+            Next
+
+            oConnection.Close()
+            MessageBox.Show("Registered Successfully!", "Register", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As OleDb.OleDbException
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Oledb Error")
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "General Error")
+        End Try
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        'Dim htData As Hashtable = New Hashtable
+        'Dim iImportRows As Integer = 0
+        'Dim iRowCnt As Int32 = 0
+        'Dim sString As String = ""
         'instantiating a hashtable which will pass the varaibles to the insert function
 
         '??Need to find way to convert .txt or .csv file information into the below hashtable.??
@@ -94,7 +200,7 @@ Public Class Form1
         'htData("TotalVolume") = 
         'EDT DEL FIN
 
-        iImportRows = dgvImport.Rows.Count()
+        'iImportRows = dgvImport.Rows.Count()
 
         'If iImportRows <> 0 Then
         '    For iRowCnt = 1 To iImportRows
@@ -109,14 +215,14 @@ Public Class Form1
 
         'Console.Write(htData)
 
-        Dim Data As New List(Of String())
-        For Each r As DataGridViewRow In dgvImport.Rows
-            If r.Cells(0).Value IsNot Nothing Then
-                Data.Add(r.Cells(0).Value.ToString().Split(","c))
-            End If
-        Next
+        'Dim Data As New List(Of String())
+        'For Each r As DataGridViewRow In dgvImport.Rows
+        'If r.Cells(0).Value IsNot Nothing Then
+        'Data.Add(r.Cells(0).Value.ToString().Split(","c))
+        'nd If
+        'Next
 
-        Console.Write(Data)
+        ''Console.Write(Data)
 
         'EDT DEL START
         'Dim oStockcontroller As StockController = New StockController
