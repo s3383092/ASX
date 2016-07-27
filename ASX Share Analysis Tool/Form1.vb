@@ -87,15 +87,35 @@ Public Class Form1
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
         Dim htData As Hashtable = New Hashtable
+        Dim iImportRows As Integer = ""
+        Dim iRowCnt As Integer = ""
         'instantiating a hashtable which will pass the varaibles to the insert function
 
         '??Need to find way to convert .txt or .csv file information into the below hashtable.??
-        htData("SecurityCode") = 
-        htData("SecurityDate") = 
-        htData("OpeningPrice") = 
-        htData("HighSalesPrice") = 
-        htData("LowSalesPrice") = 
-        htData("TotalVolume") = 
+        'EDT DEL START
+        'htData("SecurityCode") =
+        'htData("SecurityDate") =
+        'htData("OpeningPrice") =
+        'htData("HighSalesPrice") =
+        'htData("LowSalesPrice") =
+        'htData("TotalVolume") = 
+        'EDT DEL FIN
+
+        iImportRows = dgvImport.Rows.Count()
+
+        If iImportRows <> "" Then
+            For iRowCnt = 0 To iImportRows
+                htData("SecurityCode") = dgvImport.Rows(iRowCnt).Cells(0).Value
+                htData("SecurityDate") = dgvImport.Rows(iRowCnt).Cells(0).Value
+                htData("OpeningPrice") = dgvImport.Rows(iRowCnt).Cells(0).Value
+                htData("HighSalesPrice") = dgvImport.Rows(iRowCnt).Cells(0).Value
+                htData("LowSalesPrice") = dgvImport.Rows(iRowCnt).Cells(0).Value
+                htData("TotalVolume") = dgvImport.Rows(iRowCnt).Cells(0).Value
+            Next
+
+            Console.Write(htData)
+
+        End If
 
 
         Dim oStockcontroller As StockController = New StockController

@@ -25,7 +25,7 @@ Public Class StockController
             'Try to make connection to database
 
             'TODO
-            oCommand.CommandText = _
+            oCommand.CommandText =
                                     "Select * FROM asx_analysis_database ORDER BY security_code;"
             oCommand.Prepare() 'compiles prepared SQL statement
             Dim oDataReader = oCommand.ExecuteReader() 'executes SQL and stores results in data reader object
@@ -74,7 +74,7 @@ Public Class StockController
             'Try to make connection to database
 
             'TODO
-            oCommand.CommandText = _
+            oCommand.CommandText =
             "INSERT INTO asx_analysis_database (security_code, security_date, opening_price, high_sales_price, low_sales_price, total_volume) VALUES (?, ?, ?, ?, ?, ?)"
             'SQL statement VB is passing into Access
 
