@@ -24,7 +24,6 @@ Public Class Form1
 
             TextFileReader.TextFieldType = FileIO.FieldType.Delimited
             TextFileReader.SetDelimiters(",")
-            'Need to create table headers somewhere
 
             FileType = Path.GetExtension(OpenFileDialog1.FileName)
 
@@ -35,6 +34,9 @@ Public Class Form1
                 'Loops through the data and imports it into a table
                 While Not TextFileReader.EndOfData
                     Try
+                        'clearing a DGV
+                        dgvImport.Rows.Clear()
+
                         'Adding the column names
                         CurrentRow = TextFileReader.ReadFields()
                         dgvImport.Columns.Add("ID", "ID")
@@ -47,7 +49,7 @@ Public Class Form1
 
                         'Adds the data in
                         dgvImport.Rows.Add(CurrentRow)
-                    Catch ex As  _
+                    Catch ex As _
                     Microsoft.VisualBasic.FileIO.MalformedLineException
                         MsgBox("Line " & ex.Message &
                         "Is Not valid And will be skipped.")
@@ -75,7 +77,7 @@ Public Class Form1
                 End While
                 dgvImport.DataSource = dt
             Else
-                MsgBox("Please select a .txt Or .csv type file")
+                MsgBox("Please select a .txt or .csv type file")
             End If
         End If
 
