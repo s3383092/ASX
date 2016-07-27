@@ -92,7 +92,7 @@ Partial Class Form1
         Me.tbcMain.Controls.Add(Me.tabPreferences)
         Me.tbcMain.Controls.Add(Me.tabWatchlist)
         Me.tbcMain.Location = New System.Drawing.Point(16, 15)
-        Me.tbcMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbcMain.Margin = New System.Windows.Forms.Padding(4)
         Me.tbcMain.Name = "tbcMain"
         Me.tbcMain.SelectedIndex = 0
         Me.tbcMain.Size = New System.Drawing.Size(1364, 674)
@@ -102,9 +102,9 @@ Partial Class Form1
         '
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
         Me.tabFront.Location = New System.Drawing.Point(4, 25)
-        Me.tabFront.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabFront.Margin = New System.Windows.Forms.Padding(4)
         Me.tabFront.Name = "tabFront"
-        Me.tabFront.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabFront.Padding = New System.Windows.Forms.Padding(4)
         Me.tabFront.Size = New System.Drawing.Size(1356, 645)
         Me.tabFront.TabIndex = 0
         Me.tabFront.Text = "Front Page"
@@ -116,7 +116,7 @@ Partial Class Form1
         Me.dgdFrontPage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewCheckBoxColumn1, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8})
         Me.dgdFrontPage.Enabled = False
         Me.dgdFrontPage.Location = New System.Drawing.Point(8, 7)
-        Me.dgdFrontPage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgdFrontPage.Margin = New System.Windows.Forms.Padding(4)
         Me.dgdFrontPage.Name = "dgdFrontPage"
         Me.dgdFrontPage.ReadOnly = True
         Me.dgdFrontPage.Size = New System.Drawing.Size(1339, 630)
@@ -186,9 +186,9 @@ Partial Class Form1
         '
         Me.tabAll.Controls.Add(Me.dgdAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 25)
-        Me.tabAll.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabAll.Margin = New System.Windows.Forms.Padding(4)
         Me.tabAll.Name = "tabAll"
-        Me.tabAll.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabAll.Padding = New System.Windows.Forms.Padding(4)
         Me.tabAll.Size = New System.Drawing.Size(1356, 645)
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
@@ -200,7 +200,7 @@ Partial Class Form1
         Me.dgdAllStocks.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colASXID, Me.colName, Me.colWatch, Me.colBid, Me.colAsk, Me.colHigh, Me.colLow, Me.colVolume})
         Me.dgdAllStocks.Enabled = False
         Me.dgdAllStocks.Location = New System.Drawing.Point(8, 7)
-        Me.dgdAllStocks.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgdAllStocks.Margin = New System.Windows.Forms.Padding(4)
         Me.dgdAllStocks.Name = "dgdAllStocks"
         Me.dgdAllStocks.ReadOnly = True
         Me.dgdAllStocks.Size = New System.Drawing.Size(1341, 630)
@@ -272,9 +272,9 @@ Partial Class Form1
         Me.tabHistory.Controls.Add(Me.lblCompany)
         Me.tabHistory.Controls.Add(Me.dgdHistory)
         Me.tabHistory.Location = New System.Drawing.Point(4, 25)
-        Me.tabHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.tabHistory.Name = "tabHistory"
-        Me.tabHistory.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabHistory.Padding = New System.Windows.Forms.Padding(4)
         Me.tabHistory.Size = New System.Drawing.Size(1356, 645)
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
@@ -285,7 +285,7 @@ Partial Class Form1
         Me.cboCompanyName.FormattingEnabled = True
         Me.cboCompanyName.Items.AddRange(New Object() {"Please select a company"})
         Me.cboCompanyName.Location = New System.Drawing.Point(325, 7)
-        Me.cboCompanyName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cboCompanyName.Margin = New System.Windows.Forms.Padding(4)
         Me.cboCompanyName.Name = "cboCompanyName"
         Me.cboCompanyName.Size = New System.Drawing.Size(541, 24)
         Me.cboCompanyName.TabIndex = 3
@@ -305,7 +305,7 @@ Partial Class Form1
         Me.dgdHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgdHistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colHistDate, Me.colHistBid, Me.colHistAsk, Me.colHistHigh, Me.colHistLow, Me.colHistVolume})
         Me.dgdHistory.Location = New System.Drawing.Point(8, 41)
-        Me.dgdHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgdHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.dgdHistory.Name = "dgdHistory"
         Me.dgdHistory.Size = New System.Drawing.Size(860, 594)
         Me.dgdHistory.TabIndex = 0
@@ -356,9 +356,9 @@ Partial Class Form1
         Me.tabImport.Controls.Add(Me.btnImportFile)
         Me.tabImport.Controls.Add(Me.dgvImport)
         Me.tabImport.Location = New System.Drawing.Point(4, 25)
-        Me.tabImport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabImport.Margin = New System.Windows.Forms.Padding(4)
         Me.tabImport.Name = "tabImport"
-        Me.tabImport.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabImport.Padding = New System.Windows.Forms.Padding(4)
         Me.tabImport.Size = New System.Drawing.Size(1356, 645)
         Me.tabImport.TabIndex = 3
         Me.tabImport.Text = "Import"
@@ -378,7 +378,7 @@ Partial Class Form1
         '
         Me.dspStatus.Enabled = False
         Me.dspStatus.Location = New System.Drawing.Point(61, 594)
-        Me.dspStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dspStatus.Margin = New System.Windows.Forms.Padding(4)
         Me.dspStatus.Name = "dspStatus"
         Me.dspStatus.ReadOnly = True
         Me.dspStatus.Size = New System.Drawing.Size(355, 22)
@@ -397,7 +397,7 @@ Partial Class Form1
         'btnImport
         '
         Me.btnImport.Location = New System.Drawing.Point(425, 594)
-        Me.btnImport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnImport.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(100, 28)
         Me.btnImport.TabIndex = 6
@@ -408,7 +408,7 @@ Partial Class Form1
         '
         Me.dspFileLocation.Enabled = False
         Me.dspFileLocation.Location = New System.Drawing.Point(61, 10)
-        Me.dspFileLocation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dspFileLocation.Margin = New System.Windows.Forms.Padding(4)
         Me.dspFileLocation.Name = "dspFileLocation"
         Me.dspFileLocation.ReadOnly = True
         Me.dspFileLocation.Size = New System.Drawing.Size(355, 22)
@@ -417,7 +417,7 @@ Partial Class Form1
         'btnImportFile
         '
         Me.btnImportFile.Location = New System.Drawing.Point(425, 10)
-        Me.btnImportFile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnImportFile.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImportFile.Name = "btnImportFile"
         Me.btnImportFile.Size = New System.Drawing.Size(100, 28)
         Me.btnImportFile.TabIndex = 4
@@ -427,9 +427,8 @@ Partial Class Form1
         'dgvImport
         '
         Me.dgvImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvImport.Enabled = False
         Me.dgvImport.Location = New System.Drawing.Point(11, 39)
-        Me.dgvImport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvImport.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvImport.Name = "dgvImport"
         Me.dgvImport.ReadOnly = True
         Me.dgvImport.Size = New System.Drawing.Size(1335, 546)
@@ -440,9 +439,9 @@ Partial Class Form1
         Me.tabPreferences.Controls.Add(Me.lblDfltFilePath)
         Me.tabPreferences.Controls.Add(Me.txtDfltFilePath)
         Me.tabPreferences.Location = New System.Drawing.Point(4, 25)
-        Me.tabPreferences.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabPreferences.Margin = New System.Windows.Forms.Padding(4)
         Me.tabPreferences.Name = "tabPreferences"
-        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(4)
         Me.tabPreferences.Size = New System.Drawing.Size(1356, 645)
         Me.tabPreferences.TabIndex = 4
         Me.tabPreferences.Text = "Preferences"
@@ -493,7 +492,7 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1404, 708)
         Me.Controls.Add(Me.tbcMain)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form1"
         Me.Text = "ASX Share Market Analysis Tool"
         Me.tbcMain.ResumeLayout(False)
