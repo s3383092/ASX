@@ -1,10 +1,11 @@
 ﻿Imports System
 Imports System.IO
-'test boz
+
 Imports System.Text
 Public Class Form1
     Dim lsData As New List(Of Hashtable)
     Dim iCurrentIndex As Integer
+    'The two variables listed above need to be public because used in Controller
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load 'Initialization subroutine
 
@@ -85,6 +86,23 @@ Public Class Form1
 
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+        Dim htData As Hashtable = New Hashtable
+        'instantiating a hashtable which will pass the varaibles to the insert function
 
+        '??Need to find way to convert .txt or .csv file information into the below hashtable.??
+        htData("SecurityCode") = 
+        htData("SecurityDate") = 
+        htData("OpeningPrice") = 
+        htData("HighSalesPrice") = 
+        htData("LowSalesPrice") = 
+        htData("TotalVolume") = 
+
+
+        Dim oStockcontroller As StockController = New StockController
+        Dim iNumRows = oStockcontroller.insertStock(htData)
+        'Passes the above hastable into insert stock function located in StockController
+
+        Debug.Print(CStr(iNumRows))
+        'Debugging information
     End Sub
 End Class
