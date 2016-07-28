@@ -79,6 +79,21 @@ Public Class Form1
         Const CONNECTION_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=ASXShareMarketAnalysisTool.accdb"
         Dim oConnection As OleDbConnection = New OleDbConnection(CONNECTION_STRING)
         'instantiates a connection object
+        Dim sSecurityCode As String
+        Dim sSecurityDate As String
+        Dim sOpeningPrice As String
+        Dim sHighSalePrice As String
+        Dim sLowSalePrice As String
+        Dim sClosingPrice As String
+        Dim sTotalVolume As String
+
+        Dim dtSecurityDate As Date
+        Dim dblOpeningPrice As Double
+        Dim dblHighSalePrice As Double
+        Dim dblLowSalePrice As Double
+        Dim dblClosingPrice As Double
+        Dim iTotalVolume As Integer
+
 
         Try
             'Try/catch/finally is code  structure which facilitates the hnadling of execeptions that may occur in the program
@@ -89,56 +104,59 @@ Public Class Form1
             oCommand.Connection = oConnection
             'Try to make connection to database
 
-            Dim sSecurityCode As String
-            Dim dtSecurityDate As Date
-            Dim strOpeningPrice As String
-            Dim strHighSalesPrice As String
-            Dim strLowSalePrice As String
-            Dim strTotalVolume As String
 
-            For x As Integer = 0 To dgvImport.Rows.Count - 1
-                sSecurityCode = dgvImport.Rows(x).Cells(0).Value
-                dtSecurityDate = dgvImport.Rows(x).Cells(1).Value
-                strOpeningPrice = dgvImport.Rows(x).Cells(2).Value
-                strHighSalesPrice = dgvImport.Rows(x).Cells(3).Value
-                strLowSalePrice = dgvImport.Rows(x).Cells(4).Value
-                strTotalVolume = dgvImport.Rows(x).Cells(5).Value
 
-                Dim dblOpeningPrice As Double = CDbl(strOpeningPrice)
-                Dim dblHighSalesPrice As Double = CDbl(strHighSalesPrice)
-                Dim dblLowSalePrice As Double = CDbl(strLowSalePrice)
-                Dim dblTotalVolume As Double = CInt(strTotalVolume)
+            Dim iCounter As Integer
+            Dim iCountRows As Integer
+            iCountRows = dgvImport.Rows.Count - 2
+            iCounter = 0
+
+            For iCounter = 0 To iCountRows
+                sSecurityCode = dgvImport.Rows(iCounter).Cells(0).Value
+                sSecurityDate = dgvImport.Rows(iCounter).Cells(1).Value
+                sOpeningPrice = dgvImport.Rows(iCounter).Cells(2).Value
+                sHighSalePrice = dgvImport.Rows(iCounter).Cells(3).Value
+                sLowSalePrice = dgvImport.Rows(iCounter).Cells(4).Value
+                sClosingPrice = dgvImport.Rows(iCounter).Cells(5).Value
+                sTotalVolume = dgvImport.Rows(iCounter).Cells(6).Value
+
+                dtSecurityDate = CDate(sSecurityDate)
+                dblOpeningPrice = CDbl(sOpeningPrice)
+                dblHighSalePrice = CDbl(sHighSalePrice)
+                dblLowSalePrice = CDbl(sLowSalePrice)
+                dblClosingPrice = CDbl(sClosingPrice)
+                iTotalVolume = CInt(sTotalVolume)
 
                 oCommand.CommandText =
-                    "INSERT INTO Daily_Stock_Prices (security_code, security_date, opening_price, high_sales_price, low_sales_price, total_volume) VALUES (@security_code, @security_date, @opening_price, @high_sales_price, @low_sales_price, @total_volume)"
-                'SQL statement VB is passing into Access
-                'str1 = "INSERT INTO EMP_ATTENDANCE(DATE,EMP_ID,EMP_NAME,EMP_TIME,EMP_STATUS)values(@DATE,@EMP_ID,@EMP_NAME,@EMP_TIME,@EMP_STATUS)"
-                'Dim com As New OleDb.OleDbCommand(str1, con)
+                "INSERT INTO Daily_Stock_Prices (security_code, security_date, opening_price, high_sale_price, low_sale_price, closing_price, total_volume) VALUES (?, ?, ?, ?, ?, ?, ?)"
 
-                'oCommand.Parameters.Add("@security_code", OleDbType.VarChar, 255)
-                'oCommand.Parameters.Add("@security_date", OleDbType.VarChar, 255)
-                'oCommand.Parameters.Add("@opening_price", OleDbType.VarChar, 255)
-                'oCommand.Parameters.Add("@high_sales_price", OleDbType.VarChar, 255)
-                'oCommand.Parameters.Add("@low_sales_price", OleDbType.VarChar, 255)
-                'oCommand.Parameters.Add("@total_volume", OleDbType.VarChar, 255)
+                oCommand.Parameters.Add("SecurityCode", OleDbType.VarChar, 255)
+                oCommand.Parameters.Add("SecurityDate", OleDbType.Date, 255)
+                oCommand.Parameters.Add("OpeningPrice", OleDbType.Double, 255)
+                oCommand.Parameters.Add("HighSalePrice", OleDbType.Double, 255)
+                oCommand.Parameters.Add("LowSalePrice", OleDbType.Double, 255)
+                oCommand.Parameters.Add("ClosingPrice", OleDbType.Double, 255)
+                oCommand.Parameters.Add("TotalVolume", OleDbType.Integer, 255)
 
-                oCommand.Parameters.Add("@security_code", OleDbType.VarChar, sSecurityCode.Length).Value = sSecurityCode
-                oCommand.Parameters.Add("@security_date", OleDbType.Date, 255).Value = dtSecurityDate
-                oCommand.Parameters.Add("@opening_price", OleDbType.Double, 255).Value = dblOpeningPrice
-                oCommand.Parameters.Add("@high_sales_price", OleDbType.Double, 255).Value = sSecurityCode
-                oCommand.Parameters.Add("@low_sales_price", OleDbType.Double, 255).Value = sSecurityCode
-                oCommand.Parameters.Add("@total_volume", OleDbType.Integer, 255).Value = sSecurityCode
+                oCommand.Parameters("SecurityCode").Value = sSecurityCode
+                oCommand.Parameters("SecurityDate").Value = dtSecurityDate
+                oCommand.Parameters("OpeningPrice").Value = dblOpeningPrice
+                oCommand.Parameters("HighSalePrice").Value = dblHighSalePrice
+                oCommand.Parameters("LowSalePrice").Value = dblLowSalePrice
+                oCommand.Parameters("ClosingPrice").Value = dblClosingPrice
+                oCommand.Parameters("TotalVolume").Value = iTotalVolume
 
                 oCommand.Prepare()
-                'com.Dispose()
+                oCommand.ExecuteNonQuery()
             Next
 
-            oConnection.Close()
             MessageBox.Show("Registered Successfully!", "Register", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As OleDb.OleDbException
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Oledb Error")
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "General Error")
+        Finally
+            oConnection.Close()
         End Try
 
 
