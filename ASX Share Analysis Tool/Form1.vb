@@ -29,13 +29,13 @@ Public Class Form1
             If FileType = ".txt" Then
                 'Handles importing a .txt file
                 'Adding the column names
-                dgvImport.Columns.Add("ID", "ID")
+                dgvImport.Columns.Add("ID", "Security Code")
                 dgvImport.Columns.Add("Date", "Date")
-                dgvImport.Columns.Add("Open", "Open")
-                dgvImport.Columns.Add("High", "High")
-                dgvImport.Columns.Add("Low", "Low")
-                dgvImport.Columns.Add("Close", "Close")
-                dgvImport.Columns.Add("Volume", "Volume")
+                dgvImport.Columns.Add("Open", "Opening Price")
+                dgvImport.Columns.Add("High", "High Sale price")
+                dgvImport.Columns.Add("Low", "Low Sale Price")
+                dgvImport.Columns.Add("Close", "Closing Price")
+                dgvImport.Columns.Add("Volume", "Total Volume Traded")
 
                 'Loops through the data and imports it into a table
                 While Not TextFileReader.EndOfData
