@@ -73,6 +73,21 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ASXShareMarketAnalysisToolDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ASXShareMarketAnalysisToolDataSet11.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet11.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ASXShareMarketAnalysisToolDataSet2.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="StockController.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
@@ -109,6 +124,39 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ASXShareMarketAnalysisToolDataSet.xsc">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ASXShareMarketAnalysisToolDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet.xss">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet11.xsc">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ASXShareMarketAnalysisToolDataSet11.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet11.xss">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet2.xsc">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ASXShareMarketAnalysisToolDataSet2.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ASXShareMarketAnalysisToolDataSet2.xss">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet2.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -119,6 +167,11 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ASXShareMarketAnalysisTool.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -40,7 +40,7 @@ Public Class Form1
                     Try
                         CurrentRow = TextFileReader.ReadFields() 'Declares the Row to be added
                         dgvImport.Rows.Add(CurrentRow) 'Adds the data in
-                    Catch ex As  _
+                    Catch ex As _
                     Microsoft.VisualBasic.FileIO.MalformedLineException
                         MsgBox("Line " & ex.Message &
                         "Is Not valid And will be skipped.")
@@ -257,6 +257,11 @@ Public Class Form1
         dgvImport.Columns.Clear()
     End Sub
 
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: This line of code loads data into the 'ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices' table. You can move, or remove it, as needed.
+        Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
+
+    End Sub
 End Class
 
 
