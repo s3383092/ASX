@@ -88,7 +88,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ASXShareMarketAnalysisToolDataSet2.xsd</DependentUpon>
     </Compile>
-    <Compile Include="StockController.vb" />
+    <Compile Include="ASXShareMarketAnalysisToolDataSet2.vb">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>

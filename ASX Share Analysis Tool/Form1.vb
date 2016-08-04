@@ -76,8 +76,11 @@ Public Class Form1
 
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
-        Const CONNECTION_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=ASXShareMarketAnalysisTool.accdb"
-        Dim oConnection As OleDbConnection = New OleDbConnection(CONNECTION_STRING)
+        lblPleaseWait.Show()
+        Cursor.Current = Cursors.WaitCursor
+
+        Const CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=ASXShareMarketAnalysisTool.accdb"
+        Dim myConnection As OleDbConnection = New OleDbConnection(CON_STRING)
         'instantiates a connection object
         Dim sSecurityCode As String
         Dim sSecurityDate As String
@@ -97,14 +100,9 @@ Public Class Form1
 
         Try
             'Try/catch/finally is code  structure which facilitates the hnadling of execeptions that may occur in the program
-            Debug.Print("Connection String: " & oConnection.ConnectionString)
+            Debug.Print("Connection String: " & myConnection.ConnectionString)
 
-            oConnection.Open()
-            Dim oCommand As OleDbCommand = New OleDbCommand
-            oCommand.Connection = oConnection
-            'Try to make connection to database
-
-
+            myConnection.Open()
 
             Dim iCounter As Integer
             Dim iCountRows As Integer
@@ -127,129 +125,34 @@ Public Class Form1
                 dblClosingPrice = CDbl(sClosingPrice)
                 iTotalVolume = CInt(sTotalVolume)
 
-                oCommand.CommandText =
-                "INSERT INTO Daily_Stock_Prices (security_code, security_date, opening_price, high_sale_price, low_sale_price, closing_price, total_volume) VALUES (?, ?, ?, ?, ?, ?, ?)"
+                Dim sqlQuery As String
 
-                oCommand.Parameters.Add("SecurityCode", OleDbType.VarChar, 255)
-                oCommand.Parameters.Add("SecurityDate", OleDbType.Date, 255)
-                oCommand.Parameters.Add("OpeningPrice", OleDbType.Double, 255)
-                oCommand.Parameters.Add("HighSalePrice", OleDbType.Double, 255)
-                oCommand.Parameters.Add("LowSalePrice", OleDbType.Double, 255)
-                oCommand.Parameters.Add("ClosingPrice", OleDbType.Double, 255)
-                oCommand.Parameters.Add("TotalVolume", OleDbType.Integer, 255)
+                sqlQuery = "INSERT INTO Daily_Stock_Prices (security_code, security_date, opening_price, high_sale_price, low_sale_price, closing_price, total_volume) VALUES (?, ?, ?, ?, ?, ?, ?)"
+                Using cmd As New OleDbCommand(sqlQuery, myConnection)
 
-                oCommand.Parameters("SecurityCode").Value = sSecurityCode
-                oCommand.Parameters("SecurityDate").Value = dtSecurityDate
-                oCommand.Parameters("OpeningPrice").Value = dblOpeningPrice
-                oCommand.Parameters("HighSalePrice").Value = dblHighSalePrice
-                oCommand.Parameters("LowSalePrice").Value = dblLowSalePrice
-                oCommand.Parameters("ClosingPrice").Value = dblClosingPrice
-                oCommand.Parameters("TotalVolume").Value = iTotalVolume
+                    cmd.Parameters.AddWithValue("?", sSecurityCode)
+                    cmd.Parameters.AddWithValue("?", dtSecurityDate)
+                    cmd.Parameters.AddWithValue("?", dblOpeningPrice)
+                    cmd.Parameters.AddWithValue("?", dblHighSalePrice)
+                    cmd.Parameters.AddWithValue("?", dblLowSalePrice)
+                    cmd.Parameters.AddWithValue("?", dblClosingPrice)
+                    cmd.Parameters.AddWithValue("?", iTotalVolume)
 
-                oCommand.Prepare()
-                oCommand.ExecuteNonQuery()
+                    Debug.Print(sqlQuery)
+                    cmd.ExecuteNonQuery()
+                End Using
             Next
 
-            MessageBox.Show("Registered Successfully!", "Register", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            dspStatus.Text = "Import successful!"
         Catch ex As OleDb.OleDbException
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "Oledb Error")
+            dspStatus.Text = MsgBoxStyle.Critical & "Oledb Error"
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "General Error")
+            dspStatus.Text = MsgBoxStyle.Critical & "General Error"
         Finally
-            oConnection.Close()
+            myConnection.Close()
         End Try
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        'Dim htData As Hashtable = New Hashtable
-        'Dim iImportRows As Integer = 0
-        'Dim iRowCnt As Int32 = 0
-        'Dim sString As String = ""
-        'instantiating a hashtable which will pass the varaibles to the insert function
-
-        '??Need to find way to convert .txt or .csv file information into the below hashtable.??
-        'EDT DEL START
-        'htData("SecurityCode") =
-        'htData("SecurityDate") =
-        'htData("OpeningPrice") =
-        'htData("HighSalesPrice") =
-        'htData("LowSalesPrice") =
-        'htData("TotalVolume") = 
-        'EDT DEL FIN
-
-        'iImportRows = dgvImport.Rows.Count()
-
-        'If iImportRows <> 0 Then
-        '    For iRowCnt = 1 To iImportRows
-        '        htData("SecurityCode") = dgvImport.Rows(iRowCnt).Cells(1).Value
-        '        htData("SecurityDate") = dgvImport.Rows(iRowCnt).Cells(2).Value
-        '        htData("OpeningPrice") = dgvImport.Rows(iRowCnt).Cells(3).Value
-        '        htData("HighSalesPrice") = dgvImport.Rows(iRowCnt).Cells(4).Value
-        '        htData("LowSalesPrice") = dgvImport.Rows(iRowCnt).Cells(5).Value
-        '        htData("TotalVolume") = dgvImport.Rows(iRowCnt).Cells(6).Value
-        '    Next
-        'End If
-
-        'Console.Write(htData)
-
-        'Dim Data As New List(Of String())
-        'For Each r As DataGridViewRow In dgvImport.Rows
-        'If r.Cells(0).Value IsNot Nothing Then
-        'Data.Add(r.Cells(0).Value.ToString().Split(","c))
-        'nd If
-        'Next
-
-        ''Console.Write(Data)
-
-        'EDT DEL START
-        'Dim oStockcontroller As StockController = New StockController
-        'Dim iNumRows = oStockcontroller.insertStock(htData)
-        'EDT DEL FIN
-        'Passes the above hastable into insert stock function located in StockController
-
-        ' Debug.Print(CStr(iNumRows))
-        'Debugging information
+        lblPleaseWait.Hide()
     End Sub
 
     Private Sub ClearDGVImport()
@@ -262,6 +165,7 @@ Public Class Form1
         Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
 
     End Sub
+
 End Class
 
 

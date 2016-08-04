@@ -25,6 +25,18 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabFront = New System.Windows.Forms.TabPage()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.DailystockidDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.StockidDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SecuritycodeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SecuritydateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OpeningpriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.HighsalepriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LowsalepriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ClosingpriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalvolumeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ASXShareMarketAnalysisToolDataSet2 = New ASX_Share_Analysis_Tool.ASXShareMarketAnalysisToolDataSet2()
         Me.dgdFrontPage = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -69,21 +81,13 @@ Partial Class Form1
         Me.txtDfltFilePath = New System.Windows.Forms.TextBox()
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.ASXShareMarketAnalysisToolDataSet2 = New ASX_Share_Analysis_Tool.ASXShareMarketAnalysisToolDataSet2()
-        Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Daily_Stock_PricesTableAdapter = New ASX_Share_Analysis_Tool.ASXShareMarketAnalysisToolDataSet2TableAdapters.Daily_Stock_PricesTableAdapter()
-        Me.DailystockidDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.StockidDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SecuritycodeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SecuritydateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.OpeningpriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.HighsalepriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LowsalepriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ClosingpriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalvolumeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lblPleaseWait = New System.Windows.Forms.Label()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ASXShareMarketAnalysisToolDataSet2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabAll.SuspendLayout()
         CType(Me.dgdAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -95,9 +99,6 @@ Partial Class Form1
         Me.tabWatchlist.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ASXShareMarketAnalysisToolDataSet2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tbcMain
@@ -120,11 +121,86 @@ Partial Class Form1
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
         Me.tabFront.Location = New System.Drawing.Point(4, 22)
         Me.tabFront.Name = "tabFront"
-        Me.tabFront.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabFront.Padding = New System.Windows.Forms.Padding(3)
         Me.tabFront.Size = New System.Drawing.Size(1015, 522)
         Me.tabFront.TabIndex = 0
         Me.tabFront.Text = "Front Page"
         Me.tabFront.UseVisualStyleBackColor = True
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.AutoGenerateColumns = False
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DailystockidDataGridViewTextBoxColumn, Me.StockidDataGridViewTextBoxColumn, Me.SecuritycodeDataGridViewTextBoxColumn, Me.SecuritydateDataGridViewTextBoxColumn, Me.OpeningpriceDataGridViewTextBoxColumn, Me.HighsalepriceDataGridViewTextBoxColumn, Me.LowsalepriceDataGridViewTextBoxColumn, Me.ClosingpriceDataGridViewTextBoxColumn, Me.TotalvolumeDataGridViewTextBoxColumn})
+        Me.DataGridView1.DataSource = Me.DailyStockPricesBindingSource
+        Me.DataGridView1.Location = New System.Drawing.Point(7, 7)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(1002, 444)
+        Me.DataGridView1.TabIndex = 3
+        '
+        'DailystockidDataGridViewTextBoxColumn
+        '
+        Me.DailystockidDataGridViewTextBoxColumn.DataPropertyName = "daily_stock_id"
+        Me.DailystockidDataGridViewTextBoxColumn.HeaderText = "daily_stock_id"
+        Me.DailystockidDataGridViewTextBoxColumn.Name = "DailystockidDataGridViewTextBoxColumn"
+        '
+        'StockidDataGridViewTextBoxColumn
+        '
+        Me.StockidDataGridViewTextBoxColumn.DataPropertyName = "stock_id"
+        Me.StockidDataGridViewTextBoxColumn.HeaderText = "stock_id"
+        Me.StockidDataGridViewTextBoxColumn.Name = "StockidDataGridViewTextBoxColumn"
+        '
+        'SecuritycodeDataGridViewTextBoxColumn
+        '
+        Me.SecuritycodeDataGridViewTextBoxColumn.DataPropertyName = "security_code"
+        Me.SecuritycodeDataGridViewTextBoxColumn.HeaderText = "security_code"
+        Me.SecuritycodeDataGridViewTextBoxColumn.Name = "SecuritycodeDataGridViewTextBoxColumn"
+        '
+        'SecuritydateDataGridViewTextBoxColumn
+        '
+        Me.SecuritydateDataGridViewTextBoxColumn.DataPropertyName = "security_date"
+        Me.SecuritydateDataGridViewTextBoxColumn.HeaderText = "security_date"
+        Me.SecuritydateDataGridViewTextBoxColumn.Name = "SecuritydateDataGridViewTextBoxColumn"
+        '
+        'OpeningpriceDataGridViewTextBoxColumn
+        '
+        Me.OpeningpriceDataGridViewTextBoxColumn.DataPropertyName = "opening_price"
+        Me.OpeningpriceDataGridViewTextBoxColumn.HeaderText = "opening_price"
+        Me.OpeningpriceDataGridViewTextBoxColumn.Name = "OpeningpriceDataGridViewTextBoxColumn"
+        '
+        'HighsalepriceDataGridViewTextBoxColumn
+        '
+        Me.HighsalepriceDataGridViewTextBoxColumn.DataPropertyName = "high_sale_price"
+        Me.HighsalepriceDataGridViewTextBoxColumn.HeaderText = "high_sale_price"
+        Me.HighsalepriceDataGridViewTextBoxColumn.Name = "HighsalepriceDataGridViewTextBoxColumn"
+        '
+        'LowsalepriceDataGridViewTextBoxColumn
+        '
+        Me.LowsalepriceDataGridViewTextBoxColumn.DataPropertyName = "low_sale_price"
+        Me.LowsalepriceDataGridViewTextBoxColumn.HeaderText = "low_sale_price"
+        Me.LowsalepriceDataGridViewTextBoxColumn.Name = "LowsalepriceDataGridViewTextBoxColumn"
+        '
+        'ClosingpriceDataGridViewTextBoxColumn
+        '
+        Me.ClosingpriceDataGridViewTextBoxColumn.DataPropertyName = "closing_price"
+        Me.ClosingpriceDataGridViewTextBoxColumn.HeaderText = "closing_price"
+        Me.ClosingpriceDataGridViewTextBoxColumn.Name = "ClosingpriceDataGridViewTextBoxColumn"
+        '
+        'TotalvolumeDataGridViewTextBoxColumn
+        '
+        Me.TotalvolumeDataGridViewTextBoxColumn.DataPropertyName = "total_volume"
+        Me.TotalvolumeDataGridViewTextBoxColumn.HeaderText = "total_volume"
+        Me.TotalvolumeDataGridViewTextBoxColumn.Name = "TotalvolumeDataGridViewTextBoxColumn"
+        '
+        'DailyStockPricesBindingSource
+        '
+        Me.DailyStockPricesBindingSource.DataMember = "Daily_Stock_Prices"
+        Me.DailyStockPricesBindingSource.DataSource = Me.ASXShareMarketAnalysisToolDataSet2
+        '
+        'ASXShareMarketAnalysisToolDataSet2
+        '
+        Me.ASXShareMarketAnalysisToolDataSet2.DataSetName = "ASXShareMarketAnalysisToolDataSet2"
+        Me.ASXShareMarketAnalysisToolDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'dgdFrontPage
         '
@@ -202,7 +278,7 @@ Partial Class Form1
         Me.tabAll.Controls.Add(Me.dgdAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 22)
         Me.tabAll.Name = "tabAll"
-        Me.tabAll.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
         Me.tabAll.Size = New System.Drawing.Size(1015, 522)
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
@@ -286,7 +362,7 @@ Partial Class Form1
         Me.tabHistory.Controls.Add(Me.dgdHistory)
         Me.tabHistory.Location = New System.Drawing.Point(4, 22)
         Me.tabHistory.Name = "tabHistory"
-        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabHistory.Size = New System.Drawing.Size(1015, 522)
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
@@ -357,6 +433,7 @@ Partial Class Form1
         '
         'tabImport
         '
+        Me.tabImport.Controls.Add(Me.lblPleaseWait)
         Me.tabImport.Controls.Add(Me.lblFile)
         Me.tabImport.Controls.Add(Me.dspStatus)
         Me.tabImport.Controls.Add(Me.lblStatus)
@@ -366,7 +443,7 @@ Partial Class Form1
         Me.tabImport.Controls.Add(Me.dgvImport)
         Me.tabImport.Location = New System.Drawing.Point(4, 22)
         Me.tabImport.Name = "tabImport"
-        Me.tabImport.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabImport.Padding = New System.Windows.Forms.Padding(3)
         Me.tabImport.Size = New System.Drawing.Size(1015, 522)
         Me.tabImport.TabIndex = 3
         Me.tabImport.Text = "Import"
@@ -441,7 +518,7 @@ Partial Class Form1
         Me.tabPreferences.Controls.Add(Me.txtDfltFilePath)
         Me.tabPreferences.Location = New System.Drawing.Point(4, 22)
         Me.tabPreferences.Name = "tabPreferences"
-        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPreferences.Size = New System.Drawing.Size(1015, 522)
         Me.tabPreferences.TabIndex = 4
         Me.tabPreferences.Text = "Preferences"
@@ -461,7 +538,7 @@ Partial Class Form1
         '
         Me.txtDfltFilePath.Enabled = False
         Me.txtDfltFilePath.Location = New System.Drawing.Point(114, 44)
-        Me.txtDfltFilePath.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtDfltFilePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtDfltFilePath.Name = "txtDfltFilePath"
         Me.txtDfltFilePath.Size = New System.Drawing.Size(208, 20)
         Me.txtDfltFilePath.TabIndex = 0
@@ -470,9 +547,9 @@ Partial Class Form1
         '
         Me.tabWatchlist.Controls.Add(Me.SplitContainer1)
         Me.tabWatchlist.Location = New System.Drawing.Point(4, 22)
-        Me.tabWatchlist.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tabWatchlist.Margin = New System.Windows.Forms.Padding(2)
         Me.tabWatchlist.Name = "tabWatchlist"
-        Me.tabWatchlist.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tabWatchlist.Padding = New System.Windows.Forms.Padding(2)
         Me.tabWatchlist.Size = New System.Drawing.Size(1015, 522)
         Me.tabWatchlist.TabIndex = 5
         Me.tabWatchlist.Text = "Watchlist"
@@ -481,91 +558,29 @@ Partial Class Form1
         'SplitContainer1
         '
         Me.SplitContainer1.Location = New System.Drawing.Point(4, 5)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Size = New System.Drawing.Size(764, 515)
         Me.SplitContainer1.SplitterDistance = 253
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 1
         '
-        'DataGridView1
-        '
-        Me.DataGridView1.AutoGenerateColumns = False
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DailystockidDataGridViewTextBoxColumn, Me.StockidDataGridViewTextBoxColumn, Me.SecuritycodeDataGridViewTextBoxColumn, Me.SecuritydateDataGridViewTextBoxColumn, Me.OpeningpriceDataGridViewTextBoxColumn, Me.HighsalepriceDataGridViewTextBoxColumn, Me.LowsalepriceDataGridViewTextBoxColumn, Me.ClosingpriceDataGridViewTextBoxColumn, Me.TotalvolumeDataGridViewTextBoxColumn})
-        Me.DataGridView1.DataSource = Me.DailyStockPricesBindingSource
-        Me.DataGridView1.Location = New System.Drawing.Point(7, 7)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1002, 444)
-        Me.DataGridView1.TabIndex = 3
-        '
-        'ASXShareMarketAnalysisToolDataSet2
-        '
-        Me.ASXShareMarketAnalysisToolDataSet2.DataSetName = "ASXShareMarketAnalysisToolDataSet2"
-        Me.ASXShareMarketAnalysisToolDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'DailyStockPricesBindingSource
-        '
-        Me.DailyStockPricesBindingSource.DataMember = "Daily_Stock_Prices"
-        Me.DailyStockPricesBindingSource.DataSource = Me.ASXShareMarketAnalysisToolDataSet2
-        '
         'Daily_Stock_PricesTableAdapter
         '
         Me.Daily_Stock_PricesTableAdapter.ClearBeforeFill = True
         '
-        'DailystockidDataGridViewTextBoxColumn
+        'lblPleaseWait
         '
-        Me.DailystockidDataGridViewTextBoxColumn.DataPropertyName = "daily_stock_id"
-        Me.DailystockidDataGridViewTextBoxColumn.HeaderText = "daily_stock_id"
-        Me.DailystockidDataGridViewTextBoxColumn.Name = "DailystockidDataGridViewTextBoxColumn"
-        '
-        'StockidDataGridViewTextBoxColumn
-        '
-        Me.StockidDataGridViewTextBoxColumn.DataPropertyName = "stock_id"
-        Me.StockidDataGridViewTextBoxColumn.HeaderText = "stock_id"
-        Me.StockidDataGridViewTextBoxColumn.Name = "StockidDataGridViewTextBoxColumn"
-        '
-        'SecuritycodeDataGridViewTextBoxColumn
-        '
-        Me.SecuritycodeDataGridViewTextBoxColumn.DataPropertyName = "security_code"
-        Me.SecuritycodeDataGridViewTextBoxColumn.HeaderText = "security_code"
-        Me.SecuritycodeDataGridViewTextBoxColumn.Name = "SecuritycodeDataGridViewTextBoxColumn"
-        '
-        'SecuritydateDataGridViewTextBoxColumn
-        '
-        Me.SecuritydateDataGridViewTextBoxColumn.DataPropertyName = "security_date"
-        Me.SecuritydateDataGridViewTextBoxColumn.HeaderText = "security_date"
-        Me.SecuritydateDataGridViewTextBoxColumn.Name = "SecuritydateDataGridViewTextBoxColumn"
-        '
-        'OpeningpriceDataGridViewTextBoxColumn
-        '
-        Me.OpeningpriceDataGridViewTextBoxColumn.DataPropertyName = "opening_price"
-        Me.OpeningpriceDataGridViewTextBoxColumn.HeaderText = "opening_price"
-        Me.OpeningpriceDataGridViewTextBoxColumn.Name = "OpeningpriceDataGridViewTextBoxColumn"
-        '
-        'HighsalepriceDataGridViewTextBoxColumn
-        '
-        Me.HighsalepriceDataGridViewTextBoxColumn.DataPropertyName = "high_sale_price"
-        Me.HighsalepriceDataGridViewTextBoxColumn.HeaderText = "high_sale_price"
-        Me.HighsalepriceDataGridViewTextBoxColumn.Name = "HighsalepriceDataGridViewTextBoxColumn"
-        '
-        'LowsalepriceDataGridViewTextBoxColumn
-        '
-        Me.LowsalepriceDataGridViewTextBoxColumn.DataPropertyName = "low_sale_price"
-        Me.LowsalepriceDataGridViewTextBoxColumn.HeaderText = "low_sale_price"
-        Me.LowsalepriceDataGridViewTextBoxColumn.Name = "LowsalepriceDataGridViewTextBoxColumn"
-        '
-        'ClosingpriceDataGridViewTextBoxColumn
-        '
-        Me.ClosingpriceDataGridViewTextBoxColumn.DataPropertyName = "closing_price"
-        Me.ClosingpriceDataGridViewTextBoxColumn.HeaderText = "closing_price"
-        Me.ClosingpriceDataGridViewTextBoxColumn.Name = "ClosingpriceDataGridViewTextBoxColumn"
-        '
-        'TotalvolumeDataGridViewTextBoxColumn
-        '
-        Me.TotalvolumeDataGridViewTextBoxColumn.DataPropertyName = "total_volume"
-        Me.TotalvolumeDataGridViewTextBoxColumn.HeaderText = "total_volume"
-        Me.TotalvolumeDataGridViewTextBoxColumn.Name = "TotalvolumeDataGridViewTextBoxColumn"
+        Me.lblPleaseWait.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.lblPleaseWait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblPleaseWait.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPleaseWait.Location = New System.Drawing.Point(386, 212)
+        Me.lblPleaseWait.Name = "lblPleaseWait"
+        Me.lblPleaseWait.Size = New System.Drawing.Size(263, 95)
+        Me.lblPleaseWait.TabIndex = 11
+        Me.lblPleaseWait.Text = "Loading, please wait...."
+        Me.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblPleaseWait.Visible = False
         '
         'Form1
         '
@@ -577,6 +592,9 @@ Partial Class Form1
         Me.Text = "ASX Share Market Analysis Tool"
         Me.tbcMain.ResumeLayout(False)
         Me.tabFront.ResumeLayout(False)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ASXShareMarketAnalysisToolDataSet2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
         CType(Me.dgdAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
@@ -591,9 +609,6 @@ Partial Class Form1
         Me.tabWatchlist.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ASXShareMarketAnalysisToolDataSet2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -657,4 +672,5 @@ Partial Class Form1
     Friend WithEvents LowsalepriceDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ClosingpriceDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TotalvolumeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents lblPleaseWait As System.Windows.Forms.Label
 End Class
