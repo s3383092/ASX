@@ -69,6 +69,7 @@ Partial Class Form1
         Me.colHistLow = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colHistVolume = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabImport = New System.Windows.Forms.TabPage()
+        Me.lblPleaseWait = New System.Windows.Forms.Label()
         Me.lblFile = New System.Windows.Forms.Label()
         Me.dspStatus = New System.Windows.Forms.TextBox()
         Me.lblStatus = New System.Windows.Forms.Label()
@@ -82,7 +83,6 @@ Partial Class Form1
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Daily_Stock_PricesTableAdapter = New ASX_Share_Analysis_Tool.ASXShareMarketAnalysisToolDataSet2TableAdapters.Daily_Stock_PricesTableAdapter()
-        Me.lblPleaseWait = New System.Windows.Forms.Label()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -449,6 +449,19 @@ Partial Class Form1
         Me.tabImport.Text = "Import"
         Me.tabImport.UseVisualStyleBackColor = True
         '
+        'lblPleaseWait
+        '
+        Me.lblPleaseWait.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.lblPleaseWait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblPleaseWait.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPleaseWait.Location = New System.Drawing.Point(386, 197)
+        Me.lblPleaseWait.Name = "lblPleaseWait"
+        Me.lblPleaseWait.Size = New System.Drawing.Size(263, 95)
+        Me.lblPleaseWait.TabIndex = 11
+        Me.lblPleaseWait.Text = "Loading, please wait...."
+        Me.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblPleaseWait.Visible = False
+        '
         'lblFile
         '
         Me.lblFile.AutoSize = True
@@ -568,19 +581,6 @@ Partial Class Form1
         'Daily_Stock_PricesTableAdapter
         '
         Me.Daily_Stock_PricesTableAdapter.ClearBeforeFill = True
-        '
-        'lblPleaseWait
-        '
-        Me.lblPleaseWait.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.lblPleaseWait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblPleaseWait.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPleaseWait.Location = New System.Drawing.Point(386, 212)
-        Me.lblPleaseWait.Name = "lblPleaseWait"
-        Me.lblPleaseWait.Size = New System.Drawing.Size(263, 95)
-        Me.lblPleaseWait.TabIndex = 11
-        Me.lblPleaseWait.Text = "Loading, please wait...."
-        Me.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblPleaseWait.Visible = False
         '
         'Form1
         '

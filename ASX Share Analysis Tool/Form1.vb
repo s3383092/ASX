@@ -78,10 +78,12 @@ Public Class Form1
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
         lblPleaseWait.Show()
         Cursor.Current = Cursors.WaitCursor
+        'Show loading cursor and please wait
 
         Const CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=ASXShareMarketAnalysisTool.accdb"
         Dim myConnection As OleDbConnection = New OleDbConnection(CON_STRING)
         'instantiates a connection object
+
         Dim sSecurityCode As String
         Dim sSecurityDate As String
         Dim sOpeningPrice As String
@@ -89,6 +91,7 @@ Public Class Form1
         Dim sLowSalePrice As String
         Dim sClosingPrice As String
         Dim sTotalVolume As String
+        'temporary variables declared which pull data from grid 
 
         Dim dtSecurityDate As Date
         Dim dblOpeningPrice As Double
@@ -96,18 +99,23 @@ Public Class Form1
         Dim dblLowSalePrice As Double
         Dim dblClosingPrice As Double
         Dim iTotalVolume As Integer
+        'Once variables loaded with grid data convert to relative format and stored in variables above
 
+        Dim sqlQuery As String
+        Dim iCounter As Integer
+        Dim iCountRows As Integer
+        'Variables required for loop and SQL injection query
 
         Try
-            'Try/catch/finally is code  structure which facilitates the hnadling of execeptions that may occur in the program
             Debug.Print("Connection String: " & myConnection.ConnectionString)
+            'Try/catch/finally is code  structure which facilitates the hnadling of execeptions that may occur in the program
 
             myConnection.Open()
+            'open connection to access
 
-            Dim iCounter As Integer
-            Dim iCountRows As Integer
             iCountRows = dgvImport.Rows.Count - 2
             iCounter = 0
+            'Variables that will count through data grid view untill end of grid
 
             For iCounter = 0 To iCountRows
                 sSecurityCode = dgvImport.Rows(iCounter).Cells(0).Value
@@ -117,6 +125,7 @@ Public Class Form1
                 sLowSalePrice = dgvImport.Rows(iCounter).Cells(4).Value
                 sClosingPrice = dgvImport.Rows(iCounter).Cells(5).Value
                 sTotalVolume = dgvImport.Rows(iCounter).Cells(6).Value
+                'Count through one row and store in temporary variable
 
                 dtSecurityDate = CDate(sSecurityDate)
                 dblOpeningPrice = CDbl(sOpeningPrice)
@@ -124,8 +133,7 @@ Public Class Form1
                 dblLowSalePrice = CDbl(sLowSalePrice)
                 dblClosingPrice = CDbl(sClosingPrice)
                 iTotalVolume = CInt(sTotalVolume)
-
-                Dim sqlQuery As String
+                'Convert temporary data to correct format for Access
 
                 sqlQuery = "INSERT INTO Daily_Stock_Prices (security_code, security_date, opening_price, high_sale_price, low_sale_price, closing_price, total_volume) VALUES (?, ?, ?, ?, ?, ?, ?)"
                 Using cmd As New OleDbCommand(sqlQuery, myConnection)
@@ -138,12 +146,14 @@ Public Class Form1
                     cmd.Parameters.AddWithValue("?", dblClosingPrice)
                     cmd.Parameters.AddWithValue("?", iTotalVolume)
 
-                    Debug.Print(sqlQuery)
                     cmd.ExecuteNonQuery()
+                    'SQL statement which inserts Access tables(on left) with Variables(on right)
                 End Using
             Next
+            'loop till end of data grid
 
             dspStatus.Text = "Import successful!"
+            'Display import successfull in text box otherwise display errors outlined below
         Catch ex As OleDb.OleDbException
             dspStatus.Text = MsgBoxStyle.Critical & "Oledb Error"
         Catch ex As Exception
@@ -153,6 +163,7 @@ Public Class Form1
         End Try
 
         lblPleaseWait.Hide()
+        'Once import is complete hide "please wait"
     End Sub
 
     Private Sub ClearDGVImport()
