@@ -83,6 +83,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ASXShareMarketAnalysisToolDataSet11.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ASXShareMarketAnalysisToolDataSet11.vb">
+      <DependentUpon>ASXShareMarketAnalysisToolDataSet11.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ASXShareMarketAnalysisToolDataSet2.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
