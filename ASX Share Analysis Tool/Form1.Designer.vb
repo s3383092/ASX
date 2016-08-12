@@ -504,12 +504,12 @@ Partial Class Form1
         Me.dspFileLocation.Location = New System.Drawing.Point(46, 8)
         Me.dspFileLocation.Name = "dspFileLocation"
         Me.dspFileLocation.ReadOnly = True
-        Me.dspFileLocation.Size = New System.Drawing.Size(267, 20)
+        Me.dspFileLocation.Size = New System.Drawing.Size(882, 20)
         Me.dspFileLocation.TabIndex = 5
         '
         'btnImportFile
         '
-        Me.btnImportFile.Location = New System.Drawing.Point(319, 8)
+        Me.btnImportFile.Location = New System.Drawing.Point(934, 6)
         Me.btnImportFile.Name = "btnImportFile"
         Me.btnImportFile.Size = New System.Drawing.Size(75, 23)
         Me.btnImportFile.TabIndex = 4
