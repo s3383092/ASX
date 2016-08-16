@@ -91,9 +91,12 @@ Public Class Form1
             lblPleaseWait.Show()
             Cursor.Current = Cursors.WaitCursor
 
-            'instantiates a connection object
-            Const CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=ASXShareMarketAnalysisTool.accdb"
+            Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
+            Dim path As String = Environment.CurrentDirectory
+            Dim newpath As String = path.TrimEnd(MyChar)
+            Dim CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
             Dim myConnection As OleDbConnection = New OleDbConnection(CON_STRING)
+            'instantiates a connection object
 
             'temporary variables declared which pull data from grid 
             Dim sSecurityCode As String
@@ -188,7 +191,7 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: This line of code loads data into the 'ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices' table. You can move, or remove it, as needed.
-        ' Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
+        Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
 
     End Sub
 
