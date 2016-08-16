@@ -7,80 +7,98 @@ Public Class Form1
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
         Dim OpenFileDialog1 As New OpenFileDialog()
         Dim FileType As String
+        Dim dtImport As New DataTable
+        Dim FileCounter As Integer = 0
         'Opens the Open File explorer dialog
         OpenFileDialog1.Title = "Please Select a File"
         'OpenFileDialog1.InitialDirectory = "C:\Users\Downloads" 'Default file location
-        OpenFileDialog1.Multiselect = False 'Disable Multiselect
+        OpenFileDialog1.Multiselect = True 'Disable Multiselect
 
         'Handles opening the file
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Dim TextFileReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(OpenFileDialog1.FileName)
-            Dim CurrentRow As String()
+            Dim file As String
+            For Each file In OpenFileDialog1.FileNames
+                Try
+                    '  Dim TextFileReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(OpenFileDialog1.FileName)
+                    Dim TextFileReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(file)
+                    Dim CurrentRow As String()
+                    Debug.Print(file)
+                    TextFileReader.TextFieldType = FileIO.FieldType.Delimited
+                    TextFileReader.SetDelimiters(",")
+                    FileType = Path.GetExtension(OpenFileDialog1.FileName)
 
-            TextFileReader.TextFieldType = FileIO.FieldType.Delimited
-            TextFileReader.SetDelimiters(",")
-            FileType = Path.GetExtension(OpenFileDialog1.FileName)
+                    dspFileLocation.Text = OpenFileDialog1.FileName
 
-            dspFileLocation.Text = OpenFileDialog1.FileName
+                    Dim sInsightTrader As String = "InsightTrader"
+                    Dim TestPos As Integer = 0
 
-            Dim sInsightTrader As String = "InsightTrader"
-            Dim TestPos As Integer = 0
+                    TestPos = InStr(1, OpenFileDialog1.FileName, sInsightTrader, CompareMethod.Text) 'Checks if the user has chosen an Insight Trader file type
 
-            TestPos = InStr(1, OpenFileDialog1.FileName, sInsightTrader, CompareMethod.Text) 'Checks if the user has chosen an Insight Trader file type
+                    ' Changes a delimiter type to a space, because InsightTrader is a stupid file type
+                    If TestPos <> 0 Then
+                        TextFileReader.SetDelimiters(" ")
+                    End If
 
-            ' Changes a delimiter type to a space, because InsightTrader is a stupid file type
-            If TestPos <> 0 Then
-                TextFileReader.SetDelimiters(" ")
-            End If
+                    'Call ClearDGVImport()
 
-            Call ClearDGVImport()
+                    If FileType = ".txt" Then
+                        'Handles importing a .txt file
+                        'Adding the column names
+                        dgvImport.Columns.Add("ID", "Security Code")
+                        dgvImport.Columns.Add("Date", "Date")
+                        dgvImport.Columns.Add("Open", "Opening Price")
+                        dgvImport.Columns.Add("High", "High Sale price")
+                        dgvImport.Columns.Add("Low", "Low Sale Price")
+                        dgvImport.Columns.Add("Close", "Closing Price")
+                        dgvImport.Columns.Add("Volume", "Total Volume Traded")
 
-            If FileType = ".txt" Then
-                'Handles importing a .txt file
-                'Adding the column names
-                dgvImport.Columns.Add("ID", "Security Code")
-                dgvImport.Columns.Add("Date", "Date")
-                dgvImport.Columns.Add("Open", "Opening Price")
-                dgvImport.Columns.Add("High", "High Sale price")
-                dgvImport.Columns.Add("Low", "Low Sale Price")
-                dgvImport.Columns.Add("Close", "Closing Price")
-                dgvImport.Columns.Add("Volume", "Total Volume Traded")
+                        'Loops through the data and imports it into a table
+                        While Not TextFileReader.EndOfData
+                            Try
+                                CurrentRow = TextFileReader.ReadFields() 'Declares the Row to be added
+                                dgvImport.Rows.Add(CurrentRow) 'Adds the data in
+                            Catch ex As _
+                        Microsoft.VisualBasic.FileIO.MalformedLineException
+                                MsgBox("Line " & ex.Message &
+                            "Is Not valid And will be skipped.")
+                            End Try
+                        End While
+                        TextFileReader.Dispose() 'Removes TextFileReader for next time
 
-                'Loops through the data and imports it into a table
-                While Not TextFileReader.EndOfData
-                    Try
-                        CurrentRow = TextFileReader.ReadFields() 'Declares the Row to be added
-                        dgvImport.Rows.Add(CurrentRow) 'Adds the data in
-                    Catch ex As _
-                Microsoft.VisualBasic.FileIO.MalformedLineException
-                        MsgBox("Line " & ex.Message &
-                    "Is Not valid And will be skipped.")
-                    End Try
-                End While
-                TextFileReader.Dispose() 'Removes TextFileReader for next time
+                    ElseIf FileType = ".csv" Then
+                        'handles importing a .csv file
+                        Dim sr As New IO.StreamReader(file)
+                        '  Dim dtImport As New DataTable
 
-            ElseIf FileType = ".csv" Then
-                'handles importing a .csv file
-                Dim sr As New IO.StreamReader(OpenFileDialog1.FileName)
-                Dim dtImport As New DataTable
-                Dim newline() As String = sr.ReadLine.Split(","c)
-                dtImport.Columns.AddRange({New DataColumn(newline(0)),
-                     New DataColumn(newline(1)),
-                     New DataColumn(newline(2)),
-                     New DataColumn(newline(3)),
-                     New DataColumn(newline(4)),
-                     New DataColumn(newline(5)),
-                     New DataColumn(newline(6))})
-                While (Not sr.EndOfStream)
-                    newline = sr.ReadLine.Split(","c)
-                    Dim newrow As DataRow = dtImport.NewRow
-                    newrow.ItemArray = {newline(0), newline(1), newline(2), newline(3), newline(4), newline(5), newline(6)}
-                    dtImport.Rows.Add(newrow)
-                End While
-                dgvImport.DataSource = dtImport
-            Else
-                MsgBox("Please select a .txt or .csv type file")
-            End If
+                        Dim newline() As String = sr.ReadLine.Split(","c)
+
+                        If FileCounter = 0 Then
+                            dtImport.Columns.AddRange({New DataColumn(newline(0)),
+                             New DataColumn(newline(1)),
+                             New DataColumn(newline(2)),
+                             New DataColumn(newline(3)),
+                             New DataColumn(newline(4)),
+                             New DataColumn(newline(5)),
+                             New DataColumn(newline(6))})
+                        End If
+
+                        While (Not sr.EndOfStream)
+                            newline = sr.ReadLine.Split(","c)
+                            Dim newrow As DataRow = dtImport.NewRow
+                            newrow.ItemArray = {newline(0), newline(1), newline(2), newline(3), newline(4), newline(5), newline(6)}
+                            dtImport.Rows.Add(newrow)
+                        End While
+
+                        dgvImport.DataSource = dtImport
+
+                    Else
+                        MsgBox("Please select a .txt or .csv type file")
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show("Looks like an error occured!" & ex.Message)
+                End Try
+                FileCounter = fileCounter + 1
+            Next file
         End If
 
     End Sub
@@ -164,9 +182,10 @@ Public Class Form1
                     End Using
                 Next
                 'loop till end of data grid
-
                 dspStatus.Text = "Import successful!"
                 'Display import successfull in text box otherwise display errors outlined below
+                ' dgvImport.Rows.Clear()
+
             Catch ex As OleDb.OleDbException
                 dspStatus.Text = MsgBoxStyle.Critical & "Oledb Error"
             Catch ex As Exception
@@ -177,10 +196,11 @@ Public Class Form1
 
             lblPleaseWait.Hide()
             'Once import is complete hide "please wait"
-
+            dgvImport.Rows.Clear()
         Else
             MsgBox("Importing has been aborted",, "Abort")
         End If
+
 
     End Sub
 
@@ -192,7 +212,6 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: This line of code loads data into the 'ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices' table. You can move, or remove it, as needed.
         Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
-
     End Sub
 
 End Class
