@@ -2,6 +2,8 @@
 Imports System.IO
 Imports System.Data.OleDb
 Imports System.Text
+Imports System.Data
+Imports System.Data.SqlClient
 
 Public Class Form1
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
@@ -196,7 +198,7 @@ Public Class Form1
 
             lblPleaseWait.Hide()
             'Once import is complete hide "please wait"
-            dgvImport.Rows.Clear()
+            'dgvImport.Rows.Clear() 'this is broken
         Else
             MsgBox("Importing has been aborted",, "Abort")
         End If
@@ -212,6 +214,43 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: This line of code loads data into the 'ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices' table. You can move, or remove it, as needed.
         Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
+        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
+        Dim path As String = Environment.CurrentDirectory
+        Dim newpath As String = path.TrimEnd(MyChar)
+        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
+        Dim dtTable As New DataTable()
+        Using con = New OleDbConnection(connectionString)
+            Using da = New OleDbDataAdapter("SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date ASC", con)
+
+                da.Fill(dtTable)
+                dgvAllStocks.DataSource = dtTable
+            End Using
+        End Using
+
+        Dim iRowCnt As Integer = 0
+        Dim iCnt As Integer = 0
+
+        iRowCnt = dgvAllStocks.RowCount() - 1
+        Dim iGreater As double = 0
+        For iCnt = 0 To iRowCnt
+            Dim iNext As Integer = iCnt + 1
+            iRowCnt = iRowCnt
+            Dim value1 As Double = dgvAllStocks.Rows(iCnt).Cells(4).Value
+            If iNext < iRowCnt Then
+                Try
+                    Dim value2 As Double = dgvAllStocks.Rows(iNext).Cells(4).Value
+                Catch exeception As String
+                End Try
+
+                If value2 > value1 Then
+                    dgvAllStocks.Rows.Remove(dgvAllStocks.Rows(iCnt))
+                    iCnt = iCnt - 1
+                End If
+            End If
+
+        Next
+        Debug.Print(iCnt & "rows out of " & iRowCnt & "remaining")
+        dgvAllStocks.Refresh()
     End Sub
 
 End Class

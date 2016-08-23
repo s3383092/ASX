@@ -48,16 +48,7 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabAll = New System.Windows.Forms.TabPage()
-        Me.dgdAllStocks = New System.Windows.Forms.DataGridView()
-        Me.colID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colASXID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colWatch = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.colBid = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colAsk = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colHigh = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colLow = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colVolume = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dgvAllStocks = New System.Windows.Forms.DataGridView()
         Me.tabHistory = New System.Windows.Forms.TabPage()
         Me.cboCompanyName = New System.Windows.Forms.ComboBox()
         Me.lblCompany = New System.Windows.Forms.Label()
@@ -90,7 +81,7 @@ Partial Class Form1
         CType(Me.ASXShareMarketAnalysisToolDataSet2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabAll.SuspendLayout()
-        CType(Me.dgdAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabHistory.SuspendLayout()
         CType(Me.dgdHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabImport.SuspendLayout()
@@ -275,7 +266,7 @@ Partial Class Form1
         '
         'tabAll
         '
-        Me.tabAll.Controls.Add(Me.dgdAllStocks)
+        Me.tabAll.Controls.Add(Me.dgvAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 22)
         Me.tabAll.Name = "tabAll"
         Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
@@ -284,76 +275,13 @@ Partial Class Form1
         Me.tabAll.Text = "All Stocks"
         Me.tabAll.UseVisualStyleBackColor = True
         '
-        'dgdAllStocks
+        'dgvAllStocks
         '
-        Me.dgdAllStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgdAllStocks.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colASXID, Me.colName, Me.colWatch, Me.colBid, Me.colAsk, Me.colHigh, Me.colLow, Me.colVolume})
-        Me.dgdAllStocks.Enabled = False
-        Me.dgdAllStocks.Location = New System.Drawing.Point(6, 6)
-        Me.dgdAllStocks.Name = "dgdAllStocks"
-        Me.dgdAllStocks.ReadOnly = True
-        Me.dgdAllStocks.Size = New System.Drawing.Size(1006, 512)
-        Me.dgdAllStocks.TabIndex = 1
-        '
-        'colID
-        '
-        Me.colID.HeaderText = "ID"
-        Me.colID.Name = "colID"
-        Me.colID.ReadOnly = True
-        Me.colID.Width = 50
-        '
-        'colASXID
-        '
-        Me.colASXID.HeaderText = "ASX ID"
-        Me.colASXID.Name = "colASXID"
-        Me.colASXID.ReadOnly = True
-        Me.colASXID.Width = 50
-        '
-        'colName
-        '
-        Me.colName.HeaderText = "Name"
-        Me.colName.Name = "colName"
-        Me.colName.ReadOnly = True
-        Me.colName.Width = 300
-        '
-        'colWatch
-        '
-        Me.colWatch.HeaderText = "Watchlist"
-        Me.colWatch.Name = "colWatch"
-        Me.colWatch.ReadOnly = True
-        Me.colWatch.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colWatch.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colWatch.Width = 60
-        '
-        'colBid
-        '
-        Me.colBid.HeaderText = "Bid"
-        Me.colBid.Name = "colBid"
-        Me.colBid.ReadOnly = True
-        '
-        'colAsk
-        '
-        Me.colAsk.HeaderText = "Ask"
-        Me.colAsk.Name = "colAsk"
-        Me.colAsk.ReadOnly = True
-        '
-        'colHigh
-        '
-        Me.colHigh.HeaderText = "High"
-        Me.colHigh.Name = "colHigh"
-        Me.colHigh.ReadOnly = True
-        '
-        'colLow
-        '
-        Me.colLow.HeaderText = "Low"
-        Me.colLow.Name = "colLow"
-        Me.colLow.ReadOnly = True
-        '
-        'colVolume
-        '
-        Me.colVolume.HeaderText = "Volume"
-        Me.colVolume.Name = "colVolume"
-        Me.colVolume.ReadOnly = True
+        Me.dgvAllStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAllStocks.Location = New System.Drawing.Point(6, 6)
+        Me.dgvAllStocks.Name = "dgvAllStocks"
+        Me.dgvAllStocks.Size = New System.Drawing.Size(1006, 512)
+        Me.dgvAllStocks.TabIndex = 1
         '
         'tabHistory
         '
@@ -597,7 +525,7 @@ Partial Class Form1
         CType(Me.ASXShareMarketAnalysisToolDataSet2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
-        CType(Me.dgdAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
         CType(Me.dgdHistory, System.ComponentModel.ISupportInitialize).EndInit()
@@ -616,16 +544,7 @@ Partial Class Form1
     Friend WithEvents tbcMain As TabControl
     Friend WithEvents tabFront As TabPage
     Friend WithEvents tabAll As TabPage
-    Friend WithEvents dgdAllStocks As DataGridView
-    Friend WithEvents colID As DataGridViewTextBoxColumn
-    Friend WithEvents colASXID As DataGridViewTextBoxColumn
-    Friend WithEvents colName As DataGridViewTextBoxColumn
-    Friend WithEvents colWatch As DataGridViewCheckBoxColumn
-    Friend WithEvents colBid As DataGridViewTextBoxColumn
-    Friend WithEvents colAsk As DataGridViewTextBoxColumn
-    Friend WithEvents colHigh As DataGridViewTextBoxColumn
-    Friend WithEvents colLow As DataGridViewTextBoxColumn
-    Friend WithEvents colVolume As DataGridViewTextBoxColumn
+    Friend WithEvents dgvAllStocks As DataGridView
     Friend WithEvents tabHistory As TabPage
     Friend WithEvents tabImport As TabPage
     Friend WithEvents tabPreferences As TabPage
