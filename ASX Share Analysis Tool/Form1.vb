@@ -6,6 +6,9 @@ Imports System.Data
 Imports System.Data.SqlClient
 
 Public Class Form1
+
+    Public sTargetDate As String = "15/07/2016"
+
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
         Dim OpenFileDialog1 As New OpenFileDialog()
         Dim FileType As String
@@ -99,7 +102,7 @@ Public Class Form1
                 Catch ex As Exception
                     MessageBox.Show("Looks like an error occured!" & ex.Message)
                 End Try
-                FileCounter = fileCounter + 1
+                FileCounter = FileCounter + 1
             Next file
         End If
 
@@ -214,45 +217,66 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: This line of code loads data into the 'ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices' table. You can move, or remove it, as needed.
         Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
+        'Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
+        'Dim path As String = Environment.CurrentDirectory
+        'Dim newpath As String = path.TrimEnd(MyChar)
+        'Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
+        'Dim dtTable As New DataTable()
+        'Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices " & "Where security_date > #" & sTargetDate & "# order by security_code ASC, security_date ASC"
+        'Using con = New OleDbConnection(connectionstring)
+
+        '    Using da = New OleDbDataAdapter(sQuery, con)
+
+        '        da.Fill(dtTable)
+        '        dgvAllStocks.DataSource = dtTable
+        '    End Using
+        'End Using
+
+        'MsgBox(squery)
+
+    End Sub
+
+    Private Sub LoopData()
+        Dim iRowCnt As Integer = 0
+        Dim iCnt As Integer = 0
+        Dim sResult As String = ""
+        iRowCnt = dgvAllStocks.RowCount() - 1
+        Dim iGreater As Double = 0
+        For iCnt = 0 To iRowCnt
+            Dim iNext As Integer = iCnt + 1
+            Dim value1 As Double = dgvAllStocks.Rows(iCnt).Cells(4).Value
+            If iNext < iRowCnt Then
+                Dim value2 As Double = dgvAllStocks.Rows(iNext).Cells(4).Value
+                If value2 > value1 Then
+                    'Debug.Print(iCnt & "rows out of " & iRowCnt & "remaining")
+                    sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & value1
+                End If
+            End If
+        Next
+        MsgBox(iRowCnt)
+        Debug.Print(sResult)
+        dgvAllStocks.Refresh()
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'LoopData()
         Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
         Dim path As String = Environment.CurrentDirectory
         Dim newpath As String = path.TrimEnd(MyChar)
         Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
         Dim dtTable As New DataTable()
-        Using con = New OleDbConnection(connectionString)
-            Using da = New OleDbDataAdapter("SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date ASC", con)
-
+        Dim sQuery As String = "SELECT [avg compare today].security_code" &
+                                " FROM [avg compare today] LEFT JOIN Combined ON [avg compare today].[security_code] = Combined.[Security_Code]" &
+                                " WHERE (((Combined.Security_Code) Is Null));"
+        Using con = New OleDbConnection(connectionstring)
+            Using da = New OleDbDataAdapter(sQuery, con)
                 da.Fill(dtTable)
-                dgvAllStocks.DataSource = dtTable
+                'dgvAllStocks.DataSource = dtTable
             End Using
         End Using
 
-        Dim iRowCnt As Integer = 0
-        Dim iCnt As Integer = 0
-
-        iRowCnt = dgvAllStocks.RowCount() - 1
-        Dim iGreater As double = 0
-        For iCnt = 0 To iRowCnt
-            Dim iNext As Integer = iCnt + 1
-            iRowCnt = iRowCnt
-            Dim value1 As Double = dgvAllStocks.Rows(iCnt).Cells(4).Value
-            If iNext < iRowCnt Then
-                Try
-                    Dim value2 As Double = dgvAllStocks.Rows(iNext).Cells(4).Value
-                Catch exeception As String
-                End Try
-
-                If value2 > value1 Then
-                    dgvAllStocks.Rows.Remove(dgvAllStocks.Rows(iCnt))
-                    iCnt = iCnt - 1
-                End If
-            End If
-
-        Next
-        Debug.Print(iCnt & "rows out of " & iRowCnt & "remaining")
-        dgvAllStocks.Refresh()
+        Debug.Print(sQuery)
     End Sub
-
 End Class
 
 
