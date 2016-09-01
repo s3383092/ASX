@@ -217,65 +217,91 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: This line of code loads data into the 'ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices' table. You can move, or remove it, as needed.
         Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
-        'Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
-        'Dim path As String = Environment.CurrentDirectory
-        'Dim newpath As String = path.TrimEnd(MyChar)
-        'Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
-        'Dim dtTable As New DataTable()
-        'Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices " & "Where security_date > #" & sTargetDate & "# order by security_code ASC, security_date ASC"
-        'Using con = New OleDbConnection(connectionstring)
-
-        '    Using da = New OleDbDataAdapter(sQuery, con)
-
-        '        da.Fill(dtTable)
-        '        dgvAllStocks.DataSource = dtTable
-        '    End Using
-        'End Using
-
-        'MsgBox(squery)
-
+        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
+        Dim path As String = Environment.CurrentDirectory
+        Dim newpath As String = path.TrimEnd(MyChar)
+        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
+        Dim dtTable As New DataTable()
+        '        Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices " & "Where security_date > #" & sTargetDate & "# order by security_code ASC, security_date ASC"
+        Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date DESC"
+        Using con = New OleDbConnection(connectionstring)
+            Using da = New OleDbDataAdapter(sQuery, con)
+                da.Fill(dtTable)
+                dgvAllStocks.DataSource = dtTable
+            End Using
+        End Using
     End Sub
 
     Private Sub LoopData()
         Dim iRowCnt As Integer = 0
         Dim iCnt As Integer = 0
         Dim sResult As String = ""
-        iRowCnt = dgvAllStocks.RowCount() - 1
-        Dim iGreater As Double = 0
+        iRowCnt = dgvAllStocks.RowCount()
+        Dim bNewCode As Boolean = 1
+
+        'Calculate the 30 record average
         For iCnt = 0 To iRowCnt
             Dim iNext As Integer = iCnt + 1
-            Dim value1 As Double = dgvAllStocks.Rows(iCnt).Cells(4).Value
+            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value
+            Dim dblTotal As Double = 0
+            Dim dblAverage As Double = 0
+            Dim iAverageCount As Integer = 0
+            'Dim iFirstRecord As Integer = 0
+            Dim iLastRecord As Integer = 0
+
+            'Loops through finding the 30 day average per stock code
             If iNext < iRowCnt Then
-                Dim value2 As Double = dgvAllStocks.Rows(iNext).Cells(4).Value
-                If value2 > value1 Then
-                    'Debug.Print(iCnt & "rows out of " & iRowCnt & "remaining")
-                    sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & value1
+                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value
+
+                'Caters for a change in stock_code
+                If bNewCode Then
+                    'iFirstRecord = iCnt
+                    iLastRecord = iCnt + 30
+                    iAverageCount = 0
+                    dblTotal = 0
+                    bNewCode = 0
+                End If
+
+                'Makes sure the security codes are the same or else it will do the averaging calculations and reset
+                If sSecurityCode2 = sSecurityCode1 Then
+                    If iCnt < iLastRecord Then
+                        dblTotal = dblTotal + dgvAllStocks.Rows(iCnt).Cells(8).Value
+                        iAverageCount = iAverageCount + 1
+                    End If
+                Else
+                    dblAverage = dblTotal / iAverageCount
+                    bNewCode = 1
+                    ' need to save data to a hash table security_code | dblAverage|
+                    ' if iAverageCount = 30 then we need to do something
                 End If
             End If
         Next
-        MsgBox(iRowCnt)
+
+        For iCnt = 0 To iRowCnt
+            Dim iNext As Integer = iCnt + 1
+            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value
+            Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value
+
+            'Make sure that there is a next row in the DGV
+            If iNext < iRowCnt Then
+                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value
+                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value
+
+                'Checks if the records are the same company
+                If sSecurityCode2 = sSecurityCode1 Then
+                    'Checks if the Current Highs is greater than the previous high
+                    If dblHigh1 > dblHigh2 Then
+                        sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & dblHigh1
+                    End If
+                End If
+            End If
+        Next
         Debug.Print(sResult)
         dgvAllStocks.Refresh()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'LoopData()
-        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
-        Dim path As String = Environment.CurrentDirectory
-        Dim newpath As String = path.TrimEnd(MyChar)
-        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
-        Dim dtTable As New DataTable()
-        Dim sQuery As String = "SELECT [avg compare today].security_code" &
-                                " FROM [avg compare today] LEFT JOIN Combined ON [avg compare today].[security_code] = Combined.[Security_Code]" &
-                                " WHERE (((Combined.Security_Code) Is Null));"
-        Using con = New OleDbConnection(connectionstring)
-            Using da = New OleDbDataAdapter(sQuery, con)
-                da.Fill(dtTable)
-                'dgvAllStocks.DataSource = dtTable
-            End Using
-        End Using
-
-        Debug.Print(sQuery)
+        LoopData()
     End Sub
 End Class
 
