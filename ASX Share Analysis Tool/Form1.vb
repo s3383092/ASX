@@ -7,7 +7,7 @@ Imports System.Data.SqlClient
 
 Public Class Form1
 
-    Public sTargetDate As String = "15/07/2016"
+    Public sTargetDate As String = "15/07/2016" 'DEBUGGING PURPOSES ONLY, THIS SHOULD BE REMOVED AND DONE BETTER
 
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
         Dim OpenFileDialog1 As New OpenFileDialog()
@@ -17,7 +17,7 @@ Public Class Form1
         'Opens the Open File explorer dialog
         OpenFileDialog1.Title = "Please Select a File"
         'OpenFileDialog1.InitialDirectory = "C:\Users\Downloads" 'Default file location
-        OpenFileDialog1.Multiselect = True 'Disable Multiselect
+        OpenFileDialog1.Multiselect = True 'Enable multiselect to import multiple file types
 
         'Handles opening the file
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -44,7 +44,7 @@ Public Class Form1
                         TextFileReader.SetDelimiters(" ")
                     End If
 
-                    'Call ClearDGVImport()
+                    'Call ClearDGVImport() ' will be necessary if he chooses the wrong file before, and then chooses one again
 
                     If FileType = ".txt" Then
                         'Handles importing a .txt file
@@ -189,7 +189,6 @@ Public Class Form1
                 'loop till end of data grid
                 dspStatus.Text = "Import successful!"
                 'Display import successfull in text box otherwise display errors outlined below
-                ' dgvImport.Rows.Clear()
 
             Catch ex As OleDb.OleDbException
                 dspStatus.Text = MsgBoxStyle.Critical & "Oledb Error"
@@ -199,78 +198,83 @@ Public Class Form1
                 myConnection.Close()
             End Try
 
-            lblPleaseWait.Hide()
-            'Once import is complete hide "please wait"
-            'dgvImport.Rows.Clear() 'this is broken
+            lblPleaseWait.Hide() ' Once import is complete hide "please wait"
+            'dgvImport.Rows.Clear() 'this is broken, not sure why
         Else
-            MsgBox("Importing has been aborted",, "Abort")
+            MsgBox("Importing has been aborted",, "Abort") ' Shows message box that the import was aborted
         End If
 
-
+        ' Might need to call ClearDGVImport() here
+        ' CleaDGVImport() ' This will clear even if the import was not done (may or may not need to be looked at)
     End Sub
 
     Private Sub ClearDGVImport()
+        ' Clears the Import DataGridView (Not sure if this is being used
         dgvImport.Rows.Clear()
         dgvImport.Columns.Clear()
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: This line of code loads data into the 'ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices' table. You can move, or remove it, as needed.
-        Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)
-        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
-        Dim path As String = Environment.CurrentDirectory
-        Dim newpath As String = path.TrimEnd(MyChar)
-        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
-        Dim dtTable As New DataTable()
-        '        Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices " & "Where security_date > #" & sTargetDate & "# order by security_code ASC, security_date ASC"
-        Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date DESC"
-        Using con = New OleDbConnection(connectionstring)
-            Using da = New OleDbDataAdapter(sQuery, con)
-                da.Fill(dtTable)
-                dgvAllStocks.DataSource = dtTable
+        Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)                                   ' Might remove datasets soon
+        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
+        Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
+        Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
+        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
+        Dim dtTable As New DataTable()                                                                                                     ' Declares a new datatable
+        Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date DESC"                           ' Builds the Query for the database
+
+        Using con = New OleDbConnection(connectionstring) ' Opens the connection to the database
+            Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query
+                da.Fill(dtTable)                          ' Fills the data into a datatable
+                dgvAllStocks.DataSource = dtTable         ' Binds the datatable to the DGV
+                'Might be worth binding to ALL DGVs to remove datasets
             End Using
         End Using
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'this is a test button that calls the complex algorithms required to display data
+        LoopData()
+    End Sub
+
     Private Sub LoopData()
-        Dim iRowCnt As Integer = 0
-        Dim iCnt As Integer = 0
-        Dim sResult As String = ""
-        iRowCnt = dgvAllStocks.RowCount()
-        Dim bNewCode As Boolean = 1
+        Dim iRowCnt As Integer = 0        ' Total Row counter
+        Dim iCnt As Integer = 0           ' Loop counter
+        Dim sResult As String = ""        ' Results being outputted (testing purposes only)
+        iRowCnt = dgvAllStocks.RowCount() ' Setting the Total row counter to the amount of rows in the DGV
+        Dim bNewCode As Boolean = 1       ' New code flag, needed to reset the 30 record average
 
         'Calculate the 30 record average
         For iCnt = 0 To iRowCnt
-            Dim iNext As Integer = iCnt + 1
-            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value
-            Dim dblTotal As Double = 0
-            Dim dblAverage As Double = 0
-            Dim iAverageCount As Integer = 0
-            'Dim iFirstRecord As Integer = 0
-            Dim iLastRecord As Integer = 0
+            Dim iPrev As Integer = iCnt - 1                                       ' Grabs the next row data to compare, needed to check if security codes match
+            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Grabs the current security code
+            Dim dblTotalVolume As Double = 0                                      ' Total Volume (accrued in the loop)
+            Dim dblAverage As Double = 0                                          ' Average (totalVolume/ 30records or equivalent)
+            Dim iAverageCount As Integer = 0                                      ' The count of records (would be 30, unless there isn't 30 records)
+            Dim iLastRecord As Integer = 0                                        ' The current row count + 30 (max records to be read)
 
             'Loops through finding the 30 day average per stock code
-            If iNext < iRowCnt Then
-                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value
+            If iPrev < iRowCnt Then
+                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iPrev).Cells(2).Value ' Previous security code, to check that it is the same as the current security code
 
                 'Caters for a change in stock_code
                 If bNewCode Then
-                    'iFirstRecord = iCnt
-                    iLastRecord = iCnt + 30
-                    iAverageCount = 0
-                    dblTotal = 0
-                    bNewCode = 0
+                    iLastRecord = iCnt + 30 ' 30 records from the time the new code is discovered
+                    iAverageCount = 0       ' Resetting the Average count
+                    dblTotalVolume = 0      ' Resetting the Total Volume accrued / need to add previous Volume traded here, then figure out a way to deal with the very first security code
+                    bNewCode = 0            ' Setting the new code to False
                 End If
 
                 'Makes sure the security codes are the same or else it will do the averaging calculations and reset
-                If sSecurityCode2 = sSecurityCode1 Then
+                If sSecurityCode2 = sSecurityCode1 Then                                          ' Check if the security code matches the previous security code
                     If iCnt < iLastRecord Then
-                        dblTotal = dblTotal + dgvAllStocks.Rows(iCnt).Cells(8).Value
+                        dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value
                         iAverageCount = iAverageCount + 1
                     End If
                 Else
-                    dblAverage = dblTotal / iAverageCount
-                    bNewCode = 1
+                    dblAverage = dblTotalVolume / iAverageCount ' Does the final calculation
+                    bNewCode = 1                                ' Resets all the important flags
+                    ' Will need to handle what happens when the security code changes (there is no calculation for the first security code (after change)
                     ' need to save data to a hash table security_code | dblAverage|
                     ' if iAverageCount = 30 then we need to do something
                 End If
@@ -278,31 +282,27 @@ Public Class Form1
         Next
 
         For iCnt = 0 To iRowCnt
-            Dim iNext As Integer = iCnt + 1
-            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value
-            Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value
+            Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
+            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Current security code
+            Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value       ' High price of current security code
 
             'Make sure that there is a next row in the DGV
             If iNext < iRowCnt Then
-                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value
-                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value
+                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
 
-                'Checks if the records are the same company
-                If sSecurityCode2 = sSecurityCode1 Then
-                    'Checks if the Current Highs is greater than the previous high
-                    If dblHigh1 > dblHigh2 Then
-                        sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & dblHigh1
+                ' Does the High Price > Previous High calculations here
+                If sSecurityCode2 = sSecurityCode1 Then                                             ' compares the security codes first
+                    If dblHigh1 > dblHigh2 Then                                                     ' compares the High Prices
+                        sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & dblHigh1 ' Outputting for debugging reasons (can be deleted later on)
+                        ' Need to save the Primary key here so we can use it later
                     End If
                 End If
             End If
         Next
-        Debug.Print(sResult)
-        dgvAllStocks.Refresh()
+        Debug.Print(sResult) 'Debugging
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        LoopData()
-    End Sub
 End Class
 
 
