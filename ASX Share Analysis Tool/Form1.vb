@@ -243,22 +243,24 @@ Public Class Form1
         Dim sResult As String = ""        ' Results being outputted (testing purposes only)
         iRowCnt = dgvAllStocks.RowCount() ' Setting the Total row counter to the amount of rows in the DGV
         Dim bNewCode As Boolean = 1       ' New code flag, needed to reset the 30 record average
+        Dim htAverage As New Hashtable
+        Dim dblTotalVolume As Double = 0  ' Total Volume (accrued in the loop)
+        Dim dblAverage As Double = 0      ' Average (totalVolume/ 30records or equivalent)
+        Dim iAverageCount As Integer = 0                                      ' The count of records (would be 30, unless there isn't 30 records)
 
         'Calculate the 30 record average
         For iCnt = 0 To iRowCnt
             Dim iPrev As Integer = iCnt - 1                                       ' Grabs the next row data to compare, needed to check if security codes match
             Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Grabs the current security code
-            Dim dblTotalVolume As Double = 0                                      ' Total Volume (accrued in the loop)
-            Dim dblAverage As Double = 0                                          ' Average (totalVolume/ 30records or equivalent)
-            Dim iAverageCount As Integer = 0                                      ' The count of records (would be 30, unless there isn't 30 records)
+
             Dim iLastRecord As Integer = 0                                        ' The current row count + 30 (max records to be read)
 
             'Loops through finding the 30 day average per stock code
-            If iPrev < iRowCnt Then
+            If iPrev < iRowCnt And iPrev <> -1 Then
                 Dim sSecurityCode2 As String = dgvAllStocks.Rows(iPrev).Cells(2).Value ' Previous security code, to check that it is the same as the current security code
 
                 'Caters for a change in stock_code
-                If bNewCode Then
+                If bNewCode = True Then
                     iLastRecord = iCnt + 30 ' 30 records from the time the new code is discovered
                     iAverageCount = 0       ' Resetting the Average count
                     dblTotalVolume = 0      ' Resetting the Total Volume accrued / need to add previous Volume traded here, then figure out a way to deal with the very first security code
@@ -268,8 +270,8 @@ Public Class Form1
                 'Makes sure the security codes are the same or else it will do the averaging calculations and reset
                 If sSecurityCode2 = sSecurityCode1 Then                                          ' Check if the security code matches the previous security code
                     If iCnt < iLastRecord Then
-                        dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value
-                        iAverageCount = iAverageCount + 1
+                        dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value ' Add the current Volume to the Total Accrued
+                        iAverageCount = iAverageCount + 1                                        ' Increases the Denominator by 1 
                     End If
                 Else
                     dblAverage = dblTotalVolume / iAverageCount ' Does the final calculation
@@ -277,30 +279,44 @@ Public Class Form1
                     ' Will need to handle what happens when the security code changes (there is no calculation for the first security code (after change)
                     ' need to save data to a hash table security_code | dblAverage|
                     ' if iAverageCount = 30 then we need to do something
-                End If
-            End If
-        Next
-
-        For iCnt = 0 To iRowCnt
-            Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
-            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Current security code
-            Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value       ' High price of current security code
-
-            'Make sure that there is a next row in the DGV
-            If iNext < iRowCnt Then
-                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
-                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
-
-                ' Does the High Price > Previous High calculations here
-                If sSecurityCode2 = sSecurityCode1 Then                                             ' compares the security codes first
-                    If dblHigh1 > dblHigh2 Then                                                     ' compares the High Prices
-                        sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & dblHigh1 ' Outputting for debugging reasons (can be deleted later on)
-                        ' Need to save the Primary key here so we can use it later
+                    ' May need to handle iAverageCount = 0 (cant divide by 0)
+                    If Not IsNothing(sSecurityCode1) And Not IsNothing(dblAverage) Then
+                        htAverage.Add(sSecurityCode1, dblAverage)
                     End If
                 End If
-            End If
+                End If
         Next
-        Debug.Print(sResult) 'Debugging
+
+        Dim MyKeys As ICollection
+        Dim key As Object
+
+        MyKeys = htAverage.Keys()
+
+        For Each key In MyKeys
+            Debug.Print(key.ToString)
+        Next
+
+        'For iCnt = 0 To iRowCnt
+        '    Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
+        '    Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Current security code
+        '    Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value       ' High price of current security code
+
+        '    'Make sure that there is a next row in the DGV
+        '    If iNext < iRowCnt Then
+        '        Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+        '        Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+
+        '        ' Does the High Price > Previous High calculations here
+        '        If sSecurityCode2 = sSecurityCode1 Then                                             ' compares the security codes first
+        '            If dblHigh1 > dblHigh2 Then                                                     ' compares the High Prices
+        '                sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & dblHigh1 ' Outputting for debugging reasons (can be deleted later on)
+        '                ' Need to save the Primary key here so we can use it later
+        '            End If
+        '        End If
+        '    End If
+        'Next
+        'Debug.Print(sResult) 'Debugging
+
     End Sub
 
 End Class
