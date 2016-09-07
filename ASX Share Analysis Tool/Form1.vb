@@ -10,9 +10,9 @@ Public Class Form1
     Public sTargetDate As String = "15/07/2016" 'DEBUGGING PURPOSES ONLY, THIS SHOULD BE REMOVED AND DONE BETTER
 
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
-        Dim OpenFileDialog1 As New OpenFileDialog()
-        Dim FileType As String
-        Dim dtImport As New DataTable
+        Dim OpenFileDialog1 As New OpenFileDialog() ' Open Dialog window
+        Dim FileType As String = ""                 ' Take the file time to determine how to handle importing into the DGV
+        Dim dtImport As New DataTable               ' 
         Dim FileCounter As Integer = 0
         'Opens the Open File explorer dialog
         OpenFileDialog1.Title = "Please Select a File"
@@ -20,48 +20,43 @@ Public Class Form1
         OpenFileDialog1.Multiselect = True 'Enable multiselect to import multiple file types
 
         'Handles opening the file
-        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Dim file As String
-            For Each file In OpenFileDialog1.FileNames
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then ' Makes sure the user pressed OK on the Open dialog window
+            Dim file As String = ""                            ' Store the file name from the open dialog
+            For Each file In OpenFileDialog1.FileNames         ' Handle Importing multiple files
                 Try
-                    '  Dim TextFileReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(OpenFileDialog1.FileName)
-                    Dim TextFileReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(file)
-                    Dim CurrentRow As String()
-                    Debug.Print(file)
-                    TextFileReader.TextFieldType = FileIO.FieldType.Delimited
-                    TextFileReader.SetDelimiters(",")
-                    FileType = Path.GetExtension(OpenFileDialog1.FileName)
+                    Dim TextFileReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(file) ' Textfile reader
+                    Dim CurrentRow As String()                                                   ' Current row being read
+                    Debug.Print(file)                                                            ' Prints out the file name ////DEBUGGING PURPOSES
+                    TextFileReader.TextFieldType = FileIO.FieldType.Delimited                    ' IDK Maybe sets a delimiter style or something
+                    TextFileReader.SetDelimiters(",")                                            ' Sets the delimiter to a comma, most of the files use a comma
+                    FileType = Path.GetExtension(OpenFileDialog1.FileName)                       ' Grabs the file type
 
-                    dspFileLocation.Text = OpenFileDialog1.FileName
+                    dspFileLocation.Text = OpenFileDialog1.FileName ' Shows where the file is located
 
-                    Dim sInsightTrader As String = "InsightTrader"
+                    Dim sInsightTrader As String = "InsightTrader" ' Handles InsightTrader format 
                     Dim TestPos As Integer = 0
 
-                    TestPos = InStr(1, OpenFileDialog1.FileName, sInsightTrader, CompareMethod.Text) 'Checks if the user has chosen an Insight Trader file type
+                    TestPos = InStr(1, OpenFileDialog1.FileName, sInsightTrader, CompareMethod.Text) ' Looks for "InsightTrader" in the filename
 
-                    ' Changes a delimiter type to a space, because InsightTrader is a stupid file type
-                    If TestPos <> 0 Then
-                        TextFileReader.SetDelimiters(" ")
+                    If TestPos <> 0 Then                   ' InsightTrader is stupid so We need to determine if the filetype is stupid
+                        TextFileReader.SetDelimiters(" ")  ' Changes the delimiters from commas to spaces
                     End If
 
                     'Call ClearDGVImport() ' will be necessary if he chooses the wrong file before, and then chooses one again
 
-                    If FileType = ".txt" Then
-                        'Handles importing a .txt file
-                        'Adding the column names
-                        dgvImport.Columns.Add("ID", "Security Code")
-                        dgvImport.Columns.Add("Date", "Date")
-                        dgvImport.Columns.Add("Open", "Opening Price")
-                        dgvImport.Columns.Add("High", "High Sale price")
-                        dgvImport.Columns.Add("Low", "Low Sale Price")
-                        dgvImport.Columns.Add("Close", "Closing Price")
-                        dgvImport.Columns.Add("Volume", "Total Volume Traded")
+                    If FileType = ".txt" Then                                  ' Handles importing .txt file types
+                        dgvImport.Columns.Add("ID", "Security Code")           ' Adds ID Column
+                        dgvImport.Columns.Add("Date", "Date")                  ' Adds Date Column
+                        dgvImport.Columns.Add("Open", "Opening Price")         ' Adds Open Column
+                        dgvImport.Columns.Add("High", "High Sale price")       ' Adds High Column
+                        dgvImport.Columns.Add("Low", "Low Sale Price")         ' Adds Low Column
+                        dgvImport.Columns.Add("Close", "Closing Price")        ' Adds Close Column
+                        dgvImport.Columns.Add("Volume", "Total Volume Traded") ' Adds Volume Column
 
-                        'Loops through the data and imports it into a table
-                        While Not TextFileReader.EndOfData
+                        While Not TextFileReader.EndOfData               ' Loops through the data and imports it into a table
                             Try
-                                CurrentRow = TextFileReader.ReadFields() 'Declares the Row to be added
-                                dgvImport.Rows.Add(CurrentRow) 'Adds the data in
+                                CurrentRow = TextFileReader.ReadFields() ' Declares the Row to be added
+                                dgvImport.Rows.Add(CurrentRow)           'Adds the record into the DGV
                             Catch ex As _
                         Microsoft.VisualBasic.FileIO.MalformedLineException
                                 MsgBox("Line " & ex.Message &
@@ -70,11 +65,8 @@ Public Class Form1
                         End While
                         TextFileReader.Dispose() 'Removes TextFileReader for next time
 
-                    ElseIf FileType = ".csv" Then
-                        'handles importing a .csv file
+                    ElseIf FileType = ".csv" Then ' Handles importing .csv filetype
                         Dim sr As New IO.StreamReader(file)
-                        '  Dim dtImport As New DataTable
-
                         Dim newline() As String = sr.ReadLine.Split(","c)
 
                         If FileCounter = 0 Then
@@ -234,93 +226,135 @@ Public Class Form1
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'this is a test button that calls the complex algorithms required to display data
-        LoopData()
+        dspAllStockStatus.Text = "Begin Filtering" ' Not working, occuring too slow?
+        Cursor.Current = Cursors.WaitCursor        ' Changes cursor to a waiting cursor
+        LoopData()                                 ' Does all the calculations
     End Sub
 
     Private Sub LoopData()
         Dim iRowCnt As Integer = 0        ' Total Row counter
         Dim iCnt As Integer = 0           ' Loop counter
-        Dim sResult As String = ""        ' Results being outputted (testing purposes only)
         iRowCnt = dgvAllStocks.RowCount() ' Setting the Total row counter to the amount of rows in the DGV
-        Dim bNewCode As Boolean = 1       ' New code flag, needed to reset the 30 record average
-        Dim htAverage As New Hashtable
+        Dim htAverage As New Hashtable    ' Hashtable to save the Average of each Stock
         Dim dblTotalVolume As Double = 0  ' Total Volume (accrued in the loop)
         Dim dblAverage As Double = 0      ' Average (totalVolume/ 30records or equivalent)
-        Dim iAverageCount As Integer = 0                                      ' The count of records (would be 30, unless there isn't 30 records)
-        Debug.Print(iRowCnt)
+        Dim iAverageCount As Integer = 0  ' The count of records processes
+
+        '*********************************************************************************
         'Calculate the 30 record average
+        '*********************************************************************************
         For iCnt = 0 To iRowCnt - 1                                               ' iRowCnt -1 (needs to be 1 less coz we count from row 0)
             Dim iPrev As Integer = iCnt - 1                                       ' Grabs the next row data to compare, needed to check if security codes match
             Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Grabs the current security code
-            Dim iLastRecord As Integer = 0                                        ' The current row count + 30 (max records to be read)
 
             'Loops through finding the 30 day average per stock code
-            If iPrev < iRowCnt And iPrev <> -1 Then
-                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iPrev).Cells(2).Value ' Previous security code, to check that it is the same as the current security code
+            If iPrev = -1 Then                                                           ' handles the very first stock code
+                dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value ' the first stock code will not have a previous value
+            Else
+                If iPrev < iRowCnt Then                                                    ' Makes sure the previous is less than the row count and greater than -1
+                    Dim sSecurityCode2 As String = dgvAllStocks.Rows(iPrev).Cells(2).Value ' Previous security code, to check that it is the same as the current security code
 
-                'Caters for a change in stock_code
-                If bNewCode = True Then
-                    iLastRecord = iCnt + 30 ' 30 records from the time the new code is discovered
-                    iAverageCount = 0       ' Resetting the Average count
-                    dblTotalVolume = 0      ' Resetting the Total Volume accrued / need to add previous Volume traded here, then figure out a way to deal with the very first security code
-                    bNewCode = 0            ' Setting the new code to False
-                End If
+                    If sSecurityCode2 = sSecurityCode1 Then ' Check if the security code matches the previous security code and its less than 30 records used
+                        If iAverageCount <= 30 Then         ' Stops calculating once the iAverageCount has exceeded 30 records
+                            dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value ' Add the current Volume to the Total Accrued
+                            iAverageCount = iAverageCount + 1                                        ' Increases the Denominator by 1 
+                        End If
+                    Else                                                                                         ' Saves the data and moves on to the next security code
+                        dblAverage = dblTotalVolume / iAverageCount                                              ' Does the final calculation
 
-                'Makes sure the security codes are the same or else it will do the averaging calculations and reset
-                If sSecurityCode2 = sSecurityCode1 Then                                          ' Check if the security code matches the previous security code
-                    If iCnt < iLastRecord Then
-                        dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value ' Add the current Volume to the Total Accrued
-                        iAverageCount = iAverageCount + 1                                        ' Increases the Denominator by 1 
-                    End If
-                Else
-                    dblAverage = dblTotalVolume / iAverageCount ' Does the final calculation
-                    bNewCode = 1                                ' Resets all the important flags
-                    ' Will need to handle what happens when the security code changes (there is no calculation for the first security code (after change)
-                    ' need to save data to a hash table security_code | dblAverage|
-                    ' if iAverageCount = 30 then we need to do something
-                    ' May need to handle iAverageCount = 0 (cant divide by 0)
-                    If Not IsNothing(sSecurityCode1) And Not IsNothing(dblAverage) Then
-                        htAverage.Add(sSecurityCode1, dblAverage)
+                        'Maybe incorporate a TRY CATCH statement here so it doesn't crash
+                        If Not IsNothing(sSecurityCode2) And Not IsNothing(dblAverage) And dblAverage <> 0 Then  ' Makes sure there is a security code and an Average AND Average is not 0
+                            htAverage.Add(sSecurityCode2, dblAverage)                                            ' Adds the data into a hashtable with the security code(2) as the key
+                        End If                                                                                   ' IT MUST BE sSecurityCode2 AS IT IS THE PREVIOUS CODE!!
+
+                        dblTotalVolume = 0                                      ' Resetting the Total Volume accrued
+                        dblTotalVolume = dgvAllStocks.Rows(iCnt).Cells(8).Value ' Starts at the new security code
+                        iAverageCount = 1                                       ' Resetting the Average count to 1 since its a new code
                     End If
                 End If
             End If
         Next
 
+        '//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        'ONLY NEEDED FOR DEBUGGING / LEAVE IT FOR NOW AS A REFERENCE ON HOW TO USE THE HASHTABLE
         Dim MyKeys As ICollection
         Dim key As Object
 
         MyKeys = htAverage.Keys() ' Declares the keys from the hashtable into the collection
 
-        'The following FOR loop is not necessary, just there for debugging purposes
+        'The following For Loop Is Not necessary, just there for debugging purposes
         For Each key In MyKeys                                          ' Loops through each key in the MyKeys collection (hashtable keys)
             Debug.Print(key.ToString & " - " & htAverage(key).ToString) ' Prints out the key name and the respective value (comment this out BUT DO NOT DELETE, NEED IT FOR REFERENCE)
         Next
+        Debug.Print("items in hash = " & htAverage.Count())
+        Debug.Print("start time = " & TimeValue(Now))
+        '//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        ' Will need to show codes that beat the average 30 records Volume Traded here
-
+        '*********************************************************************************
+        ' Loop to find Primary Keys that have a High price greater than Previous High
+        ' ---
+        ' This is slow...
+        '*********************************************************************************
         iCnt = 0 ' Redefines iCnt for the next loop
+        Dim sHighMatchIDs As String = ""        ' Saves all the Primary Keys for the High Price calculation
+        Dim sCloseMatchIDs As String = ""       ' Saves all the Primary Keys for the Close Price calculation
+        Dim sVolumeMatchIDs As String = ""      ' Saves all the Primary Keys for the Volume calculation
 
-        For iCnt = 0 To iRowCnt
+        For iCnt = 0 To iRowCnt - 1                                               ' (iRowCnt - 1) since DGV rows start at count = 0
             Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
             Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Current security code
             Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value       ' High price of current security code
+            Dim dblClose1 As Double = dgvAllStocks.Rows(iCnt).Cells(7).Value      ' Close price of current security code
+            Dim dblVolume As Double = dgvAllStocks.Rows(iCnt).Cells(8).Value      ' Volume of current security code
 
-            'Make sure that there is a next row in the DGV
-            If iNext < iRowCnt Then
+            If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
                 Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
                 Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+                Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
 
-                ' Does the High Price > Previous High calculations here
-                If sSecurityCode2 = sSecurityCode1 Then                                             ' compares the security codes first
-                    If dblHigh1 > dblHigh2 Then                                                     ' compares the High Prices
-                        sResult = sResult & dgvAllStocks.Rows(iCnt).Cells(2).Value & " " & dblHigh1 ' Outputting for debugging reasons (can be deleted later on)
-                        ' Need to save the Primary key here so we can use it later
+                ' High Price > Previous High AND Close Price > Previous Close calculations here
+                If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
+                    If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
+                        If sHighMatchIDs = "" Then                                                       ' Makes sure the first value doesn't have a |
+                            sHighMatchIDs = dgvAllStocks.Rows(iCnt).Cells(0).Value                       ' Save the ID without a |
+                        Else
+                            sHighMatchIDs = sHighMatchIDs & "|" & dgvAllStocks.Rows(iCnt).Cells(0).Value ' Saving Record IDs to be fielded for later use
+                        End If
+                    End If
+
+                    ' Close Price > Previous Close calculations here
+                    If dblClose1 > dblClose2 Then                                                          ' compares the High Prices
+                        If sCloseMatchIDs = "" Then                                                        ' Makes sure the first value doesn't have a |
+                            sCloseMatchIDs = dgvAllStocks.Rows(iCnt).Cells(0).Value                        ' Save the ID without a |
+                        Else
+                            sCloseMatchIDs = sCloseMatchIDs & "|" & dgvAllStocks.Rows(iCnt).Cells(0).Value ' Saving Record IDs to be fielded for later use
+                        End If
+                    End If
+                End If
+
+                'Does Greater than 30 day average here
+
+                If htAverage.ContainsKey(sSecurityCode1) Then                                            ' Needs to check if the key is in the hashtable
+                    If dblVolume > htAverage(sSecurityCode1).ToString Then                               ' Compares The Volume to the calculated average
+                        sVolumeMatchIDs = sVolumeMatchIDs & "|" & dgvAllStocks.Rows(iCnt).Cells(0).Value ' Saving Record IDs to be fielded for later use
                     End If
                 End If
             End If
         Next
-        Debug.Print(sResult) 'Debugging
 
+        '*********************************************************************************
+        ' Need to somehow count the "|" in each sResult and create a loop
+        ' Need to FIELD("|") through the IDs found and compile them to a list or something
+        ' Maybe need to do the over 5/10 days thingo aswell
+        '*********************************************************************************
+
+        '////////////////////////////////////////////////////////////////////////////
+        Debug.Print("high matched = " & sHighMatchIDs)
+        Debug.Print("close matched = " & sCloseMatchIDs)
+        Debug.Print("Volume matched = " & sVolumeMatchIDs)
+        Debug.Print("end time = " & TimeValue(Now))
+        '////////////////////////////////////////////////////////////////////////////
+        dspAllStockStatus.Text = "Filtering Completed!"
     End Sub
 
 End Class

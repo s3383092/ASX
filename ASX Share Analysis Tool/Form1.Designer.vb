@@ -75,6 +75,8 @@ Partial Class Form1
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Daily_Stock_PricesTableAdapter = New ASX_Share_Analysis_Tool.ASXShareMarketAnalysisToolDataSet2TableAdapters.Daily_Stock_PricesTableAdapter()
+        Me.dspAllStockStatus = New System.Windows.Forms.TextBox()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -271,6 +273,8 @@ Partial Class Form1
         '
         'tabAll
         '
+        Me.tabAll.Controls.Add(Me.Button2)
+        Me.tabAll.Controls.Add(Me.dspAllStockStatus)
         Me.tabAll.Controls.Add(Me.Button1)
         Me.tabAll.Controls.Add(Me.dgvAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 25)
@@ -539,6 +543,24 @@ Partial Class Form1
         '
         Me.Daily_Stock_PricesTableAdapter.ClearBeforeFill = True
         '
+        'dspAllStockStatus
+        '
+        Me.dspAllStockStatus.Enabled = False
+        Me.dspAllStockStatus.Location = New System.Drawing.Point(89, 588)
+        Me.dspAllStockStatus.Name = "dspAllStockStatus"
+        Me.dspAllStockStatus.ReadOnly = True
+        Me.dspAllStockStatus.Size = New System.Drawing.Size(467, 22)
+        Me.dspAllStockStatus.TabIndex = 3
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(659, 588)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 4
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -555,6 +577,7 @@ Partial Class Form1
         CType(Me.ASXShareMarketAnalysisToolDataSet2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
+        Me.tabAll.PerformLayout()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
@@ -623,4 +646,6 @@ Partial Class Form1
     Friend WithEvents TotalvolumeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents lblPleaseWait As System.Windows.Forms.Label
     Friend WithEvents Button1 As Button
+    Friend WithEvents dspAllStockStatus As TextBox
+    Friend WithEvents Button2 As Button
 End Class
