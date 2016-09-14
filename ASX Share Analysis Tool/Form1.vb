@@ -239,6 +239,7 @@ Public Class Form1
         Dim dblTotalVolume As Double = 0  ' Total Volume (accrued in the loop)
         Dim dblAverage As Double = 0      ' Average (totalVolume/ 30records or equivalent)
         Dim iAverageCount As Integer = 0  ' The count of records processes
+        Dim dtCriteriaTable As New DataTable()
 
         '*********************************************************************************
         'Calculate the 30 record average
@@ -299,6 +300,17 @@ Public Class Form1
         Dim sHighMatchIDs As String = ""        ' Saves all the Primary Keys for the High Price calculation
         Dim sCloseMatchIDs As String = ""       ' Saves all the Primary Keys for the Close Price calculation
         Dim sVolumeMatchIDs As String = ""      ' Saves all the Primary Keys for the Volume calculation
+        Dim iAdd As Integer = 0
+
+        'dtCriteriaTable.Columns.Add("1")
+        'dtCriteriaTable.Columns.Add("2")
+        'dtCriteriaTable.Columns.Add("3")
+        'dtCriteriaTable.Columns.Add("4")
+        'dtCriteriaTable.Columns.Add("5")
+        'dtCriteriaTable.Columns.Add("6")
+        'dtCriteriaTable.Columns.Add("7")
+        'dtCriteriaTable.Columns.Add("8")
+        'dtCriteriaTable.Columns.Add("9")
 
         For iCnt = 0 To iRowCnt - 1                                               ' (iRowCnt - 1) since DGV rows start at count = 0
             Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
@@ -315,31 +327,13 @@ Public Class Form1
                 ' High Price > Previous High AND Close Price > Previous Close calculations here
                 If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                     If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
-                        If sHighMatchIDs = "" Then                                                       ' Makes sure the first value doesn't have a |
-                            sHighMatchIDs = dgvAllStocks.Rows(iCnt).Cells(0).Value                       ' Save the ID without a |
-                        Else
-                            sHighMatchIDs = sHighMatchIDs & "|" & dgvAllStocks.Rows(iCnt).Cells(0).Value ' Saving Record IDs to be fielded for later use
+                        If dblClose1 > dblClose2 Then                                                          ' compares the High Prices
+                            dtCriteriaTable.Rows.Add(dgvAllStocks.Rows(iCnt))
                         End If
-                    End If
-
-                    ' Close Price > Previous Close calculations here
-                    If dblClose1 > dblClose2 Then                                                          ' compares the High Prices
-                        If sCloseMatchIDs = "" Then                                                        ' Makes sure the first value doesn't have a |
-                            sCloseMatchIDs = dgvAllStocks.Rows(iCnt).Cells(0).Value                        ' Save the ID without a |
-                        Else
-                            sCloseMatchIDs = sCloseMatchIDs & "|" & dgvAllStocks.Rows(iCnt).Cells(0).Value ' Saving Record IDs to be fielded for later use
-                        End If
-                    End If
-                End If
-
-                'Does Greater than 30 day average here
-
-                If htAverage.ContainsKey(sSecurityCode1) Then                                            ' Needs to check if the key is in the hashtable
-                    If dblVolume > htAverage(sSecurityCode1).ToString Then                               ' Compares The Volume to the calculated average
-                        sVolumeMatchIDs = sVolumeMatchIDs & "|" & dgvAllStocks.Rows(iCnt).Cells(0).Value ' Saving Record IDs to be fielded for later use
                     End If
                 End If
             End If
+
         Next
 
         '*********************************************************************************
@@ -348,6 +342,9 @@ Public Class Form1
         ' Maybe need to do the over 5/10 days thingo aswell
         '*********************************************************************************
 
+        dgvHistory.DataSource = dtCriteriaTable
+
+
         '////////////////////////////////////////////////////////////////////////////
         Debug.Print("high matched = " & sHighMatchIDs)
         Debug.Print("close matched = " & sCloseMatchIDs)
@@ -355,6 +352,9 @@ Public Class Form1
         Debug.Print("end time = " & TimeValue(Now))
         '////////////////////////////////////////////////////////////////////////////
         dspAllStockStatus.Text = "Filtering Completed!"
+
+
+
     End Sub
 
 End Class
