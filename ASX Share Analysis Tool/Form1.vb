@@ -97,14 +97,20 @@ Public Class Form1
                 FileCounter = FileCounter + 1
             Next file
         End If
-
+        dspStatus.Text = "Please press import."
     End Sub
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
         Dim Response = MsgBox("Are you sure you want to import this into the database?", vbYesNo, "Please confirm importing")
         If Response = MsgBoxResult.Yes Then
+
             'Show loading cursor and please wait
-            lblPleaseWait.Show()
             Cursor.Current = Cursors.WaitCursor
+            dspStatus.Text = "Please wait while the data is imported."
+
+            prgrssImportScreen.Maximum = 5000
+            prgrssImportScreen.Visible = True
+            prgrssImportScreen.Increment(10)
+
 
             Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
             Dim path As String = Environment.CurrentDirectory
@@ -112,6 +118,7 @@ Public Class Form1
             Dim CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
             Dim myConnection As OleDbConnection = New OleDbConnection(CON_STRING)
             'instantiates a connection object
+
 
             'temporary variables declared which pull data from grid 
             Dim sSecurityCode As String
@@ -147,6 +154,8 @@ Public Class Form1
                 'Variables that will count through data grid view untill end of grid
 
                 For iCounter = 0 To iCountRows
+                    prgrssImportScreen.Increment(1)
+
                     sSecurityCode = dgvImport.Rows(iCounter).Cells(0).Value
                     sSecurityDate = dgvImport.Rows(iCounter).Cells(1).Value
                     sOpeningPrice = dgvImport.Rows(iCounter).Cells(2).Value
@@ -179,21 +188,23 @@ Public Class Form1
                     End Using
                 Next
                 'loop till end of data grid
+
+                prgrssImportScreen.Increment(5000)
+                prgrssImportScreen.Hide()
                 dspStatus.Text = "Import successful!"
                 'Display import successfull in text box otherwise display errors outlined below
 
             Catch ex As OleDb.OleDbException
-                dspStatus.Text = MsgBoxStyle.Critical & "Oledb Error"
+                dspStatus.Text = MsgBoxStyle.Critical & "Database Error"
             Catch ex As Exception
                 dspStatus.Text = MsgBoxStyle.Critical & "General Error"
             Finally
                 myConnection.Close()
             End Try
 
-            lblPleaseWait.Hide() ' Once import is complete hide "please wait"
             'dgvImport.Rows.Clear() 'this is broken, not sure why
         Else
-            MsgBox("Importing has been aborted",, "Abort") ' Shows message box that the import was aborted
+            MsgBox("Importing has been aborted", , "Abort") ' Shows message box that the import was aborted
         End If
 
         ' Might need to call ClearDGVImport() here
@@ -227,8 +238,17 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'this is a test button that calls the complex algorithms required to display data
         dspAllStockStatus.Text = "Begin Filtering" ' Not working, occuring too slow?
+
         Cursor.Current = Cursors.WaitCursor        ' Changes cursor to a waiting cursor
+        prgrssAllStocks.Visible = True
+        prgrssAllStocks.Maximum = 5000
+        prgrssAllStocks.Increment(500)
+
         LoopData()                                 ' Does all the calculations
+
+        '////////////////////////////////////////////////////////////////////////////
+        prgrssAllStocks.Visible = False
+        dspAllStockStatus.Text = "Filtering Completed!"
     End Sub
 
     Private Sub LoopData()
@@ -241,12 +261,16 @@ Public Class Form1
         Dim iAverageCount As Integer = 0  ' The count of records processes
         Dim dtCriteriaTable As New DataTable()
 
+        prgrssAllStocks.Increment(500)
+
         '*********************************************************************************
         'Calculate the 30 record average
         '*********************************************************************************
         For iCnt = 0 To iRowCnt - 1                                               ' iRowCnt -1 (needs to be 1 less coz we count from row 0)
             Dim iPrev As Integer = iCnt - 1                                       ' Grabs the next row data to compare, needed to check if security codes match
             Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Grabs the current security code
+
+
 
             'Loops through finding the 30 day average per stock code
             If iPrev = -1 Then                                                           ' handles the very first stock code
@@ -275,6 +299,7 @@ Public Class Form1
                 End If
             End If
         Next
+        prgrssAllStocks.Increment(1000)
 
         '//////////////////////////////////////////////////////////////////////////////////////////////////////////
         'ONLY NEEDED FOR DEBUGGING / LEAVE IT FOR NOW AS A REFERENCE ON HOW TO USE THE HASHTABLE
@@ -289,6 +314,7 @@ Public Class Form1
         Next
         Debug.Print("items in hash = " & htAverage.Count())
         Debug.Print("start time = " & TimeValue(Now))
+        prgrssAllStocks.Increment(1000)
         '//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         '**********************************************************************************
@@ -335,7 +361,7 @@ Public Class Form1
             End If
 
         Next
-
+        prgrssAllStocks.Increment(1000)
         '*********************************************************************************
         ' Need to somehow count the "|" in each sResult and create a loop
         ' Need to FIELD("|") through the IDs found and compile them to a list or something
@@ -350,10 +376,9 @@ Public Class Form1
         Debug.Print("close matched = " & sCloseMatchIDs)
         Debug.Print("Volume matched = " & sVolumeMatchIDs)
         Debug.Print("end time = " & TimeValue(Now))
-        '////////////////////////////////////////////////////////////////////////////
-        dspAllStockStatus.Text = "Filtering Completed!"
+        
 
-
+        prgrssAllStocks.Increment(1000)
 
     End Sub
 

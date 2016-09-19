@@ -46,7 +46,7 @@ Partial Class Form1
         Me.lblCompany = New System.Windows.Forms.Label()
         Me.dgvHistory = New System.Windows.Forms.DataGridView()
         Me.tabImport = New System.Windows.Forms.TabPage()
-        Me.lblPleaseWait = New System.Windows.Forms.Label()
+        Me.prgrssImportScreen = New System.Windows.Forms.ProgressBar()
         Me.lblFile = New System.Windows.Forms.Label()
         Me.dspStatus = New System.Windows.Forms.TextBox()
         Me.lblStatus = New System.Windows.Forms.Label()
@@ -59,6 +59,8 @@ Partial Class Form1
         Me.txtDfltFilePath = New System.Windows.Forms.TextBox()
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.prgrssAllStocks = New System.Windows.Forms.ProgressBar()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgvFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,22 +86,20 @@ Partial Class Form1
         Me.tbcMain.Controls.Add(Me.tabImport)
         Me.tbcMain.Controls.Add(Me.tabPreferences)
         Me.tbcMain.Controls.Add(Me.tabWatchlist)
-        Me.tbcMain.Location = New System.Drawing.Point(16, 15)
-        Me.tbcMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tbcMain.Location = New System.Drawing.Point(12, 12)
         Me.tbcMain.Name = "tbcMain"
         Me.tbcMain.SelectedIndex = 0
-        Me.tbcMain.Size = New System.Drawing.Size(1364, 674)
+        Me.tbcMain.Size = New System.Drawing.Size(1023, 548)
         Me.tbcMain.TabIndex = 0
         '
         'tabFront
         '
         Me.tabFront.Controls.Add(Me.dgvFrontPage)
         Me.tabFront.Controls.Add(Me.dgdFrontPage)
-        Me.tabFront.Location = New System.Drawing.Point(4, 25)
-        Me.tabFront.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabFront.Location = New System.Drawing.Point(4, 22)
         Me.tabFront.Name = "tabFront"
-        Me.tabFront.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.tabFront.Size = New System.Drawing.Size(1356, 645)
+        Me.tabFront.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabFront.Size = New System.Drawing.Size(1015, 522)
         Me.tabFront.TabIndex = 0
         Me.tabFront.Text = "Front Page"
         Me.tabFront.UseVisualStyleBackColor = True
@@ -109,10 +109,9 @@ Partial Class Form1
         Me.dgvFrontPage.AutoGenerateColumns = False
         Me.dgvFrontPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFrontPage.DataSource = Me.DailyStockPricesBindingSource
-        Me.dgvFrontPage.Location = New System.Drawing.Point(9, 9)
-        Me.dgvFrontPage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvFrontPage.Location = New System.Drawing.Point(7, 7)
         Me.dgvFrontPage.Name = "dgvFrontPage"
-        Me.dgvFrontPage.Size = New System.Drawing.Size(1336, 546)
+        Me.dgvFrontPage.Size = New System.Drawing.Size(1002, 444)
         Me.dgvFrontPage.TabIndex = 3
         '
         'DailyStockPricesBindingSource
@@ -124,11 +123,10 @@ Partial Class Form1
         Me.dgdFrontPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgdFrontPage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewCheckBoxColumn1, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8})
         Me.dgdFrontPage.Enabled = False
-        Me.dgdFrontPage.Location = New System.Drawing.Point(8, 562)
-        Me.dgdFrontPage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgdFrontPage.Location = New System.Drawing.Point(6, 457)
         Me.dgdFrontPage.Name = "dgdFrontPage"
         Me.dgdFrontPage.ReadOnly = True
-        Me.dgdFrontPage.Size = New System.Drawing.Size(1339, 75)
+        Me.dgdFrontPage.Size = New System.Drawing.Size(1004, 61)
         Me.dgdFrontPage.TabIndex = 2
         '
         'DataGridViewTextBoxColumn1
@@ -193,14 +191,15 @@ Partial Class Form1
         '
         'tabAll
         '
+        Me.tabAll.Controls.Add(Me.prgrssAllStocks)
+        Me.tabAll.Controls.Add(Me.Label1)
         Me.tabAll.Controls.Add(Me.dspAllStockStatus)
         Me.tabAll.Controls.Add(Me.Button1)
         Me.tabAll.Controls.Add(Me.dgvAllStocks)
-        Me.tabAll.Location = New System.Drawing.Point(4, 25)
-        Me.tabAll.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabAll.Location = New System.Drawing.Point(4, 22)
         Me.tabAll.Name = "tabAll"
-        Me.tabAll.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.tabAll.Size = New System.Drawing.Size(1356, 645)
+        Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabAll.Size = New System.Drawing.Size(1015, 522)
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
         Me.tabAll.UseVisualStyleBackColor = True
@@ -208,30 +207,31 @@ Partial Class Form1
         'dspAllStockStatus
         '
         Me.dspAllStockStatus.Enabled = False
-        Me.dspAllStockStatus.Location = New System.Drawing.Point(89, 588)
-        Me.dspAllStockStatus.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.dspAllStockStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dspAllStockStatus.Location = New System.Drawing.Point(61, 489)
+        Me.dspAllStockStatus.Margin = New System.Windows.Forms.Padding(2)
         Me.dspAllStockStatus.Name = "dspAllStockStatus"
         Me.dspAllStockStatus.ReadOnly = True
-        Me.dspAllStockStatus.Size = New System.Drawing.Size(467, 22)
+        Me.dspAllStockStatus.Size = New System.Drawing.Size(286, 22)
         Me.dspAllStockStatus.TabIndex = 3
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(8, 588)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(915, 5)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.Size = New System.Drawing.Size(94, 25)
         Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Button1"
+        Me.Button1.Text = "Filter stocks"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'dgvAllStocks
         '
         Me.dgvAllStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvAllStocks.Location = New System.Drawing.Point(8, 7)
-        Me.dgvAllStocks.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvAllStocks.Location = New System.Drawing.Point(8, 37)
         Me.dgvAllStocks.Name = "dgvAllStocks"
-        Me.dgvAllStocks.Size = New System.Drawing.Size(1341, 574)
+        Me.dgvAllStocks.Size = New System.Drawing.Size(1001, 444)
         Me.dgvAllStocks.TabIndex = 1
         '
         'tabHistory
@@ -239,11 +239,10 @@ Partial Class Form1
         Me.tabHistory.Controls.Add(Me.cboCompanyName)
         Me.tabHistory.Controls.Add(Me.lblCompany)
         Me.tabHistory.Controls.Add(Me.dgvHistory)
-        Me.tabHistory.Location = New System.Drawing.Point(4, 25)
-        Me.tabHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabHistory.Location = New System.Drawing.Point(4, 22)
         Me.tabHistory.Name = "tabHistory"
-        Me.tabHistory.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.tabHistory.Size = New System.Drawing.Size(1356, 645)
+        Me.tabHistory.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabHistory.Size = New System.Drawing.Size(1015, 522)
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
         Me.tabHistory.UseVisualStyleBackColor = True
@@ -252,34 +251,31 @@ Partial Class Form1
         '
         Me.cboCompanyName.FormattingEnabled = True
         Me.cboCompanyName.Items.AddRange(New Object() {"Please select a company"})
-        Me.cboCompanyName.Location = New System.Drawing.Point(325, 7)
-        Me.cboCompanyName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cboCompanyName.Location = New System.Drawing.Point(244, 6)
         Me.cboCompanyName.Name = "cboCompanyName"
-        Me.cboCompanyName.Size = New System.Drawing.Size(541, 24)
+        Me.cboCompanyName.Size = New System.Drawing.Size(407, 21)
         Me.cboCompanyName.TabIndex = 3
         '
         'lblCompany
         '
         Me.lblCompany.AutoSize = True
-        Me.lblCompany.Location = New System.Drawing.Point(8, 11)
-        Me.lblCompany.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCompany.Location = New System.Drawing.Point(6, 9)
         Me.lblCompany.Name = "lblCompany"
-        Me.lblCompany.Size = New System.Drawing.Size(108, 17)
+        Me.lblCompany.Size = New System.Drawing.Size(82, 13)
         Me.lblCompany.TabIndex = 1
         Me.lblCompany.Text = "Company Name"
         '
         'dgvHistory
         '
         Me.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvHistory.Location = New System.Drawing.Point(8, 41)
-        Me.dgvHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvHistory.Location = New System.Drawing.Point(6, 33)
         Me.dgvHistory.Name = "dgvHistory"
-        Me.dgvHistory.Size = New System.Drawing.Size(860, 594)
+        Me.dgvHistory.Size = New System.Drawing.Size(645, 483)
         Me.dgvHistory.TabIndex = 0
         '
         'tabImport
         '
-        Me.tabImport.Controls.Add(Me.lblPleaseWait)
+        Me.tabImport.Controls.Add(Me.prgrssImportScreen)
         Me.tabImport.Controls.Add(Me.lblFile)
         Me.tabImport.Controls.Add(Me.dspStatus)
         Me.tabImport.Controls.Add(Me.lblStatus)
@@ -287,65 +283,58 @@ Partial Class Form1
         Me.tabImport.Controls.Add(Me.dspFileLocation)
         Me.tabImport.Controls.Add(Me.btnImportFile)
         Me.tabImport.Controls.Add(Me.dgvImport)
-        Me.tabImport.Location = New System.Drawing.Point(4, 25)
-        Me.tabImport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabImport.Location = New System.Drawing.Point(4, 22)
         Me.tabImport.Name = "tabImport"
-        Me.tabImport.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.tabImport.Size = New System.Drawing.Size(1356, 645)
+        Me.tabImport.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabImport.Size = New System.Drawing.Size(1015, 522)
         Me.tabImport.TabIndex = 3
         Me.tabImport.Text = "Import"
         Me.tabImport.UseVisualStyleBackColor = True
         '
-        'lblPleaseWait
+        'prgrssImportScreen
         '
-        Me.lblPleaseWait.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.lblPleaseWait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblPleaseWait.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPleaseWait.Location = New System.Drawing.Point(515, 242)
-        Me.lblPleaseWait.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblPleaseWait.Name = "lblPleaseWait"
-        Me.lblPleaseWait.Size = New System.Drawing.Size(350, 116)
-        Me.lblPleaseWait.TabIndex = 11
-        Me.lblPleaseWait.Text = "Loading, please wait...."
-        Me.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblPleaseWait.Visible = False
+        Me.prgrssImportScreen.Location = New System.Drawing.Point(61, 489)
+        Me.prgrssImportScreen.Name = "prgrssImportScreen"
+        Me.prgrssImportScreen.Size = New System.Drawing.Size(286, 22)
+        Me.prgrssImportScreen.TabIndex = 12
+        Me.prgrssImportScreen.Visible = False
         '
         'lblFile
         '
-        Me.lblFile.AutoSize = True
-        Me.lblFile.Location = New System.Drawing.Point(8, 16)
-        Me.lblFile.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblFile.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFile.Location = New System.Drawing.Point(8, 8)
         Me.lblFile.Name = "lblFile"
-        Me.lblFile.Size = New System.Drawing.Size(30, 17)
+        Me.lblFile.Size = New System.Drawing.Size(38, 22)
         Me.lblFile.TabIndex = 9
-        Me.lblFile.Text = "File"
+        Me.lblFile.Text = "File :"
         '
         'dspStatus
         '
         Me.dspStatus.Enabled = False
-        Me.dspStatus.Location = New System.Drawing.Point(61, 594)
-        Me.dspStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dspStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dspStatus.Location = New System.Drawing.Point(61, 489)
         Me.dspStatus.Name = "dspStatus"
         Me.dspStatus.ReadOnly = True
-        Me.dspStatus.Size = New System.Drawing.Size(355, 22)
+        Me.dspStatus.Size = New System.Drawing.Size(286, 22)
         Me.dspStatus.TabIndex = 8
+        Me.dspStatus.Text = "Please find a .txt or .csv file.."
         '
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(8, 598)
-        Me.lblStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblStatus.Location = New System.Drawing.Point(8, 491)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(48, 17)
+        Me.lblStatus.Size = New System.Drawing.Size(51, 16)
         Me.lblStatus.TabIndex = 7
-        Me.lblStatus.Text = "Status"
+        Me.lblStatus.Text = "Status :"
         '
         'btnImport
         '
-        Me.btnImport.Location = New System.Drawing.Point(425, 594)
-        Me.btnImport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnImport.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImport.Location = New System.Drawing.Point(929, 5)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(100, 28)
+        Me.btnImport.Size = New System.Drawing.Size(80, 25)
         Me.btnImport.TabIndex = 6
         Me.btnImport.Text = "Import"
         Me.btnImport.UseVisualStyleBackColor = True
@@ -353,19 +342,19 @@ Partial Class Form1
         'dspFileLocation
         '
         Me.dspFileLocation.Enabled = False
-        Me.dspFileLocation.Location = New System.Drawing.Point(61, 10)
-        Me.dspFileLocation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dspFileLocation.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dspFileLocation.Location = New System.Drawing.Point(48, 7)
         Me.dspFileLocation.Name = "dspFileLocation"
         Me.dspFileLocation.ReadOnly = True
-        Me.dspFileLocation.Size = New System.Drawing.Size(1175, 22)
+        Me.dspFileLocation.Size = New System.Drawing.Size(782, 22)
         Me.dspFileLocation.TabIndex = 5
         '
         'btnImportFile
         '
-        Me.btnImportFile.Location = New System.Drawing.Point(1245, 7)
-        Me.btnImportFile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnImportFile.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImportFile.Location = New System.Drawing.Point(845, 5)
         Me.btnImportFile.Name = "btnImportFile"
-        Me.btnImportFile.Size = New System.Drawing.Size(100, 28)
+        Me.btnImportFile.Size = New System.Drawing.Size(80, 25)
         Me.btnImportFile.TabIndex = 4
         Me.btnImportFile.Text = "Find File"
         Me.btnImportFile.UseVisualStyleBackColor = True
@@ -373,22 +362,20 @@ Partial Class Form1
         'dgvImport
         '
         Me.dgvImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvImport.Location = New System.Drawing.Point(11, 39)
-        Me.dgvImport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvImport.Location = New System.Drawing.Point(8, 37)
         Me.dgvImport.Name = "dgvImport"
         Me.dgvImport.ReadOnly = True
-        Me.dgvImport.Size = New System.Drawing.Size(1335, 546)
+        Me.dgvImport.Size = New System.Drawing.Size(1001, 444)
         Me.dgvImport.TabIndex = 3
         '
         'tabPreferences
         '
         Me.tabPreferences.Controls.Add(Me.lblDfltFilePath)
         Me.tabPreferences.Controls.Add(Me.txtDfltFilePath)
-        Me.tabPreferences.Location = New System.Drawing.Point(4, 25)
-        Me.tabPreferences.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabPreferences.Location = New System.Drawing.Point(4, 22)
         Me.tabPreferences.Name = "tabPreferences"
-        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.tabPreferences.Size = New System.Drawing.Size(1356, 645)
+        Me.tabPreferences.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabPreferences.Size = New System.Drawing.Size(1015, 522)
         Me.tabPreferences.TabIndex = 4
         Me.tabPreferences.Text = "Preferences"
         Me.tabPreferences.UseVisualStyleBackColor = True
@@ -396,50 +383,70 @@ Partial Class Form1
         'lblDfltFilePath
         '
         Me.lblDfltFilePath.AutoSize = True
-        Me.lblDfltFilePath.Location = New System.Drawing.Point(9, 57)
+        Me.lblDfltFilePath.Location = New System.Drawing.Point(7, 46)
+        Me.lblDfltFilePath.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblDfltFilePath.Name = "lblDfltFilePath"
-        Me.lblDfltFilePath.Size = New System.Drawing.Size(112, 17)
+        Me.lblDfltFilePath.Size = New System.Drawing.Size(85, 13)
         Me.lblDfltFilePath.TabIndex = 1
         Me.lblDfltFilePath.Text = "Default File Path"
         '
         'txtDfltFilePath
         '
         Me.txtDfltFilePath.Enabled = False
-        Me.txtDfltFilePath.Location = New System.Drawing.Point(152, 54)
-        Me.txtDfltFilePath.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.txtDfltFilePath.Location = New System.Drawing.Point(114, 44)
+        Me.txtDfltFilePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtDfltFilePath.Name = "txtDfltFilePath"
-        Me.txtDfltFilePath.Size = New System.Drawing.Size(276, 22)
+        Me.txtDfltFilePath.Size = New System.Drawing.Size(208, 20)
         Me.txtDfltFilePath.TabIndex = 0
         '
         'tabWatchlist
         '
         Me.tabWatchlist.Controls.Add(Me.SplitContainer1)
-        Me.tabWatchlist.Location = New System.Drawing.Point(4, 25)
-        Me.tabWatchlist.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.tabWatchlist.Location = New System.Drawing.Point(4, 22)
+        Me.tabWatchlist.Margin = New System.Windows.Forms.Padding(2)
         Me.tabWatchlist.Name = "tabWatchlist"
-        Me.tabWatchlist.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tabWatchlist.Size = New System.Drawing.Size(1356, 645)
+        Me.tabWatchlist.Padding = New System.Windows.Forms.Padding(2)
+        Me.tabWatchlist.Size = New System.Drawing.Size(1015, 522)
         Me.tabWatchlist.TabIndex = 5
         Me.tabWatchlist.Text = "Watchlist"
         Me.tabWatchlist.UseVisualStyleBackColor = True
         '
         'SplitContainer1
         '
-        Me.SplitContainer1.Location = New System.Drawing.Point(5, 6)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SplitContainer1.Location = New System.Drawing.Point(4, 5)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
         Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Size = New System.Drawing.Size(1019, 634)
-        Me.SplitContainer1.SplitterDistance = 336
+        Me.SplitContainer1.Size = New System.Drawing.Size(764, 515)
+        Me.SplitContainer1.SplitterDistance = 251
+        Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(8, 491)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(51, 16)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Status :"
+        '
+        'prgrssAllStocks
+        '
+        Me.prgrssAllStocks.Location = New System.Drawing.Point(61, 489)
+        Me.prgrssAllStocks.Name = "prgrssAllStocks"
+        Me.prgrssAllStocks.Size = New System.Drawing.Size(286, 22)
+        Me.prgrssAllStocks.TabIndex = 5
+        Me.prgrssAllStocks.Visible = False
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1404, 708)
+        Me.ClientSize = New System.Drawing.Size(1053, 575)
         Me.Controls.Add(Me.tbcMain)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "Form1"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ASX Share Market Analysis Tool"
         Me.tbcMain.ResumeLayout(False)
         Me.tabFront.ResumeLayout(False)
@@ -508,7 +515,9 @@ Partial Class Form1
     Friend WithEvents LowsalepriceDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ClosingpriceDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TotalvolumeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents lblPleaseWait As System.Windows.Forms.Label
     Friend WithEvents Button1 As Button
     Friend WithEvents dspAllStockStatus As TextBox
+    Friend WithEvents prgrssImportScreen As System.Windows.Forms.ProgressBar
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents prgrssAllStocks As System.Windows.Forms.ProgressBar
 End Class
