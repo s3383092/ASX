@@ -350,36 +350,41 @@ Public Class Form1
             Dim DR As DataRow = dtCriteriaTable.NewRow
             Dim RowDate As Date = dgvAllStocks.Rows(iCnt).Cells(3).Value
             Dim bMatched As Boolean = False
-            '            If RowDate = LatestDate Then
-            If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
-                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
-                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
-                Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
-                ' High Price > Previous High AND Close Price > Previous Close calculations here
-                If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
-                    If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
-                        If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
-                            bMatched = True
+            If RowDate = LatestDate Then
+                If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
+                    Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+                    Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+                    Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
+                    ' High Price > Previous High AND Close Price > Previous Close calculations here
+                    If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
+                        If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
+                            If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
+                                bMatched = True
+                            End If
                         End If
                     End If
-                    '                   End If
 
 
                 End If
 
                 If bMatched Then
-                    DR("Record") = dgvAllStocks.Rows(iCnt).Cells(0).Value
-                    DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
-                    DR("Security Code") = dgvAllStocks.Rows(iCnt).Cells(2).Value
-                    DR("Date") = dgvAllStocks.Rows(iCnt).Cells(3).Value
-                    DR("Open") = dgvAllStocks.Rows(iCnt).Cells(4).Value
-                    DR("High") = dgvAllStocks.Rows(iCnt).Cells(5).Value
-                    DR("Low") = dgvAllStocks.Rows(iCnt).Cells(6).Value
-                    DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
-                    DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
 
-                    dtCriteriaTable.Rows.Add(DR)
-                    bMatched = False
+                    If (htAverage.ContainsKey(sSecurityCode1)) Then
+
+                        DR("Record") = dgvAllStocks.Rows(iCnt).Cells(0).Value
+                        DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
+                        DR("Security Code") = dgvAllStocks.Rows(iCnt).Cells(2).Value
+                        DR("Date") = dgvAllStocks.Rows(iCnt).Cells(3).Value
+                        DR("Open") = dgvAllStocks.Rows(iCnt).Cells(4).Value
+                        DR("High") = dgvAllStocks.Rows(iCnt).Cells(5).Value
+                        DR("Low") = dgvAllStocks.Rows(iCnt).Cells(6).Value
+                        DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
+                        DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
+
+                        dtCriteriaTable.Rows.Add(DR)
+                        bMatched = False
+
+                    End If
                 End If
 
             End If
