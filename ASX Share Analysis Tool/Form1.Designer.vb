@@ -38,6 +38,8 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabAll = New System.Windows.Forms.TabPage()
+        Me.dvgMatch = New System.Windows.Forms.DataGridView()
+        Me.Security_Code = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.prgrssAllStocks = New System.Windows.Forms.ProgressBar()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dspAllStockStatus = New System.Windows.Forms.TextBox()
@@ -61,14 +63,13 @@ Partial Class Form1
         Me.txtDfltFilePath = New System.Windows.Forms.TextBox()
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.dvgMatch = New System.Windows.Forms.DataGridView()
-        Me.Security_Code = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgvFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabAll.SuspendLayout()
+        CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabHistory.SuspendLayout()
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -78,7 +79,6 @@ Partial Class Form1
         Me.tabWatchlist.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.SuspendLayout()
-        CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tbcMain
@@ -207,6 +207,22 @@ Partial Class Form1
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
         Me.tabAll.UseVisualStyleBackColor = True
+        '
+        'dvgMatch
+        '
+        Me.dvgMatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dvgMatch.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Security_Code})
+        Me.dvgMatch.Location = New System.Drawing.Point(8, 36)
+        Me.dvgMatch.Name = "dvgMatch"
+        Me.dvgMatch.Size = New System.Drawing.Size(240, 445)
+        Me.dvgMatch.TabIndex = 6
+        Me.dvgMatch.Visible = False
+        '
+        'Security_Code
+        '
+        Me.Security_Code.HeaderText = "Security Code"
+        Me.Security_Code.Name = "Security_Code"
+        Me.Security_Code.ReadOnly = True
         '
         'prgrssAllStocks
         '
@@ -443,22 +459,6 @@ Partial Class Form1
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 1
         '
-        'dvgMatch
-        '
-        Me.dvgMatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dvgMatch.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Security_Code})
-        Me.dvgMatch.Location = New System.Drawing.Point(8, 36)
-        Me.dvgMatch.Name = "dvgMatch"
-        Me.dvgMatch.Size = New System.Drawing.Size(240, 445)
-        Me.dvgMatch.TabIndex = 6
-        Me.dvgMatch.Visible = False
-        '
-        'Security_Code
-        '
-        Me.Security_Code.HeaderText = "Security Code"
-        Me.Security_Code.Name = "Security_Code"
-        Me.Security_Code.ReadOnly = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -475,6 +475,7 @@ Partial Class Form1
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
         Me.tabAll.PerformLayout()
+        CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
@@ -487,7 +488,6 @@ Partial Class Form1
         Me.tabWatchlist.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

@@ -9,23 +9,24 @@ Public Class Form1
     Public sTargetDate As String = "15/07/2016" 'DEBUGGING PURPOSES ONLY, THIS SHOULD BE REMOVED AND DONE BETTER
 
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
+        dgvImport.DataSource = "" 'Clear data grid view upon finding a new file
+
         Dim OpenFileDialog1 As New OpenFileDialog() ' Open Dialog window
         Dim FileType As String = ""                 ' Take the file time to determine how to handle importing into the DGV
         Dim dtImport As New DataTable               ' 
-        Dim FileCounter As Integer = 0
-        'Opens the Open File explorer dialog
+        Dim FileCounter As Integer = 0              'Opens the Open File explorer dialog
         OpenFileDialog1.Title = "Please Select a File"
-        'OpenFileDialog1.InitialDirectory = "C:\Users\Downloads" 'Default file location
-        OpenFileDialog1.Multiselect = True 'Enable multiselect to import multiple file types
+        OpenFileDialog1.Multiselect = True          'Enable multiselect to import multiple file types
 
-        'Dim dlg As New OpenFileDialog()
-        'dlg.Multiselect = True
+        ' Handles checking how many files are selected. A safe load is =<5
         AddHandler OpenFileDialog1.FileOk, Sub(s, ce)
                                                If OpenFileDialog1.FileNames.Length > 5 Then
-                                                   MessageBox.Show("Please select no more than 5 files")
+                                                   MessageBox.Show("Please select up to 5 files")
                                                    ce.Cancel = True
                                                End If
                                            End Sub
+
+        'If =<5 files are selected continue with import
         If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
             'Handles opening the file
             ' Makes sure the user pressed OK on the Open dialog window
@@ -111,16 +112,15 @@ Public Class Form1
         Dim Response = MsgBox("Are you sure you want to import this into the database?", vbYesNo, "Please confirm importing")
         If Response = MsgBoxResult.Yes Then
 
-            'Show loading cursor and please wait
+            'Show loading bar and waiting cursor
             Cursor.Current = Cursors.WaitCursor
             dspStatus.Text = "Please wait while the data is imported."
-
-            prgrssImportScreen.Maximum = 5000
+            prgrssImportScreen.Maximum = 12000
             prgrssImportScreen.Visible = True
-            prgrssImportScreen.Increment(10)
+            prgrssImportScreen.Increment(100)
 
 
-            Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}
+            Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"} 'This is the locatation of the database file hardcoded in. If desirable, have an open file dialog to allow user selection in preferences?
             Dim path As String = Environment.CurrentDirectory
             Dim newpath As String = path.TrimEnd(MyChar)
             Dim CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
@@ -197,8 +197,11 @@ Public Class Form1
                 Next
                 'loop till end of data grid
 
-                prgrssImportScreen.Increment(5000)
+                prgrssImportScreen.Increment(12000)
                 prgrssImportScreen.Hide()
+                prgrssImportScreen.Value = 0
+                'Once import complete add max value to show completed loading. Then hide bar and reset value to start.
+
                 dspStatus.Text = "Import successful!"
                 'Display import successfull in text box otherwise display errors outlined below
 
@@ -214,15 +217,6 @@ Public Class Form1
         Else
             MsgBox("Importing has been aborted", , "Abort") ' Shows message box that the import was aborted
         End If
-
-        ' Might need to call ClearDGVImport() here
-        ' CleaDGVImport() ' This will clear even if the import was not done (may or may not need to be looked at)
-    End Sub
-
-    Private Sub ClearDGVImport()
-        ' Clears the Import DataGridView (Not sure if this is being used
-        dgvImport.Rows.Clear()
-        dgvImport.Columns.Clear()
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -247,7 +241,8 @@ Public Class Form1
         'this is a test button that calls the complex algorithms required to display data
         dspAllStockStatus.Text = "Begin Filtering" ' Not working, occuring too slow?
 
-        Cursor.Current = Cursors.WaitCursor        ' Changes cursor to a waiting cursor
+        'Show loading bar and waiting cursor
+        Cursor.Current = Cursors.WaitCursor
         prgrssAllStocks.Visible = True
         prgrssAllStocks.Maximum = 5000
         prgrssAllStocks.Increment(500)
@@ -403,7 +398,6 @@ Public Class Form1
         prgrssAllStocks.Increment(1000)
 
     End Sub
-
 End Class
 
 
