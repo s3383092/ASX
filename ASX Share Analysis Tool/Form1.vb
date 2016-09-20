@@ -327,6 +327,8 @@ Public Class Form1
         Dim sCloseMatchIDs As String = ""       ' Saves all the Primary Keys for the Close Price calculation
         Dim sVolumeMatchIDs As String = ""      ' Saves all the Primary Keys for the Volume calculation
         Dim iAdd As Integer = 0
+        Dim sSecurityCodeDupe As String         ' SW DEBUG
+        sSecurityCodeDupe = vbNull              ' SW DEBUG
 
         'dtCriteriaTable.Columns.Add("1")
         'dtCriteriaTable.Columns.Add("2")
@@ -354,7 +356,19 @@ Public Class Form1
                 If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                     If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
                         If dblClose1 > dblClose2 Then                                                          ' compares the High Prices
-                            dtCriteriaTable.Rows.Add(dgvAllStocks.Rows(iCnt))
+
+                            '//////
+                            If sSecurityCode2 = sSecurityCodeDupe Then
+                            Else
+                                ' Debug.Print("Criteria met stocks = " & sSecurityCode2)
+                                Me.dvgMatch.Rows.Insert(0, sSecurityCode2)
+                                dvgMatch.Visible = True
+                                dgvAllStocks.Visible = False
+                            End If
+                            sSecurityCodeDupe = sSecurityCode2
+                            '//////
+
+                            'dtCriteriaTable.Rows.Add(dgvAllStocks.Rows(iCnt))
                         End If
                     End If
                 End If
@@ -376,7 +390,7 @@ Public Class Form1
         Debug.Print("close matched = " & sCloseMatchIDs)
         Debug.Print("Volume matched = " & sVolumeMatchIDs)
         Debug.Print("end time = " & TimeValue(Now))
-        
+
 
         prgrssAllStocks.Increment(1000)
 
