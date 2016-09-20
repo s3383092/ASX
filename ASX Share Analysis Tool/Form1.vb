@@ -6,7 +6,6 @@ Imports System.Data
 Imports System.Data.SqlClient
 
 Public Class Form1
-
     Public sTargetDate As String = "15/07/2016" 'DEBUGGING PURPOSES ONLY, THIS SHOULD BE REMOVED AND DONE BETTER
 
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
@@ -19,8 +18,17 @@ Public Class Form1
         'OpenFileDialog1.InitialDirectory = "C:\Users\Downloads" 'Default file location
         OpenFileDialog1.Multiselect = True 'Enable multiselect to import multiple file types
 
-        'Handles opening the file
-        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then ' Makes sure the user pressed OK on the Open dialog window
+        'Dim dlg As New OpenFileDialog()
+        'dlg.Multiselect = True
+        AddHandler OpenFileDialog1.FileOk, Sub(s, ce)
+                                               If OpenFileDialog1.FileNames.Length > 5 Then
+                                                   MessageBox.Show("Please select no more than 5 files")
+                                                   ce.Cancel = True
+                                               End If
+                                           End Sub
+        If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+            'Handles opening the file
+            ' Makes sure the user pressed OK on the Open dialog window
             Dim file As String = ""                            ' Store the file name from the open dialog
             For Each file In OpenFileDialog1.FileNames         ' Handle Importing multiple files
                 Try
@@ -57,7 +65,7 @@ Public Class Form1
                             Try
                                 CurrentRow = TextFileReader.ReadFields() ' Declares the Row to be added
                                 dgvImport.Rows.Add(CurrentRow)           'Adds the record into the DGV
-                            Catch ex As _
+                            Catch ex As  _
                         Microsoft.VisualBasic.FileIO.MalformedLineException
                                 MsgBox("Line " & ex.Message &
                             "Is Not valid And will be skipped.")
