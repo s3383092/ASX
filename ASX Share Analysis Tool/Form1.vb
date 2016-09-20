@@ -237,7 +237,7 @@ Public Class Form1
         End Using
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs)
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'this is a test button that calls the complex algorithms required to display data
         dspAllStockStatus.Text = "Begin Filtering" ' Not working, occuring too slow?
 
@@ -362,7 +362,11 @@ Public Class Form1
                             bMatched = True
                         End If
                     End If
+                    '                   End If
+
+
                 End If
+
                 If bMatched Then
                     DR("Record") = dgvAllStocks.Rows(iCnt).Cells(0).Value
                     DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
@@ -393,7 +397,7 @@ Public Class Form1
         ' Maybe need to do the over 5/10 days thingo aswell
         '*********************************************************************************
 
-        dgvFrontPage.DataSource = dtCriteriaTable
+        dgvHistory.DataSource = dtCriteriaTable
 
         prgrssAllStocks.Increment(1000)
 

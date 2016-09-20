@@ -38,9 +38,12 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabAll = New System.Windows.Forms.TabPage()
+        Me.dvgMatch = New System.Windows.Forms.DataGridView()
+        Me.Security_Code = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.prgrssAllStocks = New System.Windows.Forms.ProgressBar()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dspAllStockStatus = New System.Windows.Forms.TextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.dgvAllStocks = New System.Windows.Forms.DataGridView()
         Me.tabHistory = New System.Windows.Forms.TabPage()
         Me.cboCompanyName = New System.Windows.Forms.ComboBox()
@@ -60,13 +63,13 @@ Partial Class Form1
         Me.txtDfltFilePath = New System.Windows.Forms.TextBox()
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgvFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabAll.SuspendLayout()
+        CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabHistory.SuspendLayout()
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -191,10 +194,11 @@ Partial Class Form1
         '
         'tabAll
         '
-        Me.tabAll.Controls.Add(Me.Button1)
+        Me.tabAll.Controls.Add(Me.dvgMatch)
         Me.tabAll.Controls.Add(Me.prgrssAllStocks)
         Me.tabAll.Controls.Add(Me.Label1)
         Me.tabAll.Controls.Add(Me.dspAllStockStatus)
+        Me.tabAll.Controls.Add(Me.Button1)
         Me.tabAll.Controls.Add(Me.dgvAllStocks)
         Me.tabAll.Location = New System.Drawing.Point(4, 22)
         Me.tabAll.Name = "tabAll"
@@ -203,6 +207,22 @@ Partial Class Form1
         Me.tabAll.TabIndex = 1
         Me.tabAll.Text = "All Stocks"
         Me.tabAll.UseVisualStyleBackColor = True
+        '
+        'dvgMatch
+        '
+        Me.dvgMatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dvgMatch.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Security_Code})
+        Me.dvgMatch.Location = New System.Drawing.Point(8, 36)
+        Me.dvgMatch.Name = "dvgMatch"
+        Me.dvgMatch.Size = New System.Drawing.Size(1001, 445)
+        Me.dvgMatch.TabIndex = 6
+        Me.dvgMatch.Visible = False
+        '
+        'Security_Code
+        '
+        Me.Security_Code.HeaderText = "Security Code"
+        Me.Security_Code.Name = "Security_Code"
+        Me.Security_Code.ReadOnly = True
         '
         'prgrssAllStocks
         '
@@ -232,6 +252,17 @@ Partial Class Form1
         Me.dspAllStockStatus.ReadOnly = True
         Me.dspAllStockStatus.Size = New System.Drawing.Size(286, 22)
         Me.dspAllStockStatus.TabIndex = 3
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(915, 5)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(94, 25)
+        Me.Button1.TabIndex = 2
+        Me.Button1.Text = "Filter stocks"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'dgvAllStocks
         '
@@ -428,17 +459,6 @@ Partial Class Form1
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 1
         '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(915, 7)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(94, 25)
-        Me.Button1.TabIndex = 6
-        Me.Button1.Text = "Filter stocks"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -455,6 +475,7 @@ Partial Class Form1
         CType(Me.dgdFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
         Me.tabAll.PerformLayout()
+        CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
@@ -515,9 +536,11 @@ Partial Class Form1
     Friend WithEvents LowsalepriceDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ClosingpriceDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TotalvolumeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Button1 As Button
     Friend WithEvents dspAllStockStatus As TextBox
     Friend WithEvents prgrssImportScreen As System.Windows.Forms.ProgressBar
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents prgrssAllStocks As System.Windows.Forms.ProgressBar
-    Friend WithEvents Button1 As Button
+    Friend WithEvents dvgMatch As DataGridView
+    Friend WithEvents Security_Code As DataGridViewTextBoxColumn
 End Class
