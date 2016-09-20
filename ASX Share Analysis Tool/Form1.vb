@@ -7,7 +7,7 @@ Imports System.Data.SqlClient
 
 Public Class Form1
     Public sTargetDate As String = "15/07/2016" 'DEBUGGING PURPOSES ONLY, THIS SHOULD BE REMOVED AND DONE BETTER
-
+    Public sDirPath As String = System.Configuration.ConfigurationManager.AppSettings("DirectoryPath")
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
         dgvImport.DataSource = "" 'Clear data grid view upon finding a new file
 
@@ -399,6 +399,22 @@ Public Class Form1
         prgrssAllStocks.Increment(1000)
 
     End Sub
+
+    Private Sub btnNewLocation_Click(sender As Object, e As EventArgs) Handles btnNewLocation.Click
+        Dim FolderBrowserDialog1 As New FolderBrowserDialog()
+        Dim FolderName As String
+        Dim settings = System.Configuration.ConfigurationManager.AppSettings
+        FolderBrowserDialog1.Description = "Please Select a File"
+        If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
+            FolderName = FolderBrowserDialog1.SelectedPath
+            System.Configuration.ConfigurationManager.AppSettings.Set("DirectoryPath", FolderName)
+            txtDfltFilePath.Clear()
+            txtDfltFilePath.Text = FolderName
+            My.Settings.Save()
+
+        End If
+    End Sub
+
 End Class
 
 
