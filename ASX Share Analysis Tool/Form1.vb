@@ -341,7 +341,6 @@ Public Class Form1
         dtCriteriaTable.Columns.Add("Volume")
 
         Dim LatestDate As Date = dgvAllStocks.Rows(0).Cells(3).Value
-
         For iCnt = 0 To iRowCnt - 1                                               ' (iRowCnt - 1) since DGV rows start at count = 0
             Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
             Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Current security code
@@ -356,7 +355,6 @@ Public Class Form1
                     Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
                     Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
                     Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
-                    Debug.Print(sSecurityCode1 + "Looped")
                     ' High Price > Previous High AND Close Price > Previous Close calculations here
                     If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
@@ -367,7 +365,7 @@ Public Class Form1
                     End If
                 Else
                     If bMatched Then
-                        DR("Records") = dgvAllStocks.Rows(iCnt).Cells(0).Value
+                        DR("Record") = dgvAllStocks.Rows(iCnt).Cells(0).Value
                         DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
                         DR("Security Code") = dgvAllStocks.Rows(iCnt).Cells(2).Value
                         DR("Date") = dgvAllStocks.Rows(iCnt).Cells(3).Value

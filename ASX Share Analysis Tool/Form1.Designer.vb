@@ -214,7 +214,7 @@ Partial Class Form1
         Me.dvgMatch.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Security_Code})
         Me.dvgMatch.Location = New System.Drawing.Point(8, 36)
         Me.dvgMatch.Name = "dvgMatch"
-        Me.dvgMatch.Size = New System.Drawing.Size(240, 445)
+        Me.dvgMatch.Size = New System.Drawing.Size(1001, 445)
         Me.dvgMatch.TabIndex = 6
         Me.dvgMatch.Visible = False
         '
