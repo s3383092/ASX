@@ -66,7 +66,7 @@ Public Class Form1
                             Try
                                 CurrentRow = TextFileReader.ReadFields() ' Declares the Row to be added
                                 dgvImport.Rows.Add(CurrentRow)           'Adds the record into the DGV
-                            Catch ex As  _
+                            Catch ex As _
                         Microsoft.VisualBasic.FileIO.MalformedLineException
                                 MsgBox("Line " & ex.Message &
                             "Is Not valid And will be skipped.")
@@ -313,10 +313,8 @@ Public Class Form1
 
         'The following For Loop Is Not necessary, just there for debugging purposes
         For Each key In MyKeys                                          ' Loops through each key in the MyKeys collection (hashtable keys)
-            Debug.Print(key.ToString & " - " & htAverage(key).ToString) ' Prints out the key name and the respective value (comment this out BUT DO NOT DELETE, NEED IT FOR REFERENCE)
+            '    Debug.Print(key.ToString & " - " & htAverage(key).ToString) ' Prints out the key name and the respective value (comment this out BUT DO NOT DELETE, NEED IT FOR REFERENCE)
         Next
-        Debug.Print("items in hash = " & htAverage.Count())
-        Debug.Print("start time = " & TimeValue(Now))
         prgrssAllStocks.Increment(1000)
         '//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -329,19 +327,20 @@ Public Class Form1
         Dim sHighMatchIDs As String = ""        ' Saves all the Primary Keys for the High Price calculation
         Dim sCloseMatchIDs As String = ""       ' Saves all the Primary Keys for the Close Price calculation
         Dim sVolumeMatchIDs As String = ""      ' Saves all the Primary Keys for the Volume calculation
+        Dim bMatched As Boolean = False
         Dim iAdd As Integer = 0
-        Dim sSecurityCodeDupe As String         ' SW DEBUG
-        sSecurityCodeDupe = vbNull              ' SW DEBUG
 
-        'dtCriteriaTable.Columns.Add("1")
-        'dtCriteriaTable.Columns.Add("2")
-        'dtCriteriaTable.Columns.Add("3")
-        'dtCriteriaTable.Columns.Add("4")
-        'dtCriteriaTable.Columns.Add("5")
-        'dtCriteriaTable.Columns.Add("6")
-        'dtCriteriaTable.Columns.Add("7")
-        'dtCriteriaTable.Columns.Add("8")
-        'dtCriteriaTable.Columns.Add("9")
+        dtCriteriaTable.Columns.Add("Record")
+        dtCriteriaTable.Columns.Add("Stock ID")
+        dtCriteriaTable.Columns.Add("Security Code")
+        dtCriteriaTable.Columns.Add("Date")
+        dtCriteriaTable.Columns.Add("Open")
+        dtCriteriaTable.Columns.Add("High")
+        dtCriteriaTable.Columns.Add("Low")
+        dtCriteriaTable.Columns.Add("Close")
+        dtCriteriaTable.Columns.Add("Volume")
+
+        Dim LatestDate As Date = dgvAllStocks.Rows(0).Cells(3).Value
 
         For iCnt = 0 To iRowCnt - 1                                               ' (iRowCnt - 1) since DGV rows start at count = 0
             Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
@@ -349,35 +348,47 @@ Public Class Form1
             Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value       ' High price of current security code
             Dim dblClose1 As Double = dgvAllStocks.Rows(iCnt).Cells(7).Value      ' Close price of current security code
             Dim dblVolume As Double = dgvAllStocks.Rows(iCnt).Cells(8).Value      ' Volume of current security code
+            Dim DR As DataRow = dtCriteriaTable.NewRow
+            Dim RowDate As Date = dgvAllStocks.Rows(iCnt).Cells(3).Value
 
-            If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
-                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
-                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
-                Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
-
-                ' High Price > Previous High AND Close Price > Previous Close calculations here
-                If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
-                    If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
-                        If dblClose1 > dblClose2 Then                                                          ' compares the High Prices
-
-                            '//////
-                            If sSecurityCode2 = sSecurityCodeDupe Then
-                            Else
-                                ' Debug.Print("Criteria met stocks = " & sSecurityCode2)
-                                Me.dvgMatch.Rows.Insert(0, sSecurityCode2)
-                                dvgMatch.Visible = True
-                                dgvAllStocks.Visible = False
+            If RowDate = LatestDate Then
+                If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
+                    Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+                    Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+                    Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
+                    Debug.Print(sSecurityCode1 + "Looped")
+                    ' High Price > Previous High AND Close Price > Previous Close calculations here
+                    If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
+                        If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
+                            If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
+                                bMatched = True
                             End If
-                            sSecurityCodeDupe = sSecurityCode2
-                            '//////
-
-                            'dtCriteriaTable.Rows.Add(dgvAllStocks.Rows(iCnt))
                         End If
+                    End If
+                Else
+                    If bMatched Then
+                        DR("Records") = dgvAllStocks.Rows(iCnt).Cells(0).Value
+                        DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
+                        DR("Security Code") = dgvAllStocks.Rows(iCnt).Cells(2).Value
+                        DR("Date") = dgvAllStocks.Rows(iCnt).Cells(3).Value
+                        DR("Open") = dgvAllStocks.Rows(iCnt).Cells(4).Value
+                        DR("High") = dgvAllStocks.Rows(iCnt).Cells(5).Value
+                        DR("Low") = dgvAllStocks.Rows(iCnt).Cells(6).Value
+                        DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
+                        DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
+
+                        dtCriteriaTable.Rows.Add(DR)
+                        bMatched = False
                     End If
                 End If
             End If
-
         Next
+
+        '*********************************************************************************
+        ' Need to somehow count the "|" in each sResult and create a loop
+        ' Need to FIELD("|") through the IDs found and compile them to a list or something
+        ' Maybe need to do the over 5/10 days thingo aswell
+        '*********************************************************************************
         prgrssAllStocks.Increment(1000)
         '*********************************************************************************
         ' Need to somehow count the "|" in each sResult and create a loop
@@ -386,14 +397,6 @@ Public Class Form1
         '*********************************************************************************
 
         dgvHistory.DataSource = dtCriteriaTable
-
-
-        '////////////////////////////////////////////////////////////////////////////
-        Debug.Print("high matched = " & sHighMatchIDs)
-        Debug.Print("close matched = " & sCloseMatchIDs)
-        Debug.Print("Volume matched = " & sVolumeMatchIDs)
-        Debug.Print("end time = " & TimeValue(Now))
-
 
         prgrssAllStocks.Increment(1000)
 

@@ -308,7 +308,7 @@ Partial Class Form1
         Me.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvHistory.Location = New System.Drawing.Point(6, 33)
         Me.dgvHistory.Name = "dgvHistory"
-        Me.dgvHistory.Size = New System.Drawing.Size(645, 483)
+        Me.dgvHistory.Size = New System.Drawing.Size(1003, 483)
         Me.dgvHistory.TabIndex = 0
         '
         'tabImport
