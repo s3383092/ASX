@@ -359,7 +359,9 @@ Public Class Form1
                     If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
-                                bMatched = True
+                                If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
+                                    bMatched = True
+                                End If
                             End If
                         End If
                     End If
@@ -375,11 +377,9 @@ Public Class Form1
                         DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
                         DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
 
-                        If (htAverage.ContainsValue(sSecurityCode1)) Then
-                            dtCriteriaTable.Rows.Add(DR)
+                        dtCriteriaTable.Rows.Add(DR)
                             bMatched = False
                         End If
-                    End If
                 End If
             End If
         Next
