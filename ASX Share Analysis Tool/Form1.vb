@@ -375,8 +375,10 @@ Public Class Form1
                         DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
                         DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
 
-                        dtCriteriaTable.Rows.Add(DR)
-                        bMatched = False
+                        If (htAverage.ContainsValue(sSecurityCode1)) Then
+                            dtCriteriaTable.Rows.Add(DR)
+                            bMatched = False
+                        End If
                     End If
                 End If
             End If
