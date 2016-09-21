@@ -352,16 +352,14 @@ Public Class Form1
 
             If RowDate = LatestDate Then
                 If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
-                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
-                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
-                Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
+                    Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+                    Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+                    Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
                     ' High Price > Previous High AND Close Price > Previous Close calculations here
                     If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
-                                If dblVolume > CInt(htAverage(sSecurityCode1)) Then
-                                    bMatched = True
-                                End If
+                                bMatched = True
                             End If
                         End If
                     End If
@@ -377,8 +375,10 @@ Public Class Form1
                         DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
                         DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
 
-                        dtCriteriaTable.Rows.Add(DR)
-                        bMatched = False
+                        If (htAverage.ContainsValue(sSecurityCode1)) Then
+                            dtCriteriaTable.Rows.Add(DR)
+                            bMatched = False
+                        End If
                     End If
                 End If
             End If
