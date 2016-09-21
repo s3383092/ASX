@@ -7,7 +7,7 @@ Imports System.Data.SqlClient
 
 Public Class Form1
     Public sTargetDate As String = "15/07/2016" 'DEBUGGING PURPOSES ONLY, THIS SHOULD BE REMOVED AND DONE BETTER
-
+    Public sDirPath As String = System.Configuration.ConfigurationManager.AppSettings("DirectoryPath")
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
         dgvImport.DataSource = "" 'Clear data grid view upon finding a new file
 
@@ -352,14 +352,16 @@ Public Class Form1
 
             If RowDate = LatestDate Then
                 If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
-                    Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
-                    Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
-                    Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
+                Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+                Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+                Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
                     ' High Price > Previous High AND Close Price > Previous Close calculations here
                     If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
-                                bMatched = True
+                                If dblVolume > CInt(htAverage(sSecurityCode1)) Then
+                                    bMatched = True
+                                End If
                             End If
                         End If
                     End If
@@ -399,6 +401,22 @@ Public Class Form1
         prgrssAllStocks.Increment(1000)
 
     End Sub
+
+    Private Sub btnNewLocation_Click(sender As Object, e As EventArgs) Handles btnNewLocation.Click
+        Dim FolderBrowserDialog1 As New FolderBrowserDialog()
+        Dim FolderName As String
+        Dim settings = System.Configuration.ConfigurationManager.AppSettings
+        FolderBrowserDialog1.Description = "Please Select a File"
+        If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
+            FolderName = FolderBrowserDialog1.SelectedPath
+            System.Configuration.ConfigurationManager.AppSettings.Set("DirectoryPath", FolderName)
+            txtDfltFilePath.Clear()
+            txtDfltFilePath.Text = FolderName
+            My.Settings.Save()
+
+        End If
+    End Sub
+
 End Class
 
 
