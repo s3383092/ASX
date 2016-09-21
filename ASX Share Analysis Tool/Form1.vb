@@ -307,14 +307,14 @@ Public Class Form1
         '//////////////////////////////////////////////////////////////////////////////////////////////////////////
         'ONLY NEEDED FOR DEBUGGING / LEAVE IT FOR NOW AS A REFERENCE ON HOW TO USE THE HASHTABLE
         Dim MyKeys As ICollection
-        Dim key As Object
+        '   Dim key As Object
 
         MyKeys = htAverage.Keys() ' Declares the keys from the hashtable into the collection
 
         'The following For Loop Is Not necessary, just there for debugging purposes
-        For Each key In MyKeys                                          ' Loops through each key in the MyKeys collection (hashtable keys)
-            '    Debug.Print(key.ToString & " - " & htAverage(key).ToString) ' Prints out the key name and the respective value (comment this out BUT DO NOT DELETE, NEED IT FOR REFERENCE)
-        Next
+        '      For Each key In MyKeys                                          ' Loops through each key in the MyKeys collection (hashtable keys)
+        '    Debug.Print(key.ToString & " - " & htAverage(key).ToString) ' Prints out the key name and the respective value (comment this out BUT DO NOT DELETE, NEED IT FOR REFERENCE)
+        '      Next
         prgrssAllStocks.Increment(1000)
         '//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
