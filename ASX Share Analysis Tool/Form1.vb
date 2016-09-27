@@ -7,7 +7,7 @@ Imports System.Data.SqlClient
 
 Public Class Form1
     Public sTargetDate As String = "15/07/2016" 'DEBUGGING PURPOSES ONLY, THIS SHOULD BE REMOVED AND DONE BETTER
-    Public sDirPath As String = System.Configuration.ConfigurationManager.AppSettings("DirectoryPath")
+    Public FolderName As String
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnImportFile.Click 'Handle importing data
         dgvImport.DataSource = "" 'Clear data grid view upon finding a new file
 
@@ -229,6 +229,11 @@ Public Class Form1
         Dim dtTableDummy As New DataTable()
         Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date DESC"                           ' Builds the Query for the database
 
+        If My.Settings.DirectoryPathSetting <> "" Then
+            'connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & My.Settings.DirectoryPathSetting & "\ASXShareMarketAnalysisTool.accdb"
+            MsgBox("IT WORKS. " & My.Settings.DirectoryPathSetting)
+        End If
+
         Using con = New OleDbConnection(connectionstring) ' Opens the connection to the database
             Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query
                 da.Fill(dtTable)                          ' Fills the data into a datatable
@@ -239,7 +244,7 @@ Public Class Form1
                 'Might be worth binding to ALL DGVs to remove datasets
             End Using
         End Using
-
+        txtDfltFilePath.Text = My.Settings.DirectoryPathSetting 'Loads current filepath 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -414,7 +419,7 @@ Public Class Form1
 
     Private Sub btnNewLocation_Click(sender As Object, e As EventArgs) Handles btnNewLocation.Click
         Dim FolderBrowserDialog1 As New FolderBrowserDialog()
-        Dim FolderName As String
+
 
         FolderBrowserDialog1.Description = "Please Select a File"
         If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
@@ -423,7 +428,7 @@ Public Class Form1
             txtDfltFilePath.Text = FolderName
             lblConfirmLocation.Text = "Location Changed"
 
-            My.Settings.DirectoryPathSetting = txtDfltFilePath.Text
+            My.Settings.DirectoryPathSetting = FolderName
             My.Settings.Save()
             Debug.Print(FolderName)
             Debug.Print(My.Settings.DirectoryPathSetting)
@@ -433,8 +438,9 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub tabPreferences_Click()
-        txtDfltFilePath.Text = My.Settings.DirectoryPathSetting
+    Private Sub btnResetLocation_Click(sender As Object, e As EventArgs) Handles btnResetLocation.Click
+        My.Settings.DirectoryPathSetting = ""
+        My.Settings.Save()
     End Sub
 End Class
 
