@@ -415,18 +415,27 @@ Public Class Form1
     Private Sub btnNewLocation_Click(sender As Object, e As EventArgs) Handles btnNewLocation.Click
         Dim FolderBrowserDialog1 As New FolderBrowserDialog()
         Dim FolderName As String
-        Dim settings = System.Configuration.ConfigurationManager.AppSettings
+
         FolderBrowserDialog1.Description = "Please Select a File"
         If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             FolderName = FolderBrowserDialog1.SelectedPath
-            System.Configuration.ConfigurationManager.AppSettings.Set("DirectoryPath", FolderName)
-            txtDfltFilePath.Clear()
-            txtDfltFilePath.Text = FolderName
-            My.Settings.Save()
 
+            txtDfltFilePath.Text = FolderName
+            lblConfirmLocation.Text = "Location Changed"
+
+            My.Settings.DirectoryPathSetting = txtDfltFilePath.Text
+            My.Settings.Save()
+            Debug.Print(FolderName)
+            Debug.Print(My.Settings.DirectoryPathSetting)
+        Else
+            txtDfltFilePath.Text = My.Settings.DirectoryPathSetting
+            lblConfirmLocation.Text = "Location Unchanged"
         End If
     End Sub
 
+    Private Sub tabPreferences_Click()
+        txtDfltFilePath.Text = My.Settings.DirectoryPathSetting
+    End Sub
 End Class
 
 
