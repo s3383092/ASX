@@ -232,6 +232,7 @@ Public Class Form1
             Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query
                 da.Fill(dtTable)                          ' Fills the data into a datatable
                 dgvAllStocks.DataSource = dtTable         ' Binds the datatable to the DGV
+                dgvFrontPage.DataSource = dtTable
                 'Might be worth binding to ALL DGVs to remove datasets
             End Using
         End Using

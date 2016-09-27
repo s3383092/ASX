@@ -24,9 +24,6 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.tbcMain = New System.Windows.Forms.TabControl()
-        Me.tabAll = New System.Windows.Forms.TabPage()
-        Me.dgvFrontPage = New System.Windows.Forms.DataGridView()
-        Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.tabFront = New System.Windows.Forms.TabPage()
         Me.dvgMatch = New System.Windows.Forms.DataGridView()
         Me.prgrssAllStocks = New System.Windows.Forms.ProgressBar()
@@ -34,6 +31,9 @@ Partial Class Form1
         Me.dspAllStockStatus = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.dgvAllStocks = New System.Windows.Forms.DataGridView()
+        Me.tabAll = New System.Windows.Forms.TabPage()
+        Me.dgvFrontPage = New System.Windows.Forms.DataGridView()
+        Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.tabHistory = New System.Windows.Forms.TabPage()
         Me.cboCompanyName = New System.Windows.Forms.ComboBox()
         Me.lblCompany = New System.Windows.Forms.Label()
@@ -54,12 +54,12 @@ Partial Class Form1
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tbcMain.SuspendLayout()
-        Me.tabAll.SuspendLayout()
-        CType(Me.dgvFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabFront.SuspendLayout()
         CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabAll.SuspendLayout()
+        CType(Me.dgvFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabHistory.SuspendLayout()
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabImport.SuspendLayout()
@@ -83,31 +83,6 @@ Partial Class Form1
         Me.tbcMain.SelectedIndex = 0
         Me.tbcMain.Size = New System.Drawing.Size(1023, 548)
         Me.tbcMain.TabIndex = 0
-        '
-        'tabAll
-        '
-        Me.tabAll.Controls.Add(Me.dgvFrontPage)
-        Me.tabAll.Location = New System.Drawing.Point(4, 22)
-        Me.tabAll.Name = "tabAll"
-        Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabAll.Size = New System.Drawing.Size(1015, 522)
-        Me.tabAll.TabIndex = 0
-        Me.tabAll.Text = "All Stocks"
-        Me.tabAll.UseVisualStyleBackColor = True
-        '
-        'dgvFrontPage
-        '
-        Me.dgvFrontPage.AutoGenerateColumns = False
-        Me.dgvFrontPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFrontPage.DataSource = Me.DailyStockPricesBindingSource
-        Me.dgvFrontPage.Location = New System.Drawing.Point(7, 7)
-        Me.dgvFrontPage.Name = "dgvFrontPage"
-        Me.dgvFrontPage.Size = New System.Drawing.Size(1002, 509)
-        Me.dgvFrontPage.TabIndex = 3
-        '
-        'DailyStockPricesBindingSource
-        '
-        Me.DailyStockPricesBindingSource.DataMember = "Daily_Stock_Prices"
         '
         'tabFront
         '
@@ -181,6 +156,29 @@ Partial Class Form1
         Me.dgvAllStocks.Name = "dgvAllStocks"
         Me.dgvAllStocks.Size = New System.Drawing.Size(1001, 444)
         Me.dgvAllStocks.TabIndex = 1
+        '
+        'tabAll
+        '
+        Me.tabAll.Controls.Add(Me.dgvFrontPage)
+        Me.tabAll.Location = New System.Drawing.Point(4, 22)
+        Me.tabAll.Name = "tabAll"
+        Me.tabAll.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabAll.Size = New System.Drawing.Size(1015, 522)
+        Me.tabAll.TabIndex = 0
+        Me.tabAll.Text = "All Stocks"
+        Me.tabAll.UseVisualStyleBackColor = True
+        '
+        'dgvFrontPage
+        '
+        Me.dgvFrontPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFrontPage.Location = New System.Drawing.Point(7, 7)
+        Me.dgvFrontPage.Name = "dgvFrontPage"
+        Me.dgvFrontPage.Size = New System.Drawing.Size(1002, 509)
+        Me.dgvFrontPage.TabIndex = 3
+        '
+        'DailyStockPricesBindingSource
+        '
+        Me.DailyStockPricesBindingSource.DataMember = "Daily_Stock_Prices"
         '
         'tabHistory
         '
@@ -391,13 +389,13 @@ Partial Class Form1
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ASX Share Market Analysis Tool"
         Me.tbcMain.ResumeLayout(False)
-        Me.tabAll.ResumeLayout(False)
-        CType(Me.dgvFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabFront.ResumeLayout(False)
         Me.tabFront.PerformLayout()
         CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabAll.ResumeLayout(False)
+        CType(Me.dgvFrontPage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).EndInit()
