@@ -66,7 +66,7 @@ Public Class Form1
                             Try
                                 CurrentRow = TextFileReader.ReadFields() ' Declares the Row to be added
                                 dgvImport.Rows.Add(CurrentRow)           'Adds the record into the DGV
-                            Catch ex As  _
+                            Catch ex As _
                         Microsoft.VisualBasic.FileIO.MalformedLineException
                                 MsgBox("Line " & ex.Message &
                             "Is Not valid And will be skipped.")
@@ -365,7 +365,7 @@ Public Class Form1
                     Dim dblVolumeDiff As Double
                     If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
-                            dblHighDiff = dblHigh1 - dblHigh2
+                            dblHighDiff = dblHigh1 / dblHigh2
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
                                 dblCloseDiff = dblClose1 - dblClose2
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
@@ -376,21 +376,15 @@ Public Class Form1
                                     DR("Security Code") = dgvFilterStocks.Rows(iCnt).Cells(2).Value
                                     DR("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
                                     DR("Open") = dgvFilterStocks.Rows(iCnt).Cells(4).Value
-                                    DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value & dblHighDiff
+                                    DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value & " (" & Format(dblHighDiff, "0.00") & "%)"
                                     DR("Low") = dgvFilterStocks.Rows(iCnt).Cells(6).Value
-                                    DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value & dblCloseDiff
+                                    DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value & " (" & Format(dblCloseDiff, "0.00") & "%)"
                                     DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value & dblVolumeDiff
 
                                     dtCriteriaTable.Rows.Add(DR)
-
                                     dgvFilterStocks.Hide()
-
-                                    lblPreview.Hide()
-
+                                    lblPreview.Text = "Showing Results for date: " & LatestDate
                                     dgvHistory.Show()
-
-                                    lblResults.Show()
-
 
                                 End If
                             End If
