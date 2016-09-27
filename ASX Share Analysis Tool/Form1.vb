@@ -226,16 +226,20 @@ Public Class Form1
         Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
         Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
         Dim dtTable As New DataTable()                                                                                                     ' Declares a new datatable
+        Dim dtTableDummy As New DataTable()
         Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date DESC"                           ' Builds the Query for the database
 
         Using con = New OleDbConnection(connectionstring) ' Opens the connection to the database
             Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query
                 da.Fill(dtTable)                          ' Fills the data into a datatable
-                dgvAllStocks.DataSource = dtTable         ' Binds the datatable to the DGV
-                dgvFrontPage.DataSource = dtTable
+                da.Fill(dtTableDummy)                          ' Fill DUmmy table 
+                dgvFilterStocks.DataSource = dtTable         ' Binds the datatable to the DGV
+                dgvAllStocks.DataSource = dtTableDummy
+
                 'Might be worth binding to ALL DGVs to remove datasets
             End Using
         End Using
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -258,7 +262,7 @@ Public Class Form1
     Private Sub LoopData()
         Dim iRowCnt As Integer = 0        ' Total Row counter
         Dim iCnt As Integer = 0           ' Loop counter
-        iRowCnt = dgvAllStocks.RowCount() ' Setting the Total row counter to the amount of rows in the DGV
+        iRowCnt = dgvFilterStocks.RowCount() ' Setting the Total row counter to the amount of rows in the DGV
         Dim htAverage As New Hashtable    ' Hashtable to save the Average of each Stock
         Dim dblTotalVolume As Double = 0  ' Total Volume (accrued in the loop)
         Dim dblAverage As Double = 0      ' Average (totalVolume/ 30records or equivalent)
@@ -272,20 +276,20 @@ Public Class Form1
         '*********************************************************************************
         For iCnt = 0 To iRowCnt - 1                                               ' iRowCnt -1 (needs to be 1 less coz we count from row 0)
             Dim iPrev As Integer = iCnt - 1                                       ' Grabs the next row data to compare, needed to check if security codes match
-            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Grabs the current security code
+            Dim sSecurityCode1 As String = dgvFilterStocks.Rows(iCnt).Cells(2).Value ' Grabs the current security code
 
 
 
             'Loops through finding the 30 day average per stock code
             If iPrev = -1 Then                                                           ' handles the very first stock code
-                dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value ' the first stock code will not have a previous value
+                dblTotalVolume = dblTotalVolume + dgvFilterStocks.Rows(iCnt).Cells(8).Value ' the first stock code will not have a previous value
             Else
                 If iPrev < iRowCnt Then                                                    ' Makes sure the previous is less than the row count and greater than -1
-                    Dim sSecurityCode2 As String = dgvAllStocks.Rows(iPrev).Cells(2).Value ' Previous security code, to check that it is the same as the current security code
+                    Dim sSecurityCode2 As String = dgvFilterStocks.Rows(iPrev).Cells(2).Value ' Previous security code, to check that it is the same as the current security code
 
                     If sSecurityCode2 = sSecurityCode1 Then ' Check if the security code matches the previous security code and its less than 30 records used
                         If iAverageCount <= 30 Then         ' Stops calculating once the iAverageCount has exceeded 30 records
-                            dblTotalVolume = dblTotalVolume + dgvAllStocks.Rows(iCnt).Cells(8).Value ' Add the current Volume to the Total Accrued
+                            dblTotalVolume = dblTotalVolume + dgvFilterStocks.Rows(iCnt).Cells(8).Value ' Add the current Volume to the Total Accrued
                             iAverageCount = iAverageCount + 1                                        ' Increases the Denominator by 1 
                         End If
                     Else                                                                                         ' Saves the data and moves on to the next security code
@@ -297,7 +301,7 @@ Public Class Form1
                         End If                                                                                   ' IT MUST BE sSecurityCode2 AS IT IS THE PREVIOUS CODE!!
 
                         dblTotalVolume = 0                                      ' Resetting the Total Volume accrued
-                        dblTotalVolume = dgvAllStocks.Rows(iCnt).Cells(8).Value ' Starts at the new security code
+                        dblTotalVolume = dgvFilterStocks.Rows(iCnt).Cells(8).Value ' Starts at the new security code
                         iAverageCount = 1                                       ' Resetting the Average count to 1 since its a new code
                     End If
                 End If
@@ -341,45 +345,43 @@ Public Class Form1
         dtCriteriaTable.Columns.Add("Close")
         dtCriteriaTable.Columns.Add("Volume")
 
-        Dim LatestDate As Date = dgvAllStocks.Rows(0).Cells(3).Value
+        Dim LatestDate As Date = dgvFilterStocks.Rows(0).Cells(3).Value
         For iCnt = 0 To iRowCnt - 1                                               ' (iRowCnt - 1) since DGV rows start at count = 0
             Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
-            Dim sSecurityCode1 As String = dgvAllStocks.Rows(iCnt).Cells(2).Value ' Current security code
-            Dim dblHigh1 As Double = dgvAllStocks.Rows(iCnt).Cells(5).Value       ' High price of current security code
-            Dim dblClose1 As Double = dgvAllStocks.Rows(iCnt).Cells(7).Value      ' Close price of current security code
-            Dim dblVolume As Double = dgvAllStocks.Rows(iCnt).Cells(8).Value      ' Volume of current security code
+            Dim sSecurityCode1 As String = dgvFilterStocks.Rows(iCnt).Cells(2).Value ' Current security code
+            Dim dblHigh1 As Double = dgvFilterStocks.Rows(iCnt).Cells(5).Value       ' High price of current security code
+            Dim dblClose1 As Double = dgvFilterStocks.Rows(iCnt).Cells(7).Value      ' Close price of current security code
+            Dim dblVolume As Double = dgvFilterStocks.Rows(iCnt).Cells(8).Value      ' Volume of current security code
             Dim DR As DataRow = dtCriteriaTable.NewRow
-            Dim RowDate As Date = dgvAllStocks.Rows(iCnt).Cells(3).Value
+            Dim RowDate As Date = dgvFilterStocks.Rows(iCnt).Cells(3).Value
 
             If RowDate = LatestDate Then
                 If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
-                    Dim sSecurityCode2 As String = dgvAllStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
-                    Dim dblHigh2 As Double = dgvAllStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
-                    Dim dblClose2 As Double = dgvAllStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
+                    Dim sSecurityCode2 As String = dgvFilterStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+                    Dim dblHigh2 As Double = dgvFilterStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+                    Dim dblClose2 As Double = dgvFilterStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
                     ' High Price > Previous High AND Close Price > Previous Close calculations here
                     If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
                                     bMatched = True
+
+                                    DR("Record") = dgvAllStocks.Rows(iCnt).Cells(0).Value
+                                    DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
+                                    DR("Security Code") = dgvAllStocks.Rows(iCnt).Cells(2).Value
+                                    DR("Date") = dgvAllStocks.Rows(iCnt).Cells(3).Value
+                                    DR("Open") = dgvAllStocks.Rows(iCnt).Cells(4).Value
+                                    DR("High") = dgvAllStocks.Rows(iCnt).Cells(5).Value
+                                    DR("Low") = dgvAllStocks.Rows(iCnt).Cells(6).Value
+                                    DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
+                                    DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
+
+                                    dtCriteriaTable.Rows.Add(DR)
+
                                 End If
                             End If
                         End If
-                    End If
-                Else
-                    If bMatched Then
-                        DR("Record") = dgvAllStocks.Rows(iCnt).Cells(0).Value
-                        DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
-                        DR("Security Code") = dgvAllStocks.Rows(iCnt).Cells(2).Value
-                        DR("Date") = dgvAllStocks.Rows(iCnt).Cells(3).Value
-                        DR("Open") = dgvAllStocks.Rows(iCnt).Cells(4).Value
-                        DR("High") = dgvAllStocks.Rows(iCnt).Cells(5).Value
-                        DR("Low") = dgvAllStocks.Rows(iCnt).Cells(6).Value
-                        DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
-                        DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
-
-                        dtCriteriaTable.Rows.Add(DR)
-                        bMatched = False
                     End If
                 End If
             End If
@@ -418,9 +420,6 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub dgvFrontPage_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvFrontPage.CellContentClick
-
-    End Sub
 End Class
 
 
