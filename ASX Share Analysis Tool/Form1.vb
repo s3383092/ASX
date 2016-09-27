@@ -229,9 +229,10 @@ Public Class Form1
         Dim dtTableDummy As New DataTable()
         Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date DESC"                           ' Builds the Query for the database
 
+        'Loads up the user preference for the code
         If My.Settings.DirectoryPathSetting <> "" Then
             'connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & My.Settings.DirectoryPathSetting & "\ASXShareMarketAnalysisTool.accdb"
-            MsgBox("IT WORKS. " & My.Settings.DirectoryPathSetting)
+            Debug.Print("IT WORKS " & My.Settings.DirectoryPathSetting)
         End If
 
         Using con = New OleDbConnection(connectionstring) ' Opens the connection to the database
@@ -240,10 +241,9 @@ Public Class Form1
                 da.Fill(dtTableDummy)                          ' Fill DUmmy table 
                 dgvFilterStocks.DataSource = dtTable         ' Binds the datatable to the DGV
                 dgvAllStocks.DataSource = dtTableDummy
-
-                'Might be worth binding to ALL DGVs to remove datasets
             End Using
         End Using
+
         txtDfltFilePath.Text = My.Settings.DirectoryPathSetting 'Loads current filepath 
     End Sub
 
@@ -259,7 +259,6 @@ Public Class Form1
 
         LoopData()                                 ' Does all the calculations
 
-        '////////////////////////////////////////////////////////////////////////////
         prgrssAllStocks.Visible = False
         dspAllStockStatus.Text = "Filtering Completed!"
     End Sub
@@ -384,13 +383,12 @@ Public Class Form1
                                     DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value & " (" & Format(dblHighDiff, "0.00") & "%)"
                                     DR("Low") = dgvFilterStocks.Rows(iCnt).Cells(6).Value
                                     DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value & " (" & Format(dblCloseDiff, "0.00") & "%)"
-                                    DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value & dblVolumeDiff
+                                    DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value
 
                                     dtCriteriaTable.Rows.Add(DR)
                                     dgvFilterStocks.Hide()
                                     lblPreview.Text = "Showing Results for date: " & LatestDate
                                     dgvHistory.Show()
-
                                 End If
                             End If
                         End If
@@ -441,7 +439,109 @@ Public Class Form1
     Private Sub btnResetLocation_Click(sender As Object, e As EventArgs) Handles btnResetLocation.Click
         My.Settings.DirectoryPathSetting = ""
         My.Settings.Save()
+
+        txtDfltFilePath.Text = My.Settings.DirectoryPathSetting
+        lblConfirmLocation.Text = "Location Reset"
     End Sub
+
+    Private Sub cboCompanyName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCompanyName.SelectedIndexChanged
+        Dim sStockCode As String = cboCompanyName.Text
+
+        chrtHistory.Series.Clear()
+        chrtHistory.Series.Add("Open")
+        chrtHistory.Series.Add("close")
+
+        If sStockCode <> "" Then
+            'Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)                                   ' Might remove datasets soon
+            Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
+            Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
+            Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
+            Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
+            Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & "' order by security_code ASC, security_date ASC;" ' Builds the Query for the database
+            Dim conn As OleDbConnection = New OleDbConnection
+
+            'Loads up the user preference for the code
+            If My.Settings.DirectoryPathSetting <> "" Then
+                'connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & My.Settings.DirectoryPathSetting & "\ASXShareMarketAnalysisTool.accdb"
+                Debug.Print("IT WORKS " & My.Settings.DirectoryPathSetting)
+            End If
+
+            conn.ConnectionString = connectionstring
+            conn.Open()
+            Dim cmd As OleDbCommand = New OleDbCommand(sQuery, conn)
+            Dim dr As OleDbDataReader = cmd.ExecuteReader
+
+            While dr.Read
+                chrtHistory.Series("Open").Points.AddXY(dr("security_date").ToString, dr("opening_price").ToString)
+                chrtHistory.Series("close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
+            End While
+            dr.Close()
+            cmd.Dispose()
+
+        End If
+    End Sub
+
+    Private Sub tabHistory_enter(ByVal sender As Object, ByVal e As System.EventArgs) Handles tabHistory.Enter
+        'Populate the ASX stock code combobox
+        Dim iRowCnt As Integer = dgvFilterStocks.Rows.Count()
+        Dim iCnt As Integer = 0
+        Dim iNext As Integer = 0
+        Dim sStockCode As String = ""
+        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
+        Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
+        Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
+        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
+        Dim sQuery As String = "SELECT * FROM Stocks"                                                                                     ' Builds the Query for the database
+        Dim dtTable As New DataTable()                                                                                                     ' Declares a new datatable
+        Dim ii As Integer = 0
+        Dim istockcnt As Integer = 0
+        Dim bFound As Boolean = False
+
+        Using con = New OleDbConnection(connectionstring) ' Opens the connection to the database
+            Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query
+                da.Fill(dtTable)                          ' Fills the data into a datatable
+                dgvHistoryStocks.DataSource = dtTable
+            End Using
+        End Using
+
+        Dim iii As Integer = 0
+
+
+        istockcnt = dgvHistoryStocks.Rows.Count()
+        For iCnt = 0 To iRowCnt - 1
+            iNext = iCnt + 1
+            sStockCode = dgvFilterStocks.Rows(iCnt).Cells(2).Value
+            If iNext < iRowCnt Then
+                If sStockCode <> dgvFilterStocks.Rows(iNext).Cells(2).Value Or dgvFilterStocks.Rows(iCnt).Cells(2).Value = "" Then
+                    cboCompanyName.Items.Add(sStockCode)
+                    Dim DR As DataRow = dtTable.NewRow()
+                    If istockcnt = 1 Then
+                        DR("security_code") = sStockCode
+                        DR("watch_flag") = 0
+
+                        dtTable.Rows.Add(DR)
+                    Else
+                        'For ii = 0 To istockcnt
+
+                        'Next
+                    End If
+                End If
+            End If
+        Next
+        dgvHistoryStocks.DataSource = dtTable
+
+        'Using con = New OleDbConnection(connectionstring)
+        '    sQuery = "DELETE * FROM stocks"
+        '    Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query.
+        '    End Using
+
+        '    sQuery = "DELETE * FROM stocks"
+        '    Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query.
+        '    End Using
+        'End Using
+
+    End Sub
+
 End Class
 
 
