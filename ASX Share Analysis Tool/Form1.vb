@@ -378,8 +378,8 @@ Public Class Form1
                         DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
 
                         dtCriteriaTable.Rows.Add(DR)
-                            bMatched = False
-                        End If
+                        bMatched = False
+                    End If
                 End If
             End If
         Next
@@ -417,6 +417,9 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub dgvFrontPage_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvFrontPage.CellContentClick
+
+    End Sub
 End Class
 
 
