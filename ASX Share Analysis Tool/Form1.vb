@@ -66,7 +66,7 @@ Public Class Form1
                             Try
                                 CurrentRow = TextFileReader.ReadFields() ' Declares the Row to be added
                                 dgvImport.Rows.Add(CurrentRow)           'Adds the record into the DGV
-                            Catch ex As _
+                            Catch ex As  _
                         Microsoft.VisualBasic.FileIO.MalformedLineException
                                 MsgBox("Line " & ex.Message &
                             "Is Not valid And will be skipped.")
@@ -332,7 +332,6 @@ Public Class Form1
         Dim sHighMatchIDs As String = ""        ' Saves all the Primary Keys for the High Price calculation
         Dim sCloseMatchIDs As String = ""       ' Saves all the Primary Keys for the Close Price calculation
         Dim sVolumeMatchIDs As String = ""      ' Saves all the Primary Keys for the Volume calculation
-        Dim bMatched As Boolean = False
         Dim iAdd As Integer = 0
 
         dtCriteriaTable.Columns.Add("Record")
@@ -361,21 +360,26 @@ Public Class Form1
                     Dim dblHigh2 As Double = dgvFilterStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
                     Dim dblClose2 As Double = dgvFilterStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
                     ' High Price > Previous High AND Close Price > Previous Close calculations here
+                    Dim dblHighDiff As Double
+                    Dim dblCloseDiff As Double
+                    Dim dblVolumeDiff As Double
                     If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
+                            dblHighDiff = dblHigh1 - dblHigh2
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
+                                dblCloseDiff = dblClose1 - dblClose2
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
-                                    bMatched = True
+                                    dblVolumeDiff = dblVolume - CDbl(htAverage(sSecurityCode1))
 
                                     DR("Record") = dgvFilterStocks.Rows(iCnt).Cells(0).Value
                                     DR("Stock ID") = dgvFilterStocks.Rows(iCnt).Cells(1).Value
                                     DR("Security Code") = dgvFilterStocks.Rows(iCnt).Cells(2).Value
                                     DR("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
                                     DR("Open") = dgvFilterStocks.Rows(iCnt).Cells(4).Value
-                                    DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value
+                                    DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value & dblHighDiff
                                     DR("Low") = dgvFilterStocks.Rows(iCnt).Cells(6).Value
-                                    DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value
-                                    DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value
+                                    DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value & dblCloseDiff
+                                    DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value & dblVolumeDiff
 
                                     dtCriteriaTable.Rows.Add(DR)
 
