@@ -367,17 +367,26 @@ Public Class Form1
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
                                     bMatched = True
 
-                                    DR("Record") = dgvAllStocks.Rows(iCnt).Cells(0).Value
-                                    DR("Stock ID") = dgvAllStocks.Rows(iCnt).Cells(1).Value
-                                    DR("Security Code") = dgvAllStocks.Rows(iCnt).Cells(2).Value
-                                    DR("Date") = dgvAllStocks.Rows(iCnt).Cells(3).Value
-                                    DR("Open") = dgvAllStocks.Rows(iCnt).Cells(4).Value
-                                    DR("High") = dgvAllStocks.Rows(iCnt).Cells(5).Value
-                                    DR("Low") = dgvAllStocks.Rows(iCnt).Cells(6).Value
-                                    DR("Close") = dgvAllStocks.Rows(iCnt).Cells(7).Value
-                                    DR("Volume") = dgvAllStocks.Rows(iCnt).Cells(8).Value
+                                    DR("Record") = dgvFilterStocks.Rows(iCnt).Cells(0).Value
+                                    DR("Stock ID") = dgvFilterStocks.Rows(iCnt).Cells(1).Value
+                                    DR("Security Code") = dgvFilterStocks.Rows(iCnt).Cells(2).Value
+                                    DR("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
+                                    DR("Open") = dgvFilterStocks.Rows(iCnt).Cells(4).Value
+                                    DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value
+                                    DR("Low") = dgvFilterStocks.Rows(iCnt).Cells(6).Value
+                                    DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value
+                                    DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value
 
                                     dtCriteriaTable.Rows.Add(DR)
+
+                                    dgvFilterStocks.Hide()
+
+                                    lblPreview.Hide()
+
+                                    dgvHistory.Show()
+
+                                    lblResults.Show()
+
 
                                 End If
                             End If

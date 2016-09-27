@@ -25,17 +25,18 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabFront = New System.Windows.Forms.TabPage()
-        Me.dvgMatch = New System.Windows.Forms.DataGridView()
+        Me.dgvFilterStocks = New System.Windows.Forms.DataGridView()
         Me.prgrssAllStocks = New System.Windows.Forms.ProgressBar()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dspAllStockStatus = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.dvgMatch = New System.Windows.Forms.DataGridView()
+        Me.dgvHistory = New System.Windows.Forms.DataGridView()
         Me.tabAll = New System.Windows.Forms.TabPage()
-        Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.dgvAllStocks = New System.Windows.Forms.DataGridView()
         Me.tabHistory = New System.Windows.Forms.TabPage()
         Me.cboCompanyName = New System.Windows.Forms.ComboBox()
         Me.lblCompany = New System.Windows.Forms.Label()
-        Me.dgvHistory = New System.Windows.Forms.DataGridView()
         Me.tabImport = New System.Windows.Forms.TabPage()
         Me.prgrssImportScreen = New System.Windows.Forms.ProgressBar()
         Me.lblFile = New System.Windows.Forms.Label()
@@ -51,23 +52,24 @@ Partial Class Form1
         Me.txtDfltFilePath = New System.Windows.Forms.TextBox()
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.dgvFilterStocks = New System.Windows.Forms.DataGridView()
-        Me.dgvAllStocks = New System.Windows.Forms.DataGridView()
+        Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.lblPreview = New System.Windows.Forms.Label()
+        Me.lblResults = New System.Windows.Forms.Label()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
+        CType(Me.dgvFilterStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tabAll.SuspendLayout()
-        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tabHistory.SuspendLayout()
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabAll.SuspendLayout()
+        CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabHistory.SuspendLayout()
         Me.tabImport.SuspendLayout()
         CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPreferences.SuspendLayout()
         Me.tabWatchlist.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.SuspendLayout()
-        CType(Me.dgvFilterStocks, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tbcMain
@@ -86,12 +88,15 @@ Partial Class Form1
         '
         'tabFront
         '
+        Me.tabFront.Controls.Add(Me.lblResults)
+        Me.tabFront.Controls.Add(Me.lblPreview)
         Me.tabFront.Controls.Add(Me.dgvFilterStocks)
         Me.tabFront.Controls.Add(Me.prgrssAllStocks)
         Me.tabFront.Controls.Add(Me.Label1)
         Me.tabFront.Controls.Add(Me.dspAllStockStatus)
         Me.tabFront.Controls.Add(Me.Button1)
         Me.tabFront.Controls.Add(Me.dvgMatch)
+        Me.tabFront.Controls.Add(Me.dgvHistory)
         Me.tabFront.Location = New System.Drawing.Point(4, 22)
         Me.tabFront.Name = "tabFront"
         Me.tabFront.Padding = New System.Windows.Forms.Padding(3)
@@ -100,14 +105,15 @@ Partial Class Form1
         Me.tabFront.Text = "Front Page"
         Me.tabFront.UseVisualStyleBackColor = True
         '
-        'dvgMatch
+        'dgvFilterStocks
         '
-        Me.dvgMatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dvgMatch.Location = New System.Drawing.Point(8, 35)
-        Me.dvgMatch.Name = "dvgMatch"
-        Me.dvgMatch.Size = New System.Drawing.Size(1001, 445)
-        Me.dvgMatch.TabIndex = 6
-        Me.dvgMatch.Visible = False
+        Me.dgvFilterStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFilterStocks.Enabled = False
+        Me.dgvFilterStocks.Location = New System.Drawing.Point(7, 34)
+        Me.dgvFilterStocks.Name = "dgvFilterStocks"
+        Me.dgvFilterStocks.ReadOnly = True
+        Me.dgvFilterStocks.Size = New System.Drawing.Size(1002, 450)
+        Me.dgvFilterStocks.TabIndex = 8
         '
         'prgrssAllStocks
         '
@@ -149,6 +155,24 @@ Partial Class Form1
         Me.Button1.Text = "Filter stocks"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'dvgMatch
+        '
+        Me.dvgMatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dvgMatch.Location = New System.Drawing.Point(8, 35)
+        Me.dvgMatch.Name = "dvgMatch"
+        Me.dvgMatch.Size = New System.Drawing.Size(1001, 445)
+        Me.dvgMatch.TabIndex = 6
+        Me.dvgMatch.Visible = False
+        '
+        'dgvHistory
+        '
+        Me.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvHistory.Location = New System.Drawing.Point(7, 34)
+        Me.dgvHistory.Name = "dgvHistory"
+        Me.dgvHistory.Size = New System.Drawing.Size(1002, 450)
+        Me.dgvHistory.TabIndex = 9
+        Me.dgvHistory.Visible = False
+        '
         'tabAll
         '
         Me.tabAll.Controls.Add(Me.dgvAllStocks)
@@ -160,15 +184,19 @@ Partial Class Form1
         Me.tabAll.Text = "All Stocks"
         Me.tabAll.UseVisualStyleBackColor = True
         '
-        'DailyStockPricesBindingSource
+        'dgvAllStocks
         '
-        Me.DailyStockPricesBindingSource.DataMember = "Daily_Stock_Prices"
+        Me.dgvAllStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAllStocks.Location = New System.Drawing.Point(6, 6)
+        Me.dgvAllStocks.Name = "dgvAllStocks"
+        Me.dgvAllStocks.ReadOnly = True
+        Me.dgvAllStocks.Size = New System.Drawing.Size(1001, 510)
+        Me.dgvAllStocks.TabIndex = 8
         '
         'tabHistory
         '
         Me.tabHistory.Controls.Add(Me.cboCompanyName)
         Me.tabHistory.Controls.Add(Me.lblCompany)
-        Me.tabHistory.Controls.Add(Me.dgvHistory)
         Me.tabHistory.Location = New System.Drawing.Point(4, 22)
         Me.tabHistory.Name = "tabHistory"
         Me.tabHistory.Padding = New System.Windows.Forms.Padding(3)
@@ -194,14 +222,6 @@ Partial Class Form1
         Me.lblCompany.Size = New System.Drawing.Size(82, 13)
         Me.lblCompany.TabIndex = 1
         Me.lblCompany.Text = "Company Name"
-        '
-        'dgvHistory
-        '
-        Me.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvHistory.Location = New System.Drawing.Point(6, 33)
-        Me.dgvHistory.Name = "dgvHistory"
-        Me.dgvHistory.Size = New System.Drawing.Size(1003, 483)
-        Me.dgvHistory.TabIndex = 0
         '
         'tabImport
         '
@@ -363,24 +383,32 @@ Partial Class Form1
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 1
         '
-        'dgvFilterStocks
+        'DailyStockPricesBindingSource
         '
-        Me.dgvFilterStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFilterStocks.Enabled = False
-        Me.dgvFilterStocks.Location = New System.Drawing.Point(7, 34)
-        Me.dgvFilterStocks.Name = "dgvFilterStocks"
-        Me.dgvFilterStocks.ReadOnly = True
-        Me.dgvFilterStocks.Size = New System.Drawing.Size(1002, 450)
-        Me.dgvFilterStocks.TabIndex = 8
+        Me.DailyStockPricesBindingSource.DataMember = "Daily_Stock_Prices"
         '
-        'dgvAllStocks
+        'lblPreview
         '
-        Me.dgvAllStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvAllStocks.Location = New System.Drawing.Point(6, 6)
-        Me.dgvAllStocks.Name = "dgvAllStocks"
-        Me.dgvAllStocks.ReadOnly = True
-        Me.dgvAllStocks.Size = New System.Drawing.Size(1001, 510)
-        Me.dgvAllStocks.TabIndex = 8
+        Me.lblPreview.AutoSize = True
+        Me.lblPreview.Cursor = System.Windows.Forms.Cursors.Default
+        Me.lblPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPreview.Location = New System.Drawing.Point(7, 16)
+        Me.lblPreview.Name = "lblPreview"
+        Me.lblPreview.Size = New System.Drawing.Size(52, 13)
+        Me.lblPreview.TabIndex = 10
+        Me.lblPreview.Text = "Preview"
+        '
+        'lblResults
+        '
+        Me.lblResults.AutoSize = True
+        Me.lblResults.Cursor = System.Windows.Forms.Cursors.Default
+        Me.lblResults.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblResults.Location = New System.Drawing.Point(58, 16)
+        Me.lblResults.Name = "lblResults"
+        Me.lblResults.Size = New System.Drawing.Size(49, 13)
+        Me.lblResults.TabIndex = 11
+        Me.lblResults.Text = "Results"
+        Me.lblResults.Visible = False
         '
         'Form1
         '
@@ -394,12 +422,13 @@ Partial Class Form1
         Me.tbcMain.ResumeLayout(False)
         Me.tabFront.ResumeLayout(False)
         Me.tabFront.PerformLayout()
+        CType(Me.dgvFilterStocks, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dvgMatch, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAll.ResumeLayout(False)
-        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
-        CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabImport.ResumeLayout(False)
         Me.tabImport.PerformLayout()
         CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).EndInit()
@@ -408,8 +437,7 @@ Partial Class Form1
         Me.tabWatchlist.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        CType(Me.dgvFilterStocks, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -420,7 +448,6 @@ Partial Class Form1
     Friend WithEvents tabHistory As TabPage
     Friend WithEvents tabImport As TabPage
     Friend WithEvents tabPreferences As TabPage
-    Friend WithEvents dgvHistory As DataGridView
     Friend WithEvents dspStatus As TextBox
     Friend WithEvents lblStatus As Label
     Friend WithEvents btnImport As Button
@@ -455,4 +482,7 @@ Partial Class Form1
     Friend WithEvents btnNewLocation As Button
     Friend WithEvents dgvFilterStocks As DataGridView
     Friend WithEvents dgvAllStocks As DataGridView
+    Friend WithEvents dgvHistory As DataGridView
+    Friend WithEvents lblResults As Label
+    Friend WithEvents lblPreview As Label
 End Class
