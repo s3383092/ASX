@@ -23,9 +23,9 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabFront = New System.Windows.Forms.TabPage()
         Me.lblResults = New System.Windows.Forms.Label()
@@ -40,6 +40,7 @@ Partial Class Form1
         Me.tabAll = New System.Windows.Forms.TabPage()
         Me.dgvAllStocks = New System.Windows.Forms.DataGridView()
         Me.tabHistory = New System.Windows.Forms.TabPage()
+        Me.dgvHistoryStocks = New System.Windows.Forms.DataGridView()
         Me.chkHistoryWatch = New System.Windows.Forms.CheckBox()
         Me.chrtHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.cboCompanyName = New System.Windows.Forms.ComboBox()
@@ -62,7 +63,6 @@ Partial Class Form1
         Me.tabWatchlist = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.dgvHistoryStocks = New System.Windows.Forms.DataGridView()
         Me.tbcMain.SuspendLayout()
         Me.tabFront.SuspendLayout()
         CType(Me.dgvFilterStocks, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,6 +71,7 @@ Partial Class Form1
         Me.tabAll.SuspendLayout()
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabHistory.SuspendLayout()
+        CType(Me.dgvHistoryStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chrtHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabImport.SuspendLayout()
         CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -79,7 +80,6 @@ Partial Class Form1
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.SuspendLayout()
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvHistoryStocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tbcMain
@@ -241,6 +241,15 @@ Partial Class Form1
         Me.tabHistory.Text = "History"
         Me.tabHistory.UseVisualStyleBackColor = True
         '
+        'dgvHistoryStocks
+        '
+        Me.dgvHistoryStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvHistoryStocks.Location = New System.Drawing.Point(7, 490)
+        Me.dgvHistoryStocks.Name = "dgvHistoryStocks"
+        Me.dgvHistoryStocks.Size = New System.Drawing.Size(1002, 29)
+        Me.dgvHistoryStocks.TabIndex = 6
+        Me.dgvHistoryStocks.Visible = False
+        '
         'chkHistoryWatch
         '
         Me.chkHistoryWatch.AutoSize = True
@@ -250,23 +259,24 @@ Partial Class Form1
         Me.chkHistoryWatch.TabIndex = 5
         Me.chkHistoryWatch.Text = "Add to Watchlist"
         Me.chkHistoryWatch.UseVisualStyleBackColor = True
+        Me.chkHistoryWatch.Visible = False
         '
         'chrtHistory
         '
         Me.chrtHistory.BorderlineColor = System.Drawing.Color.Black
         Me.chrtHistory.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid
         Me.chrtHistory.BorderlineWidth = 3
-        ChartArea4.Name = "ChartArea1"
-        Me.chrtHistory.ChartAreas.Add(ChartArea4)
-        Legend4.Name = "Legend1"
-        Me.chrtHistory.Legends.Add(Legend4)
+        ChartArea1.Name = "ChartArea1"
+        Me.chrtHistory.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.chrtHistory.Legends.Add(Legend1)
         Me.chrtHistory.Location = New System.Drawing.Point(7, 34)
         Me.chrtHistory.Name = "chrtHistory"
-        Series4.ChartArea = "ChartArea1"
-        Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series4.Legend = "Legend1"
-        Series4.Name = "Series1"
-        Me.chrtHistory.Series.Add(Series4)
+        Series1.ChartArea = "ChartArea1"
+        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.chrtHistory.Series.Add(Series1)
         Me.chrtHistory.Size = New System.Drawing.Size(1002, 450)
         Me.chrtHistory.TabIndex = 4
         Me.chrtHistory.Text = "History"
@@ -473,15 +483,6 @@ Partial Class Form1
         '
         Me.DailyStockPricesBindingSource.DataMember = "Daily_Stock_Prices"
         '
-        'dgvHistoryStocks
-        '
-        Me.dgvHistoryStocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvHistoryStocks.Location = New System.Drawing.Point(7, 490)
-        Me.dgvHistoryStocks.Name = "dgvHistoryStocks"
-        Me.dgvHistoryStocks.Size = New System.Drawing.Size(1002, 29)
-        Me.dgvHistoryStocks.TabIndex = 6
-        Me.dgvHistoryStocks.Visible = False
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -501,6 +502,7 @@ Partial Class Form1
         CType(Me.dgvAllStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabHistory.ResumeLayout(False)
         Me.tabHistory.PerformLayout()
+        CType(Me.dgvHistoryStocks, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chrtHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabImport.ResumeLayout(False)
         Me.tabImport.PerformLayout()
@@ -511,7 +513,6 @@ Partial Class Form1
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvHistoryStocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
