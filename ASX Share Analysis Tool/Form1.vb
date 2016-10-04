@@ -245,7 +245,7 @@ Public Class Form1
             End Using
 
         Catch ex As Exception
-            MsgBox("Cannot Load DataBase " & vbCrLf & "Please change path to database in preferances")
+            MsgBox(ex)
         End Try
 
         txtDfltFilePath.Text = My.Settings.DirectoryPathSetting 'Loads current filepath 
