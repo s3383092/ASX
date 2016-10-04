@@ -451,9 +451,8 @@ Public Class Form1
     Private Sub cboCompanyName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCompanyName.SelectedIndexChanged
         Dim sStockCode As String = cboCompanyName.Text
 
-        chrtHistory.Series.Clear()
-        chrtHistory.Series.Add("Open")
-        chrtHistory.Series.Add("close")
+        chrtHistory.Series("Open").Points.Clear()
+        chrtHistory.Series("Close").Points.Clear()
 
         If sStockCode <> "" Then
             'Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)                                   ' Might remove datasets soon
@@ -477,7 +476,7 @@ Public Class Form1
 
             While dr.Read
                 chrtHistory.Series("Open").Points.AddXY(dr("security_date").ToString, dr("opening_price").ToString)
-                chrtHistory.Series("close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
+                chrtHistory.Series("Close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
             End While
             dr.Close()
             cmd.Dispose()
