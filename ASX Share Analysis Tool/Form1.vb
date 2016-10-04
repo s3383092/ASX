@@ -221,10 +221,10 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)                                   ' Might remove datasets soon
-        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
+        ' Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
         Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
-        Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
-        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
+        ' Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
+        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
         Dim dtTable As New DataTable()                                                                                                     ' Declares a new datatable
         Dim dtTableDummy As New DataTable()
         Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices order by security_code ASC, security_date DESC"                           ' Builds the Query for the database
@@ -234,15 +234,19 @@ Public Class Form1
             'connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & My.Settings.DirectoryPathSetting & "\ASXShareMarketAnalysisTool.accdb"
             Debug.Print("IT WORKS " & My.Settings.DirectoryPathSetting)
         End If
-
-        Using con = New OleDbConnection(connectionstring) ' Opens the connection to the database
-            Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query
-                da.Fill(dtTable)                          ' Fills the data into a datatable
-                da.Fill(dtTableDummy)                          ' Fill DUmmy table 
-                dgvFilterStocks.DataSource = dtTable         ' Binds the datatable to the DGV
-                dgvAllStocks.DataSource = dtTableDummy
+        Try
+            Using con = New OleDbConnection(connectionstring) ' Opens the connection to the database
+                Using da = New OleDbDataAdapter(sQuery, con)  ' Runs the Query
+                    da.Fill(dtTable)                          ' Fills the data into a datatable
+                    da.Fill(dtTableDummy)                          ' Fill DUmmy table 
+                    dgvFilterStocks.DataSource = dtTable         ' Binds the datatable to the DGV
+                    dgvAllStocks.DataSource = dtTableDummy
+                End Using
             End Using
-        End Using
+
+        Catch ex As Exception
+            MsgBox("Cannot Load DataBase " & vbCrLf & "Please change path to database in preferances")
+        End Try
 
         txtDfltFilePath.Text = My.Settings.DirectoryPathSetting 'Loads current filepath 
     End Sub
