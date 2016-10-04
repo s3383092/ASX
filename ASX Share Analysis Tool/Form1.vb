@@ -120,10 +120,10 @@ Public Class Form1
             prgrssImportScreen.Increment(100)
 
 
-            Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"} 'This is the locatation of the database file hardcoded in. If desirable, have an open file dialog to allow user selection in preferences?
+            'Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"} 'This is the locatation of the database file hardcoded in. If desirable, have an open file dialog to allow user selection in preferences?
             Dim path As String = Environment.CurrentDirectory
-            Dim newpath As String = path.TrimEnd(MyChar)
-            Dim CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb"
+            'Dim newpath As String = path.TrimEnd(MyChar)
+            Dim CON_STRING As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb"
             Dim myConnection As OleDbConnection = New OleDbConnection(CON_STRING)
             'instantiates a connection object
 
@@ -457,10 +457,10 @@ Public Class Form1
 
         If sStockCode <> "" Then
             'Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)                                   ' Might remove datasets soon
-            Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
+            'Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
             Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
-            Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
-            Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
+            'Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
+            Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
             Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & "' order by security_code ASC, security_date ASC;" ' Builds the Query for the database
             Dim conn As OleDbConnection = New OleDbConnection
 
@@ -491,10 +491,10 @@ Public Class Form1
         Dim iCnt As Integer = 0
         Dim iNext As Integer = 0
         Dim sStockCode As String = ""
-        Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
+        'Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
         Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
-        Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
-        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & newpath & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
+        'Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
+        Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
         Dim sQuery As String = "SELECT * FROM Stocks"                                                                                     ' Builds the Query for the database
         Dim dtTable As New DataTable()                                                                                                     ' Declares a new datatable
         Dim ii As Integer = 0
