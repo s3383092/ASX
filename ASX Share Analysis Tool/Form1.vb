@@ -248,7 +248,6 @@ Public Class Form1
             MsgBox(ex)
         End Try
 
-        txtDfltFilePath.Text = My.Settings.DirectoryPathSetting 'Loads current filepath 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -417,35 +416,6 @@ Public Class Form1
 
         prgrssAllStocks.Increment(1000)
 
-    End Sub
-
-    Private Sub btnNewLocation_Click(sender As Object, e As EventArgs) Handles btnNewLocation.Click
-        Dim FolderBrowserDialog1 As New FolderBrowserDialog()
-
-
-        FolderBrowserDialog1.Description = "Please Select a File"
-        If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
-            FolderName = FolderBrowserDialog1.SelectedPath
-
-            txtDfltFilePath.Text = FolderName
-            lblConfirmLocation.Text = "Location Changed"
-
-            My.Settings.DirectoryPathSetting = FolderName
-            My.Settings.Save()
-            Debug.Print(FolderName)
-            Debug.Print(My.Settings.DirectoryPathSetting)
-        Else
-            txtDfltFilePath.Text = My.Settings.DirectoryPathSetting
-            lblConfirmLocation.Text = "Location Unchanged"
-        End If
-    End Sub
-
-    Private Sub btnResetLocation_Click(sender As Object, e As EventArgs) Handles btnResetLocation.Click
-        My.Settings.DirectoryPathSetting = ""
-        My.Settings.Save()
-
-        txtDfltFilePath.Text = My.Settings.DirectoryPathSetting
-        lblConfirmLocation.Text = "Location Reset"
     End Sub
 
     Private Sub cboCompanyName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCompanyName.SelectedIndexChanged
