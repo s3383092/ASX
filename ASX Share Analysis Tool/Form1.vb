@@ -246,7 +246,7 @@ Public Class Form1
 
         Catch ex As Exception
             'MsgBox(ex)
-            MsgBox("Cannot load database" & vbCrLf & " Please check the name and location")
+            MsgBox("Cannot load database" & vbCrLf & ex.Message)
         End Try
 
     End Sub
