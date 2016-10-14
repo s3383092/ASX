@@ -549,12 +549,21 @@ Public Class Form1
 
         Dim viewClose As New DataView(dtTopClose)
         Dim viewVolume As New DataView(dtTopVolume)
-
+        Dim viewCnt As Integer = 0
+        Dim II As Integer = 0
         viewClose.Sort = "Close(%) DESC"
         viewVolume.Sort = "Volume(%) DESC"
 
+        viewCnt = viewClose.Count()
+
+        For II = 10 To viewCnt
+            viewClose.Delete(II)
+            viewCnt = viewClose.Count() ' THIS IS BROKEN
+        Next
+
+
         dgvHistory.DataSource = dtCriteriaTable
-        dgvTopClose.DataSource = viewClose
+        dgvTopClose.DataSource = viewClose.RowFilter()
         dgvTopVolume.DataSource = viewVolume
 
         prgrssAllStocks.Increment(1000)
