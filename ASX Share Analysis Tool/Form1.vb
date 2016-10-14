@@ -492,11 +492,11 @@ Public Class Form1
                     End If
 
                     If iSecCntr = 1 Then
-                        dblCloseDiff = dblClose1 / dblClose2
-                        dblVolumeDiff = dblVolume / dgvFilterStocks.Rows(iNext).Cells(8).Value
+                        dblCloseDiff = Format((dblClose1 / dblClose2), "0.00")
+                        dblVolumeDiff = Format((dblVolume / dgvFilterStocks.Rows(iNext).Cells(8).Value), "0.00")
 
                         drTop("Code") = sSecurityCode1
-                        drTop("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
+                        drTop("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
                         drTop("Close") = CStr(dblCloseDiff) + "%"
                         drTop("Volume") = CStr(dblVolumeDiff) + "%"
 
