@@ -413,7 +413,7 @@ Public Class Form1
         Dim iAdd As Integer = 0
         Dim iSecCntr As Integer = 0   ' shehan 5/10
         Dim iHitCtnr As Integer = 0 ' shehan 5/10
-
+        Dim TopRows() As String
         dtCriteriaTable.Columns.Add("Record")
         dtCriteriaTable.Columns.Add("Stock ID")
         dtCriteriaTable.Columns.Add("Security Code")
@@ -453,7 +453,7 @@ Public Class Form1
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
                             dblHighDiff = dblHigh1 / dblHigh2
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
-                                dblCloseDiff = dblClose1 - dblClose2
+                                dblCloseDiff = dblClose1 / dblClose2
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
                                     dblVolumeDiff = dblVolume - CDbl(htAverage(sSecurityCode1))
 
@@ -486,7 +486,9 @@ Public Class Form1
                     End If
 
                     If iSecCntr = 1 Then
-
+                        'dblCloseDiff = dblClose1 / dblClose2
+                        'dblVolumeDiff = dblVolume / dgvFilterStocks.Rows(iNext).Cells(8).Value
+                        'dgvTop.Rows(0).Cells(0).Value = "TESTING"
                         ' ADD dblHighDiff to table / this is taken from above
                         ' Work out and add dblCloseDiff to table / this will need to be recalculated due to the filtering levels
                         ' Work out and add dblVolume diff to table / this will need to be recalculated due to the filtering levels
