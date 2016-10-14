@@ -336,8 +336,6 @@ Public Class Form1
         End If
     End Sub
 
-
-
     Private Sub LoopData()
         Dim iRowCnt As Integer = 0        ' Total Row counter
         Dim iCnt As Integer = 0           ' Loop counter
@@ -356,8 +354,6 @@ Public Class Form1
         For iCnt = 0 To iRowCnt - 1                                               ' iRowCnt -1 (needs to be 1 less coz we count from row 0)
             Dim iPrev As Integer = iCnt - 1                                       ' Grabs the next row data to compare, needed to check if security codes match
             Dim sSecurityCode1 As String = dgvFilterStocks.Rows(iCnt).Cells(2).Value ' Grabs the current security code
-
-
 
             'Loops through finding the 30 day average per stock code
             If iPrev = -1 Then                                                           ' handles the very first stock code
@@ -458,22 +454,23 @@ Public Class Form1
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
                                     dblVolumeDiff = dblVolume - CDbl(htAverage(sSecurityCode1))
 
-
                                     iHitCtnr = iHitCtnr + 1 ' shehan 5/10
 
                                     If iHitCtnr = 5 Then ' shehan 5/10
 
-                                        iHitCtnr = 0 ' shehan 5/10
+                                        iHitCtnr = (iCnt - iSecCntr) + 1 ' using iHitCtnr as a placeholder 
 
-                                        DR("Record") = dgvFilterStocks.Rows(iCnt).Cells(0).Value
-                                        DR("Stock ID") = dgvFilterStocks.Rows(iCnt).Cells(1).Value
-                                        DR("Security Code") = dgvFilterStocks.Rows(iCnt).Cells(2).Value
-                                        DR("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
-                                        DR("Open") = dgvFilterStocks.Rows(iCnt).Cells(4).Value
-                                        DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value & " (" & Format(dblHighDiff, "0.00") & "%)"
-                                        DR("Low") = dgvFilterStocks.Rows(iCnt).Cells(6).Value
-                                        DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value & " (" & Format(dblCloseDiff, "0.00") & "%)"
-                                        DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value
+                                        DR("Record") = dgvFilterStocks.Rows(iHitCtnr).Cells(0).Value
+                                        DR("Stock ID") = dgvFilterStocks.Rows(iHitCtnr).Cells(1).Value
+                                        DR("Security Code") = dgvFilterStocks.Rows(iHitCtnr).Cells(2).Value
+                                        DR("Date") = dgvFilterStocks.Rows(iHitCtnr).Cells(3).Value
+                                        DR("Open") = dgvFilterStocks.Rows(iHitCtnr).Cells(4).Value
+                                        DR("High") = dgvFilterStocks.Rows(iHitCtnr).Cells(5).Value & " (" & Format(dblHighDiff, "0.00") & "%)"
+                                        DR("Low") = dgvFilterStocks.Rows(iHitCtnr).Cells(6).Value
+                                        DR("Close") = dgvFilterStocks.Rows(iHitCtnr).Cells(7).Value & " (" & Format(dblCloseDiff, "0.00") & "%)"
+                                        DR("Volume") = dgvFilterStocks.Rows(iHitCtnr).Cells(8).Value
+
+                                        iHitCtnr = 0 ' shehan 5/10
 
                                         dtCriteriaTable.Rows.Add(DR)
                                         dgvFilterStocks.Hide()
