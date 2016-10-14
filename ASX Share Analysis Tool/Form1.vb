@@ -497,8 +497,8 @@ Public Class Form1
 
                         drTop("Code") = sSecurityCode1
                         drTop("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
-                        drTop("Close") = CStr(dblCloseDiff) + "%"
-                        drTop("Volume") = CStr(dblVolumeDiff) + "%"
+                        drTop("Close") = CStr(dblCloseDiff * 100) + "%"
+                        drTop("Volume") = CStr(dblVolumeDiff * 100) + "%"
 
                         dtTop.Rows.Add(drTop)
 
