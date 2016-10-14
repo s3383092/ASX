@@ -490,7 +490,7 @@ Public Class Form1
             Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
             'Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
             Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
-            Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & " order by  security_date ASC;" ' Builds the Query for the database
+            Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & "' order by  security_date ASC;" ' Builds the Query for the database
             Dim conn As OleDbConnection = New OleDbConnection
 
             conn.ConnectionString = connectionstring
@@ -502,6 +502,7 @@ Public Class Form1
                 If dr("security_date") >= sStartDate Then
                     chrtHistory.Series("Open").Points.AddXY(dr("security_date").ToString, dr("opening_price").ToString)
                     chrtHistory.Series("Close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
+                    chrtVolume.Series("Volume").Points.AddXY(dr("security_date").ToString, dr("total_volume").ToString)
                 End If
             End While
             dr.Close()
@@ -512,6 +513,7 @@ Public Class Form1
 
         End If
     End Sub
+
 End Class
 
 
