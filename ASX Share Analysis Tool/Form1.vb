@@ -412,6 +412,8 @@ Public Class Form1
         Dim sCloseMatchIDs As String = ""       ' Saves all the Primary Keys for the Close Price calculation
         Dim sVolumeMatchIDs As String = ""      ' Saves all the Primary Keys for the Volume calculation
         Dim iAdd As Integer = 0
+        Dim iSecCntr As Integer = 0   ' shehan 5/10
+        Dim iHitCtnr As Integer = 0 ' shehan 5/10
 
         dtCriteriaTable.Columns.Add("Record")
         dtCriteriaTable.Columns.Add("Stock ID")
@@ -424,6 +426,7 @@ Public Class Form1
         dtCriteriaTable.Columns.Add("Volume")
 
         Dim LatestDate As Date = dgvFilterStocks.Rows(0).Cells(3).Value
+
         For iCnt = 0 To iRowCnt - 1                                               ' (iRowCnt - 1) since DGV rows start at count = 0
             Dim iNext As Integer = iCnt + 1                                       ' Find the next record for comparison reasons
             Dim sSecurityCode1 As String = dgvFilterStocks.Rows(iCnt).Cells(2).Value ' Current security code
@@ -433,16 +436,21 @@ Public Class Form1
             Dim DR As DataRow = dtCriteriaTable.NewRow
             Dim RowDate As Date = dgvFilterStocks.Rows(iCnt).Cells(3).Value
 
-            If RowDate = LatestDate Then
-                If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
-                    Dim sSecurityCode2 As String = dgvFilterStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
-                    Dim dblHigh2 As Double = dgvFilterStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
-                    Dim dblClose2 As Double = dgvFilterStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
-                    ' High Price > Previous High AND Close Price > Previous Close calculations here
-                    Dim dblHighDiff As Double
-                    Dim dblCloseDiff As Double
-                    Dim dblVolumeDiff As Double
-                    If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
+            '  If RowDate = LatestDate Then
+            If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
+                Dim sSecurityCode2 As String = dgvFilterStocks.Rows(iNext).Cells(2).Value ' Security code of the next row
+                Dim dblHigh2 As Double = dgvFilterStocks.Rows(iNext).Cells(5).Value       ' High Price of the next row (sorted in descending order)
+                Dim dblClose2 As Double = dgvFilterStocks.Rows(iNext).Cells(7).Value      ' Close Price of the next row (sorted in descending order)
+                ' High Price > Previous High AND Close Price > Previous Close calculations here
+                Dim dblHighDiff As Double
+                Dim dblCloseDiff As Double
+                Dim dblVolumeDiff As Double
+
+                If sSecurityCode2 = sSecurityCode1 Then                                                  ' compares the security codes first
+                    iSecCntr = iSecCntr + 1 ' shehan 5/10
+                    '  MsgBox(sSecurityCode2 & iSecCntr)
+                    If iSecCntr < 11 Then 'days you want + 1 ' shehan 5/10
+
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
                             dblHighDiff = dblHigh1 / dblHigh2
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
@@ -450,25 +458,37 @@ Public Class Form1
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
                                     dblVolumeDiff = dblVolume - CDbl(htAverage(sSecurityCode1))
 
-                                    DR("Record") = dgvFilterStocks.Rows(iCnt).Cells(0).Value
-                                    DR("Stock ID") = dgvFilterStocks.Rows(iCnt).Cells(1).Value
-                                    DR("Security Code") = dgvFilterStocks.Rows(iCnt).Cells(2).Value
-                                    DR("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
-                                    DR("Open") = dgvFilterStocks.Rows(iCnt).Cells(4).Value
-                                    DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value & " (" & Format(dblHighDiff, "0.00") & "%)"
-                                    DR("Low") = dgvFilterStocks.Rows(iCnt).Cells(6).Value
-                                    DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value & " (" & Format(dblCloseDiff, "0.00") & "%)"
-                                    DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value
 
-                                    dtCriteriaTable.Rows.Add(DR)
-                                    dgvFilterStocks.Hide()
-                                    lblPreview.Text = "Showing Results for date: " & LatestDate
-                                    dgvHistory.Show()
+                                    iHitCtnr = iHitCtnr + 1 ' shehan 5/10
+
+                                    If iHitCtnr = 5 Then ' shehan 5/10
+
+                                        iHitCtnr = 0 ' shehan 5/10
+
+                                        DR("Record") = dgvFilterStocks.Rows(iCnt).Cells(0).Value
+                                        DR("Stock ID") = dgvFilterStocks.Rows(iCnt).Cells(1).Value
+                                        DR("Security Code") = dgvFilterStocks.Rows(iCnt).Cells(2).Value
+                                        DR("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
+                                        DR("Open") = dgvFilterStocks.Rows(iCnt).Cells(4).Value
+                                        DR("High") = dgvFilterStocks.Rows(iCnt).Cells(5).Value & " (" & Format(dblHighDiff, "0.00") & "%)"
+                                        DR("Low") = dgvFilterStocks.Rows(iCnt).Cells(6).Value
+                                        DR("Close") = dgvFilterStocks.Rows(iCnt).Cells(7).Value & " (" & Format(dblCloseDiff, "0.00") & "%)"
+                                        DR("Volume") = dgvFilterStocks.Rows(iCnt).Cells(8).Value
+
+                                        dtCriteriaTable.Rows.Add(DR)
+                                        dgvFilterStocks.Hide()
+                                        lblPreview.Text = "Showing Results for date: " & LatestDate
+                                        dgvHistory.Show()
+                                    End If
                                 End If
                             End If
                         End If
                     End If
-                End If
+                Else ' shehan 5/10
+                    iSecCntr = 0 ' shehan 5/10
+                    iHitCtnr = 0 ' shehan 5/10
+                End If ' shehan 5/10
+
             End If
         Next
 
