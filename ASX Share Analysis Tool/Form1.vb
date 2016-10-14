@@ -492,23 +492,21 @@ Public Class Form1
                     End If
 
                     If iSecCntr = 1 Then
-                        dblCloseDiff = Format((dblClose1 / dblClose2), "0.00")
-                        dblVolumeDiff = Format((dblVolume / dgvFilterStocks.Rows(iNext).Cells(8).Value), "0.00")
+                        dblCloseDiff = Format(((dblClose1 - dblClose2) / dblClose2), "0.00")
+                        dblVolumeDiff = Format(((dblVolume - dgvFilterStocks.Rows(iNext).Cells(8).Value) / dgvFilterStocks.Rows(iNext).Cells(8).Value), "0.00")
 
                         drTop("Code") = sSecurityCode1
                         drTop("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
-                        drTop("Close") = CStr(dblCloseDiff * 100) + "%"
-                        drTop("Volume") = CStr(dblVolumeDiff * 100) + "%"
+                        drTop("Close") = CDbl(dblCloseDiff)
+                        drTop("Volume") = CDbl(dblVolumeDiff)
 
-                        dtTop.Rows.Add(drTop)
+                        If dblCloseDiff > 0.01 And dblVolumeDiff > 0.01 Then
+                            dtTop.Rows.Add(drTop)
+                        End If
 
-                        'dgvTop.Rows(0).Cells(0).Value = "TESTING"
-                        ' ADD dblHighDiff to table / this is taken from above
-                        ' Work out and add dblCloseDiff to table / this will need to be recalculated due to the filtering levels
-                        ' Work out and add dblVolume diff to table / this will need to be recalculated due to the filtering levels
                     End If
 
-                Else ' shehan 5/10
+                    Else ' shehan 5/10
                     iSecCntr = 0 ' shehan 5/10
                     iHitCtnr = 0 ' shehan 5/10
                 End If ' shehan 5/10
