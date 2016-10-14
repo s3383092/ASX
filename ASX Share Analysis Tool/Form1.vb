@@ -239,6 +239,9 @@ Public Class Form1
 
         prgrssAllStocks.Visible = False
         dspAllStockStatus.Text = "Filtering Completed!"
+
+        btnDisplayTop10.Visible = True
+
     End Sub
 
     Private Sub tabHistory_enter(ByVal sender As Object, ByVal e As System.EventArgs) Handles tabHistory.Enter
@@ -483,6 +486,7 @@ Public Class Form1
                     End If
 
                     If iSecCntr = 1 Then
+
                         ' ADD dblHighDiff to table / this is taken from above
                         ' Work out and add dblCloseDiff to table / this will need to be recalculated due to the filtering levels
                         ' Work out and add dblVolume diff to table / this will need to be recalculated due to the filtering levels
@@ -547,6 +551,9 @@ Public Class Form1
 
     End Sub
 
+    Private Sub btnDisplayTop10_Click(sender As Object, e As EventArgs) Handles btnDisplayTop10.Click
+        tbcMain.SelectedTab = tabTopTen
+    End Sub
 End Class
 
 
