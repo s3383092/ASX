@@ -38,6 +38,8 @@ Partial Class Form1
         Me.btnImportFile = New System.Windows.Forms.Button()
         Me.dgvImport = New System.Windows.Forms.DataGridView()
         Me.tabHistory = New System.Windows.Forms.TabPage()
+        Me.btnHistory = New System.Windows.Forms.Button()
+        Me.dtpHistory = New System.Windows.Forms.DateTimePicker()
         Me.dgvHistoryStocks = New System.Windows.Forms.DataGridView()
         Me.chrtHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.cboCompanyName = New System.Windows.Forms.ComboBox()
@@ -55,8 +57,6 @@ Partial Class Form1
         Me.dvgMatch = New System.Windows.Forms.DataGridView()
         Me.dgvHistory = New System.Windows.Forms.DataGridView()
         Me.tbcMain = New System.Windows.Forms.TabControl()
-        Me.dtpHistory = New System.Windows.Forms.DateTimePicker()
-        Me.btnHistory = New System.Windows.Forms.Button()
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabImport.SuspendLayout()
         CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -186,6 +186,23 @@ Partial Class Form1
         Me.tabHistory.TabIndex = 2
         Me.tabHistory.Text = "History"
         Me.tabHistory.UseVisualStyleBackColor = True
+        '
+        'btnHistory
+        '
+        Me.btnHistory.Location = New System.Drawing.Point(713, 3)
+        Me.btnHistory.Name = "btnHistory"
+        Me.btnHistory.Size = New System.Drawing.Size(75, 23)
+        Me.btnHistory.TabIndex = 8
+        Me.btnHistory.Text = "Graph"
+        Me.btnHistory.UseVisualStyleBackColor = True
+        '
+        'dtpHistory
+        '
+        Me.dtpHistory.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpHistory.Location = New System.Drawing.Point(507, 4)
+        Me.dtpHistory.Name = "dtpHistory"
+        Me.dtpHistory.Size = New System.Drawing.Size(200, 20)
+        Me.dtpHistory.TabIndex = 7
         '
         'dgvHistoryStocks
         '
@@ -380,22 +397,6 @@ Partial Class Form1
         Me.tbcMain.SelectedIndex = 0
         Me.tbcMain.Size = New System.Drawing.Size(1023, 548)
         Me.tbcMain.TabIndex = 0
-        '
-        'dtpHistory
-        '
-        Me.dtpHistory.Location = New System.Drawing.Point(507, 4)
-        Me.dtpHistory.Name = "dtpHistory"
-        Me.dtpHistory.Size = New System.Drawing.Size(200, 20)
-        Me.dtpHistory.TabIndex = 7
-        '
-        'btnHistory
-        '
-        Me.btnHistory.Location = New System.Drawing.Point(713, 3)
-        Me.btnHistory.Name = "btnHistory"
-        Me.btnHistory.Size = New System.Drawing.Size(75, 23)
-        Me.btnHistory.TabIndex = 8
-        Me.btnHistory.Text = "Graph"
-        Me.btnHistory.UseVisualStyleBackColor = True
         '
         'Form1
         '

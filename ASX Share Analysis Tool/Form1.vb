@@ -484,21 +484,14 @@ Public Class Form1
         Dim sStockCode As String = cboCompanyName.Text
         Dim sStartDate As String = dtpHistory.Text
 
-
         If sStockCode <> "" And sStartDate <> "" Then
             chrtHistory.Series("Open").Points.Clear()
             chrtHistory.Series("Close").Points.Clear()
             Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
             'Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
             Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
-            Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & "' order by security_code ASC, security_date ASC;" ' Builds the Query for the database
+            Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & " order by  security_date ASC;" ' Builds the Query for the database
             Dim conn As OleDbConnection = New OleDbConnection
-
-            'Loads up the user preference for the code
-            If My.Settings.DirectoryPathSetting <> "" Then
-                'connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & My.Settings.DirectoryPathSetting & "\ASXShareMarketAnalysisTool.accdb"
-                Debug.Print("IT WORKS " & My.Settings.DirectoryPathSetting)
-            End If
 
             conn.ConnectionString = connectionstring
             conn.Open()
@@ -506,11 +499,14 @@ Public Class Form1
             Dim dr As OleDbDataReader = cmd.ExecuteReader
 
             While dr.Read
-                chrtHistory.Series("Open").Points.AddXY(dr("security_date").ToString, dr("opening_price").ToString)
-                chrtHistory.Series("Close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
+                If dr("security_date") >= sStartDate Then
+                    chrtHistory.Series("Open").Points.AddXY(dr("security_date").ToString, dr("opening_price").ToString)
+                    chrtHistory.Series("Close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
+                End If
             End While
             dr.Close()
             cmd.Dispose()
+
         Else
             MsgBox("Please select a Company Code and a valid start date")
 
