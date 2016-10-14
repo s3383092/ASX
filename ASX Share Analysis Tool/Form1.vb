@@ -413,7 +413,8 @@ Public Class Form1
         Dim iAdd As Integer = 0
         Dim iSecCntr As Integer = 0   ' shehan 5/10
         Dim iHitCtnr As Integer = 0 ' shehan 5/10
-        Dim dtTop As New DataTable()
+        Dim dtTopClose As New DataTable()
+        Dim dtTopVolume As New DataTable()
         dtCriteriaTable.Columns.Add("Record")
         dtCriteriaTable.Columns.Add("Stock ID")
         dtCriteriaTable.Columns.Add("Security Code")
@@ -424,10 +425,13 @@ Public Class Form1
         dtCriteriaTable.Columns.Add("Close")
         dtCriteriaTable.Columns.Add("Volume")
 
-        dtTop.Columns.Add("Code")
-        dtTop.Columns.Add("Date")
-        dtTop.Columns.Add("Close")
-        dtTop.Columns.Add("Volume")
+        dtTopClose.Columns.Add("Code")
+        dtTopClose.Columns.Add("Date")
+        dtTopClose.Columns.Add("Close")
+
+        dtTopVolume.Columns.Add("Code")
+        dtTopVolume.Columns.Add("Date")
+        dtTopVolume.Columns.Add("Volume")
 
         Dim LatestDate As Date = dgvFilterStocks.Rows(0).Cells(3).Value
 
@@ -439,7 +443,8 @@ Public Class Form1
             Dim dblVolume As Double = dgvFilterStocks.Rows(iCnt).Cells(8).Value      ' Volume of current security code
             Dim DR As DataRow = dtCriteriaTable.NewRow
             Dim RowDate As Date = dgvFilterStocks.Rows(iCnt).Cells(3).Value
-            Dim drTop As DataRow = dtTop.NewRow
+            Dim drTopClose As DataRow = dtTopClose.NewRow
+            Dim drTopVolume As DataRow = dtTopVolume.NewRow
 
             '  If RowDate = LatestDate Then
             If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
@@ -495,13 +500,20 @@ Public Class Form1
                         dblCloseDiff = Format(((dblClose1 - dblClose2) / dblClose2), "0.00")
                         dblVolumeDiff = Format(((dblVolume - dgvFilterStocks.Rows(iNext).Cells(8).Value) / dgvFilterStocks.Rows(iNext).Cells(8).Value), "0.00")
 
-                        drTop("Code") = sSecurityCode1
-                        drTop("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
-                        drTop("Close") = CDbl(dblCloseDiff)
-                        drTop("Volume") = CDbl(dblVolumeDiff)
+                        drTopClose("Code") = sSecurityCode1
+                        drTopClose("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
+                        drTopClose("Close") = CDbl(dblCloseDiff)
 
-                        If dblCloseDiff > 0.01 And dblVolumeDiff > 0.01 Then
-                            dtTop.Rows.Add(drTop)
+                        drTopVolume("Code") = sSecurityCode1
+                        drTopVolume("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
+                        drTopVolume("Volume") = CDbl(dblVolumeDiff)
+
+                        If dblCloseDiff > 0.01 Then
+                            dtTopClose.Rows.Add(drTopClose)
+                        End If
+
+                        If dblVolumeDiff > 0.01 Then
+                            dtTopVolume.Rows.Add(drTopVolume)
                         End If
 
                     End If
@@ -529,12 +541,15 @@ Public Class Form1
         ' SHOW A HIDDEN TAB HERE WITH % TABLE
         '   % TABLE WILL HAVE DATA FROM THE ABOVE CODE IN LINES 485 to 489
 
-        Dim view As New DataView(dtTop)
+        Dim viewClose As New DataView(dtTopClose)
+        Dim viewVolume As New DataView(dtTopVolume)
 
-        view.Sort = "Close DESC"
+        viewClose.Sort = "Close DESC"
+        viewVolume.Sort = "Volume DESC"
 
         dgvHistory.DataSource = dtCriteriaTable
-        dgvTop.DataSource = view
+        dgvTopClose.DataSource = viewClose
+        dgvTopVolume.DataSource = viewVolume
 
         prgrssAllStocks.Increment(1000)
 

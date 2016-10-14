@@ -23,13 +23,13 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series7 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea6 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series8 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim Series9 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.DailyStockPricesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.tabImport = New System.Windows.Forms.TabPage()
         Me.prgrssImportScreen = New System.Windows.Forms.ProgressBar()
@@ -64,7 +64,8 @@ Partial Class Form1
         Me.dgvHistory = New System.Windows.Forms.DataGridView()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabTopTen = New System.Windows.Forms.TabPage()
-        Me.dgvTop = New System.Windows.Forms.DataGridView()
+        Me.dgvTopClose = New System.Windows.Forms.DataGridView()
+        Me.dgvTopVolume = New System.Windows.Forms.DataGridView()
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabImport.SuspendLayout()
         CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,7 +81,8 @@ Partial Class Form1
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbcMain.SuspendLayout()
         Me.tabTopTen.SuspendLayout()
-        CType(Me.dgvTop, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvTopClose, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvTopVolume, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DailyStockPricesBindingSource
@@ -215,17 +217,17 @@ Partial Class Form1
         Me.chrtVolume.BorderlineColor = System.Drawing.Color.Black
         Me.chrtVolume.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid
         Me.chrtVolume.BorderlineWidth = 3
-        ChartArea5.Name = "ChartArea1"
-        Me.chrtVolume.ChartAreas.Add(ChartArea5)
-        Legend5.Name = "Legend1"
-        Me.chrtVolume.Legends.Add(Legend5)
+        ChartArea1.Name = "ChartArea1"
+        Me.chrtVolume.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.chrtVolume.Legends.Add(Legend1)
         Me.chrtVolume.Location = New System.Drawing.Point(6, 405)
         Me.chrtVolume.Name = "chrtVolume"
         Me.chrtVolume.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel
-        Series7.ChartArea = "ChartArea1"
-        Series7.Legend = "Legend1"
-        Series7.Name = "Volume"
-        Me.chrtVolume.Series.Add(Series7)
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Volume"
+        Me.chrtVolume.Series.Add(Series1)
         Me.chrtVolume.Size = New System.Drawing.Size(1006, 111)
         Me.chrtVolume.TabIndex = 9
         Me.chrtVolume.Text = "Volume Traded"
@@ -261,22 +263,22 @@ Partial Class Form1
         Me.chrtHistory.BorderlineColor = System.Drawing.Color.Black
         Me.chrtHistory.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid
         Me.chrtHistory.BorderlineWidth = 3
-        ChartArea6.Name = "ChartArea1"
-        Me.chrtHistory.ChartAreas.Add(ChartArea6)
-        Legend6.Name = "Legend1"
-        Me.chrtHistory.Legends.Add(Legend6)
+        ChartArea2.Name = "ChartArea1"
+        Me.chrtHistory.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.chrtHistory.Legends.Add(Legend2)
         Me.chrtHistory.Location = New System.Drawing.Point(7, 34)
         Me.chrtHistory.Name = "chrtHistory"
-        Series8.ChartArea = "ChartArea1"
-        Series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series8.Legend = "Legend1"
-        Series8.Name = "Open"
-        Series9.ChartArea = "ChartArea1"
-        Series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series9.Legend = "Legend1"
-        Series9.Name = "Close"
-        Me.chrtHistory.Series.Add(Series8)
-        Me.chrtHistory.Series.Add(Series9)
+        Series2.ChartArea = "ChartArea1"
+        Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series2.Legend = "Legend1"
+        Series2.Name = "Open"
+        Series3.ChartArea = "ChartArea1"
+        Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series3.Legend = "Legend1"
+        Series3.Name = "Close"
+        Me.chrtHistory.Series.Add(Series2)
+        Me.chrtHistory.Series.Add(Series3)
         Me.chrtHistory.Size = New System.Drawing.Size(1002, 340)
         Me.chrtHistory.TabIndex = 4
         Me.chrtHistory.Text = "History"
@@ -457,7 +459,8 @@ Partial Class Form1
         '
         'tabTopTen
         '
-        Me.tabTopTen.Controls.Add(Me.dgvTop)
+        Me.tabTopTen.Controls.Add(Me.dgvTopVolume)
+        Me.tabTopTen.Controls.Add(Me.dgvTopClose)
         Me.tabTopTen.Location = New System.Drawing.Point(4, 22)
         Me.tabTopTen.Name = "tabTopTen"
         Me.tabTopTen.Size = New System.Drawing.Size(1015, 522)
@@ -465,13 +468,21 @@ Partial Class Form1
         Me.tabTopTen.Text = "Top 10"
         Me.tabTopTen.UseVisualStyleBackColor = True
         '
-        'dgvTop
+        'dgvTopClose
         '
-        Me.dgvTop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvTop.Location = New System.Drawing.Point(14, 38)
-        Me.dgvTop.Name = "dgvTop"
-        Me.dgvTop.Size = New System.Drawing.Size(981, 451)
-        Me.dgvTop.TabIndex = 0
+        Me.dgvTopClose.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvTopClose.Location = New System.Drawing.Point(3, 38)
+        Me.dgvTopClose.Name = "dgvTopClose"
+        Me.dgvTopClose.Size = New System.Drawing.Size(496, 451)
+        Me.dgvTopClose.TabIndex = 0
+        '
+        'dgvTopVolume
+        '
+        Me.dgvTopVolume.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvTopVolume.Location = New System.Drawing.Point(516, 38)
+        Me.dgvTopVolume.Name = "dgvTopVolume"
+        Me.dgvTopVolume.Size = New System.Drawing.Size(496, 451)
+        Me.dgvTopVolume.TabIndex = 1
         '
         'Form1
         '
@@ -500,7 +511,8 @@ Partial Class Form1
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbcMain.ResumeLayout(False)
         Me.tabTopTen.ResumeLayout(False)
-        CType(Me.dgvTop, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvTopClose, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvTopVolume, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -549,5 +561,6 @@ Partial Class Form1
     Friend WithEvents lblVolume As Label
     Friend WithEvents tabTopTen As TabPage
     Friend WithEvents btnDisplayTop10 As Button
-    Friend WithEvents dgvTop As DataGridView
+    Friend WithEvents dgvTopClose As DataGridView
+    Friend WithEvents dgvTopVolume As DataGridView
 End Class
