@@ -413,7 +413,7 @@ Public Class Form1
         Dim iAdd As Integer = 0
         Dim iSecCntr As Integer = 0   ' shehan 5/10
         Dim iHitCtnr As Integer = 0 ' shehan 5/10
-        Dim TopRows() As String
+        Dim dtTop As New DataTable()
         dtCriteriaTable.Columns.Add("Record")
         dtCriteriaTable.Columns.Add("Stock ID")
         dtCriteriaTable.Columns.Add("Security Code")
@@ -423,6 +423,11 @@ Public Class Form1
         dtCriteriaTable.Columns.Add("Low")
         dtCriteriaTable.Columns.Add("Close")
         dtCriteriaTable.Columns.Add("Volume")
+
+        dtTop.Columns.Add("Code")
+        dtTop.Columns.Add("Date")
+        dtTop.Columns.Add("Close")
+        dtTop.Columns.Add("Volume")
 
         Dim LatestDate As Date = dgvFilterStocks.Rows(0).Cells(3).Value
 
@@ -434,6 +439,7 @@ Public Class Form1
             Dim dblVolume As Double = dgvFilterStocks.Rows(iCnt).Cells(8).Value      ' Volume of current security code
             Dim DR As DataRow = dtCriteriaTable.NewRow
             Dim RowDate As Date = dgvFilterStocks.Rows(iCnt).Cells(3).Value
+            Dim drTop As DataRow = dtTop.NewRow
 
             '  If RowDate = LatestDate Then
             If iNext < iRowCnt Then                                                    ' Make sure that there is a next row in the DGV
@@ -486,8 +492,16 @@ Public Class Form1
                     End If
 
                     If iSecCntr = 1 Then
-                        'dblCloseDiff = dblClose1 / dblClose2
-                        'dblVolumeDiff = dblVolume / dgvFilterStocks.Rows(iNext).Cells(8).Value
+                        dblCloseDiff = dblClose1 / dblClose2
+                        dblVolumeDiff = dblVolume / dgvFilterStocks.Rows(iNext).Cells(8).Value
+
+                        drTop("Code") = sSecurityCode1
+                        drTop("Date") = dgvFilterStocks.Rows(iCnt).Cells(3).Value
+                        drTop("Close") = CStr(dblCloseDiff) + "%"
+                        drTop("Volume") = CStr(dblVolumeDiff) + "%"
+
+                        dtTop.Rows.Add(drTop)
+
                         'dgvTop.Rows(0).Cells(0).Value = "TESTING"
                         ' ADD dblHighDiff to table / this is taken from above
                         ' Work out and add dblCloseDiff to table / this will need to be recalculated due to the filtering levels
@@ -518,6 +532,7 @@ Public Class Form1
         '   % TABLE WILL HAVE DATA FROM THE ABOVE CODE IN LINES 485 to 489
 
         dgvHistory.DataSource = dtCriteriaTable
+        dgvTop.DataSource = dtTop
 
         prgrssAllStocks.Increment(1000)
 
