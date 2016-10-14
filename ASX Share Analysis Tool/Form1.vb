@@ -529,8 +529,12 @@ Public Class Form1
         ' SHOW A HIDDEN TAB HERE WITH % TABLE
         '   % TABLE WILL HAVE DATA FROM THE ABOVE CODE IN LINES 485 to 489
 
+        Dim view As New DataView(dtTop)
+
+        view.Sort = "Close DESC"
+
         dgvHistory.DataSource = dtCriteriaTable
-        dgvTop.DataSource = dtTop
+        dgvTop.DataSource = view
 
         prgrssAllStocks.Increment(1000)
 
