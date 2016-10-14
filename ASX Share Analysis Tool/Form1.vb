@@ -419,42 +419,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub cboCompanyName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCompanyName.SelectedIndexChanged
-        Dim sStockCode As String = cboCompanyName.Text
-
-        chrtHistory.Series("Open").Points.Clear()
-        chrtHistory.Series("Close").Points.Clear()
-
-        If sStockCode <> "" Then
-            'Me.Daily_Stock_PricesTableAdapter.Fill(Me.ASXShareMarketAnalysisToolDataSet2.Daily_Stock_Prices)                                   ' Might remove datasets soon
-            'Dim MyChar() As Char = {"b", "i", "n", "\", "D", "e", "b", "u", "g"}                                                               ' Not to sure (Elaborate Matt?)
-            Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
-            'Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
-            Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
-            Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & "' order by security_code ASC, security_date ASC;" ' Builds the Query for the database
-            Dim conn As OleDbConnection = New OleDbConnection
-
-            'Loads up the user preference for the code
-            If My.Settings.DirectoryPathSetting <> "" Then
-                'connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & My.Settings.DirectoryPathSetting & "\ASXShareMarketAnalysisTool.accdb"
-                Debug.Print("IT WORKS " & My.Settings.DirectoryPathSetting)
-            End If
-
-            conn.ConnectionString = connectionstring
-            conn.Open()
-            Dim cmd As OleDbCommand = New OleDbCommand(sQuery, conn)
-            Dim dr As OleDbDataReader = cmd.ExecuteReader
-
-            While dr.Read
-                chrtHistory.Series("Open").Points.AddXY(dr("security_date").ToString, dr("opening_price").ToString)
-                chrtHistory.Series("Close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
-            End While
-            dr.Close()
-            cmd.Dispose()
-
-        End If
-    End Sub
-
     Private Sub tabHistory_enter(ByVal sender As Object, ByVal e As System.EventArgs) Handles tabHistory.Enter
         'Populate the ASX stock code combobox
         Dim iRowCnt As Integer = dgvFilterStocks.Rows.Count()
@@ -516,6 +480,42 @@ Public Class Form1
 
     End Sub
 
+    Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
+        Dim sStockCode As String = cboCompanyName.Text
+        Dim sStartDate As String = dtpHistory.Text
+
+
+        If sStockCode <> "" And sStartDate <> "" Then
+            chrtHistory.Series("Open").Points.Clear()
+            chrtHistory.Series("Close").Points.Clear()
+            Dim path As String = Environment.CurrentDirectory                                                                                  ' Grabs the current directory
+            'Dim newpath As String = path.TrimEnd(MyChar)                                                                                       ' Trims something 
+            Dim connectionstring As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & path & "\ASXShareMarketAnalysisTool.accdb" ' Maps out the database location
+            Dim sQuery As String = "SELECT * FROM Daily_Stock_Prices WHERE security_code = '" & sStockCode & "' order by security_code ASC, security_date ASC;" ' Builds the Query for the database
+            Dim conn As OleDbConnection = New OleDbConnection
+
+            'Loads up the user preference for the code
+            If My.Settings.DirectoryPathSetting <> "" Then
+                'connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" & My.Settings.DirectoryPathSetting & "\ASXShareMarketAnalysisTool.accdb"
+                Debug.Print("IT WORKS " & My.Settings.DirectoryPathSetting)
+            End If
+
+            conn.ConnectionString = connectionstring
+            conn.Open()
+            Dim cmd As OleDbCommand = New OleDbCommand(sQuery, conn)
+            Dim dr As OleDbDataReader = cmd.ExecuteReader
+
+            While dr.Read
+                chrtHistory.Series("Open").Points.AddXY(dr("security_date").ToString, dr("opening_price").ToString)
+                chrtHistory.Series("Close").Points.AddXY(dr("security_date").ToString, dr("closing_price").ToString)
+            End While
+            dr.Close()
+            cmd.Dispose()
+        Else
+            MsgBox("Please select a Company Code and a valid start date")
+
+        End If
+    End Sub
 End Class
 
 

@@ -39,7 +39,6 @@ Partial Class Form1
         Me.dgvImport = New System.Windows.Forms.DataGridView()
         Me.tabHistory = New System.Windows.Forms.TabPage()
         Me.dgvHistoryStocks = New System.Windows.Forms.DataGridView()
-        Me.chkHistoryWatch = New System.Windows.Forms.CheckBox()
         Me.chrtHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.cboCompanyName = New System.Windows.Forms.ComboBox()
         Me.lblCompany = New System.Windows.Forms.Label()
@@ -56,6 +55,8 @@ Partial Class Form1
         Me.dvgMatch = New System.Windows.Forms.DataGridView()
         Me.dgvHistory = New System.Windows.Forms.DataGridView()
         Me.tbcMain = New System.Windows.Forms.TabControl()
+        Me.dtpHistory = New System.Windows.Forms.DateTimePicker()
+        Me.btnHistory = New System.Windows.Forms.Button()
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabImport.SuspendLayout()
         CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -172,8 +173,9 @@ Partial Class Form1
         '
         'tabHistory
         '
+        Me.tabHistory.Controls.Add(Me.btnHistory)
+        Me.tabHistory.Controls.Add(Me.dtpHistory)
         Me.tabHistory.Controls.Add(Me.dgvHistoryStocks)
-        Me.tabHistory.Controls.Add(Me.chkHistoryWatch)
         Me.tabHistory.Controls.Add(Me.chrtHistory)
         Me.tabHistory.Controls.Add(Me.cboCompanyName)
         Me.tabHistory.Controls.Add(Me.lblCompany)
@@ -193,17 +195,6 @@ Partial Class Form1
         Me.dgvHistoryStocks.Size = New System.Drawing.Size(1002, 29)
         Me.dgvHistoryStocks.TabIndex = 6
         Me.dgvHistoryStocks.Visible = False
-        '
-        'chkHistoryWatch
-        '
-        Me.chkHistoryWatch.AutoSize = True
-        Me.chkHistoryWatch.Location = New System.Drawing.Point(657, 9)
-        Me.chkHistoryWatch.Name = "chkHistoryWatch"
-        Me.chkHistoryWatch.Size = New System.Drawing.Size(104, 17)
-        Me.chkHistoryWatch.TabIndex = 5
-        Me.chkHistoryWatch.Text = "Add to Watchlist"
-        Me.chkHistoryWatch.UseVisualStyleBackColor = True
-        Me.chkHistoryWatch.Visible = False
         '
         'chrtHistory
         '
@@ -234,7 +225,7 @@ Partial Class Form1
         '
         Me.cboCompanyName.FormattingEnabled = True
         Me.cboCompanyName.Items.AddRange(New Object() {"Please select a company"})
-        Me.cboCompanyName.Location = New System.Drawing.Point(244, 6)
+        Me.cboCompanyName.Location = New System.Drawing.Point(94, 3)
         Me.cboCompanyName.Name = "cboCompanyName"
         Me.cboCompanyName.Size = New System.Drawing.Size(407, 21)
         Me.cboCompanyName.TabIndex = 3
@@ -390,6 +381,22 @@ Partial Class Form1
         Me.tbcMain.Size = New System.Drawing.Size(1023, 548)
         Me.tbcMain.TabIndex = 0
         '
+        'dtpHistory
+        '
+        Me.dtpHistory.Location = New System.Drawing.Point(507, 4)
+        Me.dtpHistory.Name = "dtpHistory"
+        Me.dtpHistory.Size = New System.Drawing.Size(200, 20)
+        Me.dtpHistory.TabIndex = 7
+        '
+        'btnHistory
+        '
+        Me.btnHistory.Location = New System.Drawing.Point(713, 3)
+        Me.btnHistory.Name = "btnHistory"
+        Me.btnHistory.Size = New System.Drawing.Size(75, 23)
+        Me.btnHistory.TabIndex = 8
+        Me.btnHistory.Text = "Graph"
+        Me.btnHistory.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -441,7 +448,6 @@ Partial Class Form1
     Friend WithEvents dgvImport As DataGridView
     Friend WithEvents tabHistory As TabPage
     Friend WithEvents dgvHistoryStocks As DataGridView
-    Friend WithEvents chkHistoryWatch As CheckBox
     Friend WithEvents chrtHistory As DataVisualization.Charting.Chart
     Friend WithEvents cboCompanyName As ComboBox
     Friend WithEvents lblCompany As Label
@@ -458,4 +464,6 @@ Partial Class Form1
     Friend WithEvents dvgMatch As DataGridView
     Friend WithEvents dgvHistory As DataGridView
     Friend WithEvents tbcMain As TabControl
+    Friend WithEvents btnHistory As Button
+    Friend WithEvents dtpHistory As DateTimePicker
 End Class
