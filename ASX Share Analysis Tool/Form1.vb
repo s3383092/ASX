@@ -481,6 +481,13 @@ Public Class Form1
                             End If
                         End If
                     End If
+
+                    If iSecCntr = 1 Then
+                        ' ADD dblHighDiff to table / this is taken from above
+                        ' Work out and add dblCloseDiff to table / this will need to be recalculated due to the filtering levels
+                        ' Work out and add dblVolume diff to table / this will need to be recalculated due to the filtering levels
+                    End If
+
                 Else ' shehan 5/10
                     iSecCntr = 0 ' shehan 5/10
                     iHitCtnr = 0 ' shehan 5/10
@@ -500,6 +507,9 @@ Public Class Form1
         ' Need to FIELD("|") through the IDs found and compile them to a list or something
         ' Maybe need to do the over 5/10 days thingo aswell
         '*********************************************************************************
+
+        ' SHOW A HIDDEN TAB HERE WITH % TABLE
+        '   % TABLE WILL HAVE DATA FROM THE ABOVE CODE IN LINES 485 to 489
 
         dgvHistory.DataSource = dtCriteriaTable
 
