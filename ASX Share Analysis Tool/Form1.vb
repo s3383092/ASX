@@ -466,16 +466,13 @@ Public Class Form1
                     If iSecCntr < 11 Then 'days you want + 1 ' shehan 5/10
 
                         If dblHigh1 > dblHigh2 Then                                                          ' compares the High Prices
-                            dblHighDiff = dblHigh1 / dblHigh2
+                            dblHighDiff = (dblHigh1 - dblHigh1) / dblHigh2
                             If dblClose1 > dblClose2 Then                                                    ' compares the High Prices
-                                dblCloseDiff = dblClose1 / dblClose2
+                                dblCloseDiff = (dblClose1 - dblClose2) / dblClose2
                                 If dblVolume > CDbl(htAverage(sSecurityCode1)) Then
-                                    dblVolumeDiff = dblVolume - CDbl(htAverage(sSecurityCode1))
-
                                     iHitCtnr = iHitCtnr + 1 ' shehan 5/10
 
                                     If iHitCtnr = 5 Then ' shehan 5/10
-
                                         iHitCtnr = (iCnt - iSecCntr) + 1 ' using iHitCtnr as a placeholder 
 
                                         DR("Record") = dgvFilterStocks.Rows(iHitCtnr).Cells(0).Value
