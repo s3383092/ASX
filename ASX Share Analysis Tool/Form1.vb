@@ -501,30 +501,29 @@ Public Class Form1
                     End If
 
                     If iSecCntr = 1 Then
+                        If dgvFilterStocks.Rows(iCnt).Cells(3).Value = LatestDate Then
+                            dblCloseDiff = Format(((dblClose1 - dblClose2) / dblClose2), "0.00")
+                            dblVolumeDiff = Format(((dblVolume - dgvFilterStocks.Rows(iNext).Cells(8).Value) / dgvFilterStocks.Rows(iNext).Cells(8).Value), "0.00")
 
-                        dblCloseDiff = Format(((dblClose1 - dblClose2) / dblClose2), "0.00")
-                        dblVolumeDiff = Format(((dblVolume - dgvFilterStocks.Rows(iNext).Cells(8).Value) / dgvFilterStocks.Rows(iNext).Cells(8).Value), "0.00")
+                            If dblCloseDiff > 0.01 And Not (Double.IsInfinity(dblCloseDiff)) Then
+                                drTopClose("Code") = sSecurityCode1
+                                drTopClose("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
+                                drTopClose("Close(%)") = CDbl(dblCloseDiff)
 
-                        If dblCloseDiff > 0.01 And Not (Double.IsInfinity(dblCloseDiff)) Then
-                            drTopClose("Code") = sSecurityCode1
-                            drTopClose("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
-                            drTopClose("Close(%)") = CDbl(dblCloseDiff)
+                                dtTopClose.Rows.Add(drTopClose)
+                            End If
 
-                            dtTopClose.Rows.Add(drTopClose)
+                            If dblVolumeDiff > 0.01 And IsNumeric(dblVolumeDiff) Then
+                                drTopVolume("Code") = sSecurityCode1
+                                drTopVolume("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
+                                drTopVolume("Volume(%)") = CDbl(dblVolumeDiff)
+
+                                dtTopVolume.Rows.Add(drTopVolume)
+                            End If
                         End If
-
-                        If dblVolumeDiff > 0.01 And IsNumeric(dblVolumeDiff) Then
-                            drTopVolume("Code") = sSecurityCode1
-                            drTopVolume("Date") = Format(dgvFilterStocks.Rows(iCnt).Cells(3).Value, "d")
-                            drTopVolume("Volume(%)") = CDbl(dblVolumeDiff)
-
-
-                            dtTopVolume.Rows.Add(drTopVolume)
-                        End If
-
                     End If
 
-                Else ' shehan 5/10
+                    Else ' shehan 5/10
                     iSecCntr = 0 ' shehan 5/10
                     iHitCtnr = 0 ' shehan 5/10
                 End If ' shehan 5/10
