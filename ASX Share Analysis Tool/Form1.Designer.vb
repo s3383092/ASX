@@ -64,8 +64,10 @@ Partial Class Form1
         Me.dgvHistory = New System.Windows.Forms.DataGridView()
         Me.tbcMain = New System.Windows.Forms.TabControl()
         Me.tabTopTen = New System.Windows.Forms.TabPage()
-        Me.dgvTopClose = New System.Windows.Forms.DataGridView()
         Me.dgvTopVolume = New System.Windows.Forms.DataGridView()
+        Me.dgvTopClose = New System.Windows.Forms.DataGridView()
+        Me.lblClose = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         CType(Me.DailyStockPricesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabImport.SuspendLayout()
         CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -81,8 +83,8 @@ Partial Class Form1
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbcMain.SuspendLayout()
         Me.tabTopTen.SuspendLayout()
-        CType(Me.dgvTopClose, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvTopVolume, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvTopClose, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DailyStockPricesBindingSource
@@ -459,6 +461,8 @@ Partial Class Form1
         '
         'tabTopTen
         '
+        Me.tabTopTen.Controls.Add(Me.Label2)
+        Me.tabTopTen.Controls.Add(Me.lblClose)
         Me.tabTopTen.Controls.Add(Me.dgvTopVolume)
         Me.tabTopTen.Controls.Add(Me.dgvTopClose)
         Me.tabTopTen.Location = New System.Drawing.Point(4, 22)
@@ -468,6 +472,14 @@ Partial Class Form1
         Me.tabTopTen.Text = "Top 10"
         Me.tabTopTen.UseVisualStyleBackColor = True
         '
+        'dgvTopVolume
+        '
+        Me.dgvTopVolume.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvTopVolume.Location = New System.Drawing.Point(516, 38)
+        Me.dgvTopVolume.Name = "dgvTopVolume"
+        Me.dgvTopVolume.Size = New System.Drawing.Size(496, 451)
+        Me.dgvTopVolume.TabIndex = 1
+        '
         'dgvTopClose
         '
         Me.dgvTopClose.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -476,13 +488,25 @@ Partial Class Form1
         Me.dgvTopClose.Size = New System.Drawing.Size(496, 451)
         Me.dgvTopClose.TabIndex = 0
         '
-        'dgvTopVolume
+        'lblClose
         '
-        Me.dgvTopVolume.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvTopVolume.Location = New System.Drawing.Point(516, 38)
-        Me.dgvTopVolume.Name = "dgvTopVolume"
-        Me.dgvTopVolume.Size = New System.Drawing.Size(496, 451)
-        Me.dgvTopVolume.TabIndex = 1
+        Me.lblClose.AutoSize = True
+        Me.lblClose.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblClose.Location = New System.Drawing.Point(3, 17)
+        Me.lblClose.Name = "lblClose"
+        Me.lblClose.Size = New System.Drawing.Size(127, 18)
+        Me.lblClose.TabIndex = 2
+        Me.lblClose.Text = "Close Price (%)"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(513, 17)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(95, 18)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Volume (%)"
         '
         'Form1
         '
@@ -511,8 +535,9 @@ Partial Class Form1
         CType(Me.dgvHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbcMain.ResumeLayout(False)
         Me.tabTopTen.ResumeLayout(False)
-        CType(Me.dgvTopClose, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabTopTen.PerformLayout()
         CType(Me.dgvTopVolume, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvTopClose, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -563,4 +588,6 @@ Partial Class Form1
     Friend WithEvents btnDisplayTop10 As Button
     Friend WithEvents dgvTopClose As DataGridView
     Friend WithEvents dgvTopVolume As DataGridView
+    Friend WithEvents Label2 As Label
+    Friend WithEvents lblClose As Label
 End Class

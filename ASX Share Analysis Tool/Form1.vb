@@ -554,16 +554,8 @@ Public Class Form1
         viewClose.Sort = "Close(%) DESC"
         viewVolume.Sort = "Volume(%) DESC"
 
-        viewCnt = viewClose.Count()
-
-        For II = 10 To viewCnt
-            viewClose.Delete(II)
-            viewCnt = viewClose.Count() ' THIS IS BROKEN
-        Next
-
-
         dgvHistory.DataSource = dtCriteriaTable
-        dgvTopClose.DataSource = viewClose.RowFilter()
+        dgvTopClose.DataSource = viewClose
         dgvTopVolume.DataSource = viewVolume
 
         prgrssAllStocks.Increment(1000)
