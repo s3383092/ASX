@@ -428,13 +428,13 @@ Public Class Form1
         dtTopClose.Columns.Add("Code")
         dtTopClose.Columns.Add("Date")
         Dim colClose As DataColumn = New DataColumn("Close(%)")
-        colClose.DataType = System.Type.GetType("System.Int16")
+        colClose.DataType = System.Type.GetType("System.Double")
         dtTopClose.Columns.Add(colClose)
 
         dtTopVolume.Columns.Add("Code")
         dtTopVolume.Columns.Add("Date")
         Dim colVolume As DataColumn = New DataColumn("Volume(%)")
-        colVolume.DataType = System.Type.GetType("System.Int16")
+        colVolume.DataType = System.Type.GetType("System.Double")
         dtTopVolume.Columns.Add(colVolume)
 
         Dim LatestDate As Date = dgvFilterStocks.Rows(0).Cells(3).Value
